@@ -21,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // --- TAMBAHAN UNTUK VERCEL: Paksa Laravel menggunakan HTTPS ---
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
+        // --------------------------------------------------------------
+
+        // Kode bawaan kamu sebelumnya untuk Seeder
         $this->app['events']->listen(CommandStarting::class, function (CommandStarting $event) {
             if ($event->command === 'db:seed' && $event->input->getOption('class') === 'fresh') {
                 $event->input->setOption('class', 'Database\\Seeders\\DatabaseSeeder');
