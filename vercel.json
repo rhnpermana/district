@@ -2,6 +2,11 @@
     "version": 2,
     "framework": null,
     "outputDirectory": "public",
+    "build": {
+        "env": {
+            "NODE_VERSION": "20.x"
+        }
+    },
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.6.0"
