@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// 1. Buat direktori sementara /tmp untuk storage & views cache Vercel
+// 1. Siapkan folder temporary /tmp untuk storage & views cache di Vercel
 $storagePath = '/tmp/storage';
-if (!is_dir($storagePath . '/framework/views')) {
+$viewsPath = '/tmp/storage/framework/views';
+
+if (!is_dir($viewsPath)) {
     mkdir($storagePath . '/framework/sessions', 0755, true);
     mkdir($storagePath . '/framework/views', 0755, true);
     mkdir($storagePath . '/framework/cache', 0755, true);
@@ -15,27 +16,30 @@ if (!is_dir($storagePath . '/framework/views')) {
 }
 
 // 2. Set environment variable compiled view path ke /tmp
-putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
-$_ENV['VIEW_COMPILED_PATH'] = "{$storagePath}/framework/views";
+putenv("VIEW_COMPILED_PATH={$viewsPath}");
+$_ENV['VIEW_COMPILED_PATH'] = $viewsPath;
 
-// 3. Autoload & Inisialisasi Aplikasi Laravel
+// 3. Load Autoload Composer
 require __DIR__ . '/../vendor/autoload.php';
+
+// 4. Inisialisasi Aplikasi Laravel 11
+/** @var \Illuminate\Foundation\Application $app */
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 4. Override path storage ke /tmp
+// 5. Override Storage Path
 $app->useStoragePath($storagePath);
 
-// 5. Inisialisasi Kernel dan PAKSA Bootstrapping
-$kernel = $app->make(Kernel::class);
+// 6. PAKSA Registrasi Service Provider Penting (Khusus Laravel 11 Serverless)
+$app->register(\Illuminate\View\ViewServiceProvider::class);
+$app->register(\Illuminate\Filesystem\FilesystemServiceProvider::class);
 
-// Panggilan bootstrap() ini kunci agar tidak muncul 'Target class view does not exist'
-$kernel->bootstrap();
+// Set ulang path compiled views ke Service Container View
+$app['config']->set('view.compiled', $viewsPath);
 
-// 6. Tangani Request
-$response = $kernel->handle(
-    $request = Request::capture()
-);
+// 7. Jalankan HTTP Request
+$request = Request::capture();
+$response = $app->handle($request);
 
 $response->send();
 
-$kernel->terminate($request, $response);
+$app->terminate();
