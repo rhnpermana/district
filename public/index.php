@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// 1. Inisialisasi folder sementara Vercel (Read-Only Filesystem Fix)
+// 1. Inisialisasi folder sementara di /tmp untuk Vercel (Read-Only Fix)
 $storagePath = '/tmp/storage';
+$bootstrapPath = '/tmp/bootstrap';
+
 if (!is_dir($storagePath)) {
     mkdir($storagePath, 0755, true);
     mkdir($storagePath . '/framework', 0755, true);
@@ -14,6 +16,10 @@ if (!is_dir($storagePath)) {
     mkdir($storagePath . '/framework/views', 0755, true);
     mkdir($storagePath . '/framework/cache', 0755, true);
     mkdir($storagePath . '/logs', 0755, true);
+}
+
+if (!is_dir($bootstrapPath . '/cache')) {
+    mkdir($bootstrapPath . '/cache', 0755, true);
 }
 
 putenv("APP_STORAGE={$storagePath}");
@@ -33,16 +39,9 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-// Override Storage Path ke /tmp
+// 2. Override Storage Path & Bootstrap Path ke /tmp agar bisa ditulis
 $app->useStoragePath($storagePath);
-
-// 2. PAKSA Register View & Filesystem Provider agar Exception Handler tidak pernah crash
-try {
-    $app->register(\Illuminate\View\ViewServiceProvider::class);
-    $app->register(\Illuminate\Filesystem\FilesystemServiceProvider::class);
-} catch (\Throwable $e) {
-    // Abaikan jika sudah terdaftar
-}
+$app->useBootstrapPath($bootstrapPath);
 
 // 3. Handle Request
 $app->handleRequest(Request::capture());
