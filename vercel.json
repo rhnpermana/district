@@ -16,6 +16,14 @@
             "dest": "/public/images/$1"
         },
         {
+          "src": "/js(.*)",
+          "dest": "/public/assets/js/$1"
+        },
+        {
+            "src": "/css/(.*)",
+            "dest": "/public/assets/css/$1"
+        },
+        {
             "src": "/storage/(.*)",
             "dest": "/public/storage/$1"
         },
