@@ -1,31 +1,21 @@
 <?php
 
-use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// 1. Inisialisasi folder sementara di /tmp untuk Vercel (Read-Only Fix)
-$storagePath = '/tmp/storage';
-$bootstrapPath = '/tmp/bootstrap';
+// Mengarahkan file cache dan view sementara ke direktori /tmp Vercel yang bisa ditulis (writable)
+$_ENV['APP_SERVICES_CACHE'] = '/tmp/services.php';
+$_ENV['APP_PACKAGES_CACHE'] = '/tmp/packages.php';
+$_ENV['APP_CONFIG_CACHE'] = '/tmp/config.php';
+$_ENV['APP_ROUTES_CACHE'] = '/tmp/routes.php';
 
-if (!is_dir($storagePath)) {
-    mkdir($storagePath, 0755, true);
-    mkdir($storagePath . '/framework', 0755, true);
-    mkdir($storagePath . '/framework/sessions', 0755, true);
-    mkdir($storagePath . '/framework/views', 0755, true);
-    mkdir($storagePath . '/framework/cache', 0755, true);
-    mkdir($storagePath . '/logs', 0755, true);
+if (!is_dir('/tmp/storage/framework/views')) {
+    mkdir('/tmp/storage/framework/views', 0777, true);
+    mkdir('/tmp/storage/framework/cache', 0777, true);
+    mkdir('/tmp/storage/framework/sessions', 0777, true);
 }
-
-if (!is_dir($bootstrapPath . '/cache')) {
-    mkdir($bootstrapPath . '/cache', 0755, true);
-}
-
-putenv("APP_STORAGE={$storagePath}");
-putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
-$_ENV['VIEW_COMPILED_PATH'] = "{$storagePath}/framework/views";
-$_SERVER['VIEW_COMPILED_PATH'] = "{$storagePath}/framework/views";
 
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
@@ -35,13 +25,13 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 // Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
 
-// Bootstrap Laravel
-/** @var Application $app */
+// Bootstrap Laravel and handle the request...
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-// 2. Override Storage Path & Bootstrap Path ke /tmp agar bisa ditulis
-$app->useStoragePath($storagePath);
-$app->useBootstrapPath($bootstrapPath);
+$kernel = $app->make(Kernel::class);
 
-// 3. Handle Request
-$app->handleRequest(Request::capture());
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+
+$kernel->terminate($request, $response);
