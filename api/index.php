@@ -1,6 +1,6 @@
 <?php
 
-// 1. Buat direktori temporary di /tmp milik Vercel
+// 1. Buat folder temporary di /tmp untuk Vercel
 $storagePath = '/tmp/storage';
 $viewsPath = '/tmp/storage/framework/views';
 
@@ -11,20 +11,21 @@ if (!is_dir($viewsPath)) {
     mkdir($storagePath . '/logs', 0755, true);
 }
 
-// 2. Load Autoload Composer
+// 2. Set environment variable compiled view path secara langsung
+putenv("VIEW_COMPILED_PATH={$viewsPath}");
+$_ENV['VIEW_COMPILED_PATH'] = $viewsPath;
+$_SERVER['VIEW_COMPILED_PATH'] = $viewsPath;
+
+// 3. Load Autoload Composer & Inisialisasi App
 require __DIR__ . '/../vendor/autoload.php';
 
-// 3. Inisialisasi Aplikasi Laravel
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 4. Override path storage ke /tmp
+// 4. Override path storage
 $app->useStoragePath($storagePath);
 
-// 5. Jalankan Kernel & Tangani HTTP Request
+// 5. Eksekusi Request
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
-// Atur compiled view path melalui helper config setelah Kernel dibuat
-config(['view.compiled' => $viewsPath]);
 
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
@@ -32,4 +33,4 @@ $response = $kernel->handle(
 
 $response->send();
 
-$kernel->terminate($request, $response);
+$kernel->terminate($request, $response);    
