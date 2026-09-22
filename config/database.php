@@ -60,9 +60,9 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-            ]) : [],
+            // Menggunakan sintaks baru PHP 8.5 untuk driver MySQL PDO
+            Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT => false,
+        ]) : [],
         ],
 
         'mariadb' => [
