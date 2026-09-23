@@ -54,8 +54,8 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
   <!-- Header & Navbar -->
-  <header id="header" class="fixed top-0 left-0 right-0 z-40 bg-slate-900/95 border-b border-slate-800 text-white backdrop-blur-md transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-xl d-flex align-items-center justify-content-between">
       @include('admin_layout.partials.navbar')
     </div>
   </header>
