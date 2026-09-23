@@ -230,11 +230,11 @@ class AuthController extends Controller
         }
 
         // Verify user
-        $user->update([
+        $user->forceFill([
             'email_verified_at' => Carbon::now(),
             'otp_code' => null,
             'otp_expires_at' => null,
-        ]);
+        ])->save();
 
         $request->session()->forget('pending_user_id');
         Auth::login($user);
