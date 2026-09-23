@@ -1,76 +1,85 @@
 /*--------------------------------------------------------------
 # District Studio - Barbershop Custom Premium Style Overrides
-# Light & Dark Mode Engine Powered by District Studio
+# Warm Light Mode + Premium Dark Mode Engine
 --------------------------------------------------------------*/
 
-/* LIGHT MODE VARIABLES (Default when html does NOT have .dark class) */
+/* ══════════════════════════════════════════════════════════════
+   LIGHT MODE — Warm Parchment Palette (easy on the eyes)
+══════════════════════════════════════════════════════════════ */
 :root,
 html:not(.dark) {
-  /* Fonts */
   --default-font: "Outfit", sans-serif;
   --heading-font: "Montserrat", sans-serif;
-  --nav-font: "Montserrat", sans-serif;
+  --nav-font:     "Montserrat", sans-serif;
 
-  /* Global Light Mode Palette */
-  --background-color: #f8fafc; /* Light Slate background */
-  --default-color: #1e293b;   /* High-contrast Dark Slate body text */
-  --heading-color: #0f172a;   /* Deep Navy/Black headings */
-  --accent-color: #d97706;    /* Premium Amber Gold */
-  --accent-hover: #b45309;
-  --surface-color: #ffffff;   /* Pure White cards & surfaces */
-  --surface-alt: #f1f5f9;     /* Light Gray alt surface */
-  --border-color: #cbd5e1;    /* Clear border */
-  --contrast-color: #ffffff;
-  
-  /* Navbar Overrides */
-  --nav-color: #0f172a;
-  --nav-hover-color: #d97706;
-  --nav-mobile-background-color: #ffffff;
-  --nav-dropdown-background-color: #ffffff;
-  --nav-dropdown-color: #0f172a;
-  --nav-dropdown-hover-color: #d97706;
-  --muted-text: #475569;      /* Crisp slate gray for secondary text */
-  --modal-bg: #ffffff;
-  --input-bg: #f8fafc;
+  /* Warm, off-white background — NOT blinding white */
+  --background-color: #f5f0eb;  /* warm parchment */
+  --default-color:    #2c2420;  /* warm dark brown, readable */
+  --heading-color:    #1a1210;  /* near-black warm */
+  --accent-color:     #c4830a;  /* richer amber gold */
+  --accent-hover:     #a06a07;
+  --surface-color:    #fdf9f4;  /* cream — cards & surfaces */
+  --surface-alt:      #ede8e2;  /* warm light taupe — alternate sections */
+  --border-color:     #d4ccc4;  /* warm gray border */
+  --contrast-color:   #ffffff;
+
+  /* Navbar */
+  --nav-color:                    #2c2420;
+  --nav-hover-color:              #c4830a;
+  --nav-mobile-background-color:  #fdf9f4;
+  --nav-dropdown-background-color:#fdf9f4;
+  --nav-dropdown-color:           #2c2420;
+  --nav-dropdown-hover-color:     #c4830a;
+  --muted-text:       #72645c;  /* warm medium gray */
+  --modal-bg:         #fdf9f4;
+  --input-bg:         #f0ebe4;
+
+  /* Navbar glass tint */
+  --header-bg: rgba(253, 249, 244, 0.92);
+  --header-border: rgba(196, 131, 10, 0.18);
 }
 
-/* DARK MODE VARIABLES (Applied when html HAS .dark class) */
+/* ══════════════════════════════════════════════════════════════
+   DARK MODE — Deep Industrial Dark
+══════════════════════════════════════════════════════════════ */
 html.dark {
-  /* Fonts */
   --default-font: "Outfit", sans-serif;
   --heading-font: "Montserrat", sans-serif;
-  --nav-font: "Montserrat", sans-serif;
+  --nav-font:     "Montserrat", sans-serif;
 
-  /* Global Dark Mode Palette */
-  --background-color: #090d16; /* Deep Industrial Dark */
-  --default-color: #e2e8f0;   /* High-contrast Light Slate body text */
-  --heading-color: #ffffff;   /* Pure White headings */
-  --accent-color: #f59e0b;    /* Bright Amber Gold */
-  --accent-hover: #d97706;
-  --surface-color: #111827;   /* Slate 900 Surface */
-  --surface-alt: #1f2937;     /* Slate 800 Surface */
-  --border-color: #374151;    /* Dark border */
-  --contrast-color: #000000;
-  
-  /* Navbar Overrides */
-  --nav-color: #f8fafc;
-  --nav-hover-color: #f59e0b;
-  --nav-mobile-background-color: #111827;
-  --nav-dropdown-background-color: #1f2937;
-  --nav-dropdown-color: #f8fafc;
-  --nav-dropdown-hover-color: #f59e0b;
-  --muted-text: #cbd5e1;      /* High contrast light gray for secondary text */
-  --modal-bg: #111827;
-  --input-bg: #1f2937;
+  --background-color: #090d16;  /* deep industrial */
+  --default-color:    #e2d9cc;  /* warm off-white text */
+  --heading-color:    #ffffff;
+  --accent-color:     #f59e0b;  /* bright amber */
+  --accent-hover:     #d97706;
+  --surface-color:    #111520;  /* dark slate */
+  --surface-alt:      #1a1f2e;  /* slightly lighter */
+  --border-color:     #2e3550;
+  --contrast-color:   #000000;
+
+  --nav-color:                    #f0ebe4;
+  --nav-hover-color:              #f59e0b;
+  --nav-mobile-background-color:  #111520;
+  --nav-dropdown-background-color:#1a1f2e;
+  --nav-dropdown-color:           #e2d9cc;
+  --nav-dropdown-hover-color:     #f59e0b;
+  --muted-text:       #b8aa9a;
+  --modal-bg:         #111520;
+  --input-bg:         #1a1f2e;
+
+  --header-bg: rgba(9, 13, 22, 0.92);
+  --header-border: rgba(245, 158, 11, 0.15);
 }
 
-/* Base resets & high-contrast typography */
+/* ══════════════════════════════════════════════════════════════
+   BASE RESETS
+══════════════════════════════════════════════════════════════ */
 body {
   font-family: var(--default-font);
   background-color: var(--background-color) !important;
   color: var(--default-color) !important;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -82,25 +91,26 @@ h1, h2, h3, h4, h5, h6 {
   transition: color 0.3s ease;
 }
 
-/* Paragraph Text Readability & High Contrast Across All Pages & Dashboards */
-p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barber p, .hero-content p {
+p, .menu-item-description, .about-barber p, .cta-booking p {
   color: var(--default-color) !important;
-  font-weight: 500;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 .text-muted, small, .small, .text-white-50 {
   color: var(--muted-text) !important;
 }
 
-/* Header & Compact Desktop Navbar styling */
+/* ══════════════════════════════════════════════════════════════
+   HEADER — Glassmorphism with warm tint
+══════════════════════════════════════════════════════════════ */
 .header {
-  background-color: var(--surface-color) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color) !important;
-  padding: 10px 0;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  background-color: var(--header-bg) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--header-border) !important;
+  padding: 8px 0;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .header .sitename {
@@ -115,15 +125,23 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   color: var(--accent-color);
 }
 
-/* Compact, Neater & Responsive Desktop Navbar Links */
+/* ══════════════════════════════════════════════════════════════
+   NAVBAR — Desktop (xl+) — Refined pill-style
+══════════════════════════════════════════════════════════════ */
 @media (min-width: 1200px) {
+
+  /* Wrap links in a pill container */
   .navmenu ul {
     display: flex !important;
     align-items: center !important;
-    gap: 4px !important;
+    gap: 2px !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 5px 10px !important;
     list-style: none !important;
+    background: color-mix(in srgb, var(--accent-color), transparent 93%);
+    border: 1px solid var(--header-border);
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
   }
 
   .navmenu > ul > li {
@@ -132,87 +150,139 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
     white-space: nowrap;
   }
 
+  /* All links */
   .navmenu a,
   .navmenu a:focus {
-    font-size: 12px !important;
+    font-size: 11.5px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.4px !important;
     text-transform: uppercase !important;
-    padding: 7px 12px !important;
-    border-radius: 6px;
+    padding: 6px 13px !important;
+    border-radius: 50px !important;
     color: var(--nav-color) !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.25s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px;
   }
 
+  /* Hover & active state */
   .navmenu a:hover,
   .navmenu .active,
   .navmenu .active:focus {
-    color: var(--nav-hover-color) !important;
-    background-color: color-mix(in srgb, var(--accent-color), transparent 90%) !important;
-  }
-
-  .navmenu .btn-book-nav {
-    margin-left: 10px !important;
-    padding: 7px 16px !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.8px !important;
-    border-radius: 6px !important;
     color: #ffffff !important;
     background-color: var(--accent-color) !important;
-    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+  }
+
+  /* The gold CTA button — separated from the pill group */
+  .navmenu .btn-book-nav {
+    margin-left: 12px !important;
+    padding: 8px 20px !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    border-radius: 50px !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%) !important;
+    box-shadow: 0 4px 14px rgba(196, 131, 10, 0.35), 0 1px 0 rgba(255,255,255,0.12) inset !important;
+    transition: all 0.25s ease !important;
+    text-decoration: none;
   }
 
   .navmenu .btn-book-nav:hover {
-    background-color: var(--accent-hover) !important;
-    color: #ffffff !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 22px rgba(196, 131, 10, 0.45) !important;
   }
 }
 
+/* Theme Toggle Button (inside nav) */
+.theme-toggle-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--accent-color), transparent 88%) !important;
+  border: 1px solid var(--header-border) !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: var(--accent-color) !important;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--accent-color) !important;
+  color: #ffffff !important;
+  transform: rotate(12deg) scale(1.1);
+}
+
+.theme-toggle-li {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center;
+}
+
+/* Mobile hamburger icon */
+.mobile-nav-toggle {
+  color: var(--nav-color) !important;
+  transition: color 0.2s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DROPDOWN — Refined card style
+══════════════════════════════════════════════════════════════ */
 .navmenu .dropdown ul {
   background-color: var(--nav-dropdown-background-color) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-  padding: 6px 0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08) !important;
+  padding: 6px !important;
+  overflow: hidden;
+}
+
+.navmenu .dropdown ul li {
+  padding: 0 !important;
 }
 
 .navmenu .dropdown ul a {
   color: var(--nav-dropdown-color) !important;
   font-size: 12px !important;
-  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  padding: 9px 14px !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px;
+  transition: all 0.18s ease !important;
 }
 
 .navmenu .dropdown ul a:hover,
 .navmenu .dropdown ul li:hover > a {
-  color: var(--contrast-color) !important;
+  color: #ffffff !important;
   background-color: var(--accent-color) !important;
 }
 
-/* Sections Styling with Dynamic Variables */
+/* ══════════════════════════════════════════════════════════════
+   SECTIONS
+══════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
-  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.82), var(--background-color)),
+              url('../img/barber_hero.jpg') no-repeat center center / cover;
   min-height: 85vh;
   display: flex;
   align-items: center;
   padding: 90px 0 60px;
 }
 
-.hero-content h2 {
-  color: #ffffff !important;
-}
-
-.hero-content p {
-  color: #e2e8f0 !important;
-}
+.hero-content h2 { color: #ffffff !important; }
+.hero-content p  { color: #e2d9cc !important; }
 
 .about-barber {
   background-color: var(--background-color);
   padding: 80px 0;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.35s ease;
 }
 
 .about-barber p.lead {
@@ -225,7 +295,7 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   padding: 12px;
   background-color: var(--surface-color);
   border-radius: 16px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .services-menu {
@@ -233,7 +303,7 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   padding: 80px 0;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.35s ease;
 }
 
 .menu-item-name {
@@ -241,17 +311,21 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   font-weight: 700;
 }
 
+.menu-item-dots {
+  border-bottom: 1px dashed var(--border-color);
+}
+
 .menu-item-description {
   color: var(--muted-text) !important;
 }
 
-/*--------------------------------------------------------------
-# Hair Artist Cards - Smooth Grayscale to Color & Social Transition
---------------------------------------------------------------*/
+/* ══════════════════════════════════════════════════════════════
+   HAIR ARTIST CARDS — Grayscale-to-Color hover transition
+══════════════════════════════════════════════════════════════ */
 .stylists-section {
   background-color: var(--background-color);
   padding: 80px 0;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.35s ease;
 }
 
 .stylist-card {
@@ -268,7 +342,7 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
 .stylist-card:hover {
   transform: translateY(-8px);
   border-color: var(--accent-color);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px var(--accent-color);
 }
 
 .stylist-img-wrapper {
@@ -282,19 +356,20 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.15) brightness(0.9);
-  transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(100%) contrast(1.15) brightness(0.88);
+  transition: filter 0.55s cubic-bezier(0.4,0,0.2,1),
+              transform 0.55s cubic-bezier(0.4,0,0.2,1);
 }
 
 .stylist-card:hover .stylist-img-wrapper img {
-  filter: grayscale(0%) contrast(1) brightness(1);
+  filter: grayscale(0%) contrast(1.0) brightness(1.0);
   transform: scale(1.08);
 }
 
 .stylist-info {
   padding: 22px 15px;
   border-top: 2px solid transparent;
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
 }
 
 .stylist-card:hover .stylist-info {
@@ -303,14 +378,14 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
 }
 
 .stylist-info h4 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--heading-color) !important;
   margin-bottom: 4px;
   font-weight: 800;
 }
 
 .stylist-info span {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--accent-color);
@@ -326,13 +401,11 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   background-color: var(--accent-color);
   padding: 10px;
   border-radius: 8px 0 0 8px;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
   z-index: 10;
 }
 
-.stylist-card:hover .stylist-socials {
-  right: 0;
-}
+.stylist-card:hover .stylist-socials { right: 0; }
 
 .stylist-socials a {
   color: #000;
@@ -342,38 +415,33 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
 }
 
 .stylist-socials a:hover {
-  color: #ffffff;
+  color: #fff;
   transform: scale(1.2);
 }
 
-/* Call-to-action & Footer */
+/* ══════════════════════════════════════════════════════════════
+   FOOTER & MISC
+══════════════════════════════════════════════════════════════ */
 .cta-booking {
-  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.85), var(--background-color)),
+              url('../img/barber_hero.jpg') no-repeat center center / cover;
   padding: 90px 0;
 }
 
 .footer {
   background-color: var(--surface-color) !important;
   color: var(--muted-text);
-  padding: 60px 0 30px 0;
+  padding: 60px 0 30px;
   border-top: 1px solid var(--border-color);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
-.footer h4, .footer-logo {
-  color: var(--heading-color) !important;
-}
+.footer h4, .footer-logo    { color: var(--heading-color) !important; }
+.footer-links ul li a        { color: var(--muted-text) !important; }
+.footer-social-links a       { background-color: var(--surface-alt); color: var(--heading-color); }
+.footer-social-links a:hover { background-color: var(--accent-color); color: #000; }
 
-.footer-links ul li a {
-  color: var(--muted-text) !important;
-}
-
-.footer-social-links a {
-  background-color: var(--surface-alt);
-  color: var(--heading-color);
-}
-
-/* Modals & Dashboard Form Controls */
+/* Modals & Forms */
 .barber-modal .modal-content {
   background-color: var(--modal-bg);
   color: var(--heading-color);
@@ -395,9 +463,7 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   color: var(--heading-color);
 }
 
-.booking-form label {
-  color: var(--heading-color) !important;
-}
+.booking-form label { color: var(--heading-color) !important; }
 
 .testimonial-item {
   background-color: var(--surface-color);
@@ -405,10 +471,27 @@ p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barbe
   border-radius: 16px;
 }
 
-.testimonial-content p {
-  color: var(--default-color) !important;
+.testimonial-content p  { color: var(--default-color) !important; }
+.testimonial-content h3 { color: var(--heading-color) !important; }
+
+/* Glass Cards */
+.glass-card {
+  background: color-mix(in srgb, var(--surface-color), transparent 15%) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color) !important;
+  border-radius: 14px !important;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
 }
 
-.testimonial-content h3 {
-  color: var(--heading-color) !important;
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 55%) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 80%) !important;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--background-color); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
