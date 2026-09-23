@@ -1,36 +1,76 @@
 /*--------------------------------------------------------------
-# Hairnerds Studio - Barbershop Custom Premium Style Overrides
+# District Studio - Barbershop Custom Premium Style Overrides
+# Light & Dark Mode Engine Powered by District Studio
 --------------------------------------------------------------*/
 
-:root {
+/* LIGHT MODE VARIABLES (Default when html does NOT have .dark class) */
+:root,
+html:not(.dark) {
   /* Fonts */
   --default-font: "Outfit", sans-serif;
   --heading-font: "Montserrat", sans-serif;
   --nav-font: "Montserrat", sans-serif;
 
-  /* Global Colors (Deep Industrial Dark Mode) */
-  --background-color: #0b0b0b; 
-  --default-color: #c6c6c6; 
-  --heading-color: #ffffff; 
-  --accent-color: #dca53e; /* Premium Gold/Amber */
-  --surface-color: #121212; 
+  /* Global Light Mode Palette */
+  --background-color: #f8fafc; /* Light Slate background */
+  --default-color: #334155;   /* Dark Slate body text */
+  --heading-color: #0f172a;   /* Deep Navy/Black headings */
+  --accent-color: #d97706;    /* Premium Amber Gold */
+  --accent-hover: #b45309;
+  --surface-color: #ffffff;   /* Pure White cards & surfaces */
+  --surface-alt: #f1f5f9;     /* Light Gray alt surface */
+  --border-color: #e2e8f0;    /* Subtle Light border */
+  --contrast-color: #ffffff;
+  
+  /* Navbar Overrides */
+  --nav-color: #1e293b;
+  --nav-hover-color: #d97706;
+  --nav-mobile-background-color: #ffffff;
+  --nav-dropdown-background-color: #ffffff;
+  --nav-dropdown-color: #1e293b;
+  --nav-dropdown-hover-color: #d97706;
+  --muted-text: #64748b;
+  --modal-bg: #ffffff;
+  --input-bg: #f8fafc;
+}
+
+/* DARK MODE VARIABLES (Applied when html HAS .dark class) */
+html.dark {
+  /* Fonts */
+  --default-font: "Outfit", sans-serif;
+  --heading-font: "Montserrat", sans-serif;
+  --nav-font: "Montserrat", sans-serif;
+
+  /* Global Dark Mode Palette */
+  --background-color: #0b0f19; /* Deep Industrial Dark */
+  --default-color: #cbd5e1;   /* Light Slate body text */
+  --heading-color: #ffffff;   /* Pure White headings */
+  --accent-color: #f59e0b;    /* Bright Amber Gold */
+  --accent-hover: #d97706;
+  --surface-color: #111827;   /* Slate 900 Surface */
+  --surface-alt: #1f2937;     /* Slate 800 Surface */
+  --border-color: #374151;    /* Dark border */
   --contrast-color: #000000;
   
   /* Navbar Overrides */
-  --nav-color: #ffffff;
-  --nav-hover-color: #dca53e;
-  --nav-mobile-background-color: #121212;
-  --nav-dropdown-background-color: #161616;
-  --nav-dropdown-color: #ffffff;
-  --nav-dropdown-hover-color: #dca53e;
+  --nav-color: #f8fafc;
+  --nav-hover-color: #f59e0b;
+  --nav-mobile-background-color: #111827;
+  --nav-dropdown-background-color: #1f2937;
+  --nav-dropdown-color: #f8fafc;
+  --nav-dropdown-hover-color: #f59e0b;
+  --muted-text: #94a3b8;
+  --modal-bg: #111827;
+  --input-bg: #1f2937;
 }
 
 /* Base resets & typography */
 body {
   font-family: var(--default-font);
   background-color: var(--background-color) !important;
-  color: var(--default-color);
+  color: var(--default-color) !important;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,21 +78,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   letter-spacing: -0.5px;
   text-transform: uppercase;
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+
+p {
+  color: var(--default-color);
 }
 
 /* Header & Navbar styling */
 .header {
-  background-color: rgba(11, 11, 11, 0.85) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 15px 0;
-  transition: all 0.3s ease;
+  background-color: var(--surface-color) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 14px 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .header .sitename {
   font-weight: 900;
   letter-spacing: 2px;
-  color: #fff;
+  color: var(--heading-color) !important;
   font-size: 22px;
   white-space: nowrap;
 }
@@ -61,818 +108,198 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent-color);
 }
 
-/* Navbar Spacing & Styling Overrides */
-@media (min-width: 1200px) {
-  .navmenu ul {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-  }
-
-  .navmenu > ul > li {
-    padding: 0 !important;
-    margin: 0 !important;
-    white-space: nowrap;
-  }
-
-  .navmenu a,
-  .navmenu a:focus {
-    font-size: 12.5px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.8px !important;
-    text-transform: uppercase !important;
-    padding: 8px 14px !important;
-    border-radius: 4px;
-    color: #e2e2e2 !important;
-    transition: all 0.2s ease !important;
-    display: inline-flex !important;
-    align-items: center !important;
-  }
-
-  .navmenu a:hover,
-  .navmenu .active,
-  .navmenu .active:focus {
-    color: var(--accent-color) !important;
-    background-color: rgba(220, 165, 62, 0.08) !important;
-  }
-
-  /* Dropdown Menu Styling */
-  .navmenu .dropdown ul {
-    background-color: #141414 !important;
-    border: 1px solid rgba(220, 165, 62, 0.3) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8) !important;
-    padding: 8px 0 !important;
-    gap: 0 !important;
-    display: block !important;
-  }
-
-  .navmenu .dropdown ul li {
-    padding: 0 !important;
-    min-width: 230px !important;
-  }
-
-  .navmenu .dropdown ul a {
-    padding: 10px 18px !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    border-radius: 0 !important;
-    text-transform: none !important;
-    color: #d1d1d1 !important;
-    background: transparent !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  .navmenu .dropdown ul a:hover,
-  .navmenu .dropdown ul li:hover > a {
-    color: #000 !important;
-    background-color: var(--accent-color) !important;
-  }
-
-  .navmenu .btn-book-nav {
-    margin-left: 18px !important;
-    padding: 9px 22px !important;
-    font-size: 12.5px !important;
-    font-weight: 800 !important;
-    letter-spacing: 1px !important;
-    border-radius: 4px !important;
-    color: #000 !important;
-    background-color: var(--accent-color) !important;
-    box-shadow: 0 4px 15px rgba(220, 165, 62, 0.35) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
-  }
-
-  .navmenu .btn-book-nav:hover {
-    background-color: #fff !important;
-    color: #000 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3) !important;
-  }
+/* Navbar Links */
+.navmenu a,
+.navmenu a:focus {
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  padding: 8px 14px !important;
+  border-radius: 6px;
+  color: var(--nav-color) !important;
+  transition: all 0.2s ease !important;
 }
 
-/* Hero Section Styling */
+.navmenu a:hover,
+.navmenu .active,
+.navmenu .active:focus {
+  color: var(--accent-color) !important;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%) !important;
+}
+
+.navmenu .dropdown ul {
+  background-color: var(--nav-dropdown-background-color) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.navmenu .dropdown ul a {
+  color: var(--nav-dropdown-color) !important;
+}
+
+.navmenu .dropdown ul a:hover,
+.navmenu .dropdown ul li:hover > a {
+  color: var(--contrast-color) !important;
+  background-color: var(--accent-color) !important;
+}
+
+.navmenu .btn-book-nav {
+  margin-left: 14px !important;
+  padding: 9px 20px !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  background-color: var(--accent-color) !important;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+.navmenu .btn-book-nav:hover {
+  background-color: var(--accent-hover) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Sections Styling with Variables */
 .hero {
   position: relative;
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(11, 11, 11, 1)), url('../img/barber_hero.jpg') no-repeat center center/cover;
-  min-height: 100vh;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   padding: 100px 0;
 }
 
-.hero-content h1 {
-  font-size: 4.5rem;
-  line-height: 1.1;
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  margin-bottom: 20px;
-}
-
-@media (max-width: 991px) {
-  .hero-content h1 {
-    font-size: 3rem;
-  }
-}
-
-.hero-content .highlight {
-  color: var(--accent-color);
-  text-shadow: 0 0 20px rgba(220, 165, 62, 0.2);
-}
-
 .hero-content h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 25px;
-  letter-spacing: 2px;
+  color: #ffffff !important;
 }
 
 .hero-content p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  max-width: 550px;
-  color: #a0a0a0;
-  margin-bottom: 35px;
+  color: #cbd5e1 !important;
 }
 
-.hero-actions .btn {
-  padding: 14px 32px;
-  font-family: var(--heading-font);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 0;
-  transition: all 0.3s ease;
-}
-
-.hero-actions .btn-primary {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: #000;
-}
-
-.hero-actions .btn-primary:hover {
-  background-color: #c99330;
-  border-color: #c99330;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(220, 165, 62, 0.2);
-}
-
-.hero-actions .btn-outline {
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  margin-left: 15px;
-}
-
-.hero-actions .btn-outline:hover {
-  background-color: #ffffff;
-  color: #000000;
-  transform: translateY(-3px);
-}
-
-/* Brand Story Section */
 .about-barber {
-  background-color: #0b0b0b;
-  padding: 100px 0;
-}
-
-.about-barber .section-title h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 40px;
-}
-
-.about-barber .section-title h2::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background-color: var(--accent-color);
+  background-color: var(--background-color);
+  padding: 80px 0;
+  transition: background-color 0.3s ease;
 }
 
 .about-barber p.lead {
-  font-size: 1.25rem;
-  color: #ffffff;
-  font-weight: 500;
-  border-left: 3px solid var(--accent-color);
-  padding-left: 20px;
+  color: var(--heading-color);
 }
 
 .about-image-wrapper {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  background-color: #121212;
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  background-color: var(--surface-color);
+  border-radius: 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.about-image-wrapper img {
-  filter: grayscale(30%) contrast(1.1);
-  transition: all 0.5s ease;
-}
-
-.about-image-wrapper:hover img {
-  filter: grayscale(0%) contrast(1);
-}
-
-.about-experience-badge {
-  position: absolute;
-  bottom: 30px;
-  left: -20px;
-  background-color: var(--accent-color);
-  color: #000;
-  padding: 20px 30px;
-  font-family: var(--heading-font);
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.about-experience-badge h3 {
-  font-size: 32px;
-  font-weight: 900;
-  margin: 0;
-  line-height: 1;
-}
-
-.about-experience-badge span {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Service Menu Price List */
 .services-menu {
-  background-color: #121212;
-  padding: 100px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.services-menu .section-title h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.menu-category-title {
-  color: var(--accent-color);
-  font-size: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 10px;
-  margin-bottom: 30px;
-}
-
-.menu-item {
-  margin-bottom: 25px;
-}
-
-.menu-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 5px;
+  background-color: var(--surface-alt);
+  padding: 80px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .menu-item-name {
-  font-family: var(--heading-font);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-}
-
-.menu-item-dots {
-  flex-grow: 1;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-  margin: 0 15px;
-  position: relative;
-  top: -4px;
-}
-
-.menu-item-price {
-  font-family: var(--heading-font);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--accent-color);
-  white-space: nowrap;
+  color: var(--heading-color);
 }
 
 .menu-item-description {
-  font-size: 0.9rem;
-  color: #8c8c8c;
-  margin: 0;
+  color: var(--muted-text);
 }
 
-.menu-item-duration {
-  font-size: 0.8rem;
-  color: rgba(220, 165, 62, 0.7);
-  display: inline-block;
-  margin-top: 4px;
-}
-
-/* Service Images Hover Carousel/Grid */
-.service-card {
-  position: relative;
-  overflow: hidden;
-  height: 250px;
-  margin-bottom: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.service-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(40%) brightness(0.7);
-  transition: all 0.5s ease;
-}
-
-.service-card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.2) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 25px;
-  transition: all 0.3s ease;
-}
-
-.service-card:hover img {
-  transform: scale(1.08);
-  filter: grayscale(0%) brightness(0.9);
-}
-
-.service-card:hover .service-card-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.4) 100%);
-}
-
-.service-card-overlay h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-  color: #fff;
-}
-
-.service-card-overlay p {
-  font-size: 0.85rem;
-  margin-bottom: 0;
-  color: var(--accent-color);
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-/* Stylist / Hair Artists */
 .stylists-section {
-  background-color: #0b0b0b;
-  padding: 100px 0;
+  background-color: var(--background-color);
+  padding: 80px 0;
+  transition: background-color 0.3s ease;
 }
 
 .stylist-card {
-  background-color: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  text-align: center;
-  transition: all 0.3s ease;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
   overflow: hidden;
-  position: relative;
-  margin-bottom: 30px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .stylist-img-wrapper {
-  overflow: hidden;
-  height: 380px;
-  position: relative;
-  background-color: #161616;
-}
-
-.stylist-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(80%) contrast(1.1);
-  transition: all 0.5s ease;
-}
-
-.stylist-card:hover .stylist-img-wrapper img {
-  filter: grayscale(0%) contrast(1);
-  transform: scale(1.05);
-}
-
-.stylist-info {
-  padding: 25px 15px;
-  border-top: 2px solid transparent;
-  transition: all 0.3s ease;
-}
-
-.stylist-card:hover .stylist-info {
-  border-top-color: var(--accent-color);
-  background-color: #161616;
+  background-color: var(--surface-alt);
 }
 
 .stylist-info h4 {
-  font-size: 1.2rem;
-  color: #ffffff;
-  margin-bottom: 5px;
+  color: var(--heading-color);
 }
 
-.stylist-info span {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--accent-color);
-  font-weight: 700;
-}
-
-.stylist-socials {
-  position: absolute;
-  top: 20px;
-  right: -50px;
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(220, 165, 62, 0.9);
-  padding: 10px;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.stylist-card:hover .stylist-socials {
-  right: 0;
-}
-
-.stylist-socials a {
-  color: #000;
-  margin: 8px 0;
-  font-size: 16px;
-}
-
-.stylist-socials a:hover {
-  color: #ffffff;
-}
-
-/* Call-to-action Booking Banner */
 .cta-booking {
-  background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('../img/barber_hero.jpg') no-repeat center center/cover;
-  background-attachment: fixed;
-  padding: 120px 0;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
+  padding: 100px 0;
 }
 
-.cta-booking h2 {
-  font-size: 3rem;
-  font-weight: 900;
-  margin-bottom: 20px;
-}
-
-.cta-booking p {
-  font-size: 1.2rem;
-  color: #a0a0a0;
-  max-width: 700px;
-  margin: 0 auto 40px auto;
-}
-
-.cta-booking .btn-booking {
-  background-color: var(--accent-color);
-  color: #000;
-  padding: 16px 45px;
-  font-family: var(--heading-font);
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0;
-  transition: all 0.3s ease;
-}
-
-.cta-booking .btn-booking:hover {
-  background-color: #ffffff;
-  transform: scale(1.05);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-}
-
-/* Modern Minimalist Dark Footer */
 .footer {
-  background-color: #050505 !important;
-  color: #a0a0a0;
-  padding: 80px 0 30px 0;
-  border-top: 1px solid rgba(255,255,255,0.03);
+  background-color: var(--surface-color) !important;
+  color: var(--muted-text);
+  padding: 60px 0 30px 0;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.footer h4 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 25px;
-  border-left: 2px solid var(--accent-color);
-  padding-left: 15px;
-  letter-spacing: 1px;
-}
-
-.footer-logo {
-  font-family: var(--heading-font);
-  font-size: 24px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  color: #ffffff;
-  margin-bottom: 20px;
-}
-
-.footer-logo span {
-  color: var(--accent-color);
-}
-
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links ul li {
-  margin-bottom: 12px;
+.footer h4, .footer-logo {
+  color: var(--heading-color);
 }
 
 .footer-links ul li a {
-  color: #a0a0a0;
-}
-
-.footer-links ul li a:hover {
-  color: var(--accent-color);
-  padding-left: 5px;
-}
-
-.footer-contact p {
-  margin-bottom: 10px;
-}
-
-.footer-contact i {
-  color: var(--accent-color);
-  margin-right: 10px;
-}
-
-.footer-hours-table {
-  width: 100%;
-}
-
-.footer-hours-table td {
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.footer-hours-table td:last-child {
-  text-align: right;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.footer-bottom {
-  margin-top: 60px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  font-size: 0.85rem;
+  color: var(--muted-text);
 }
 
 .footer-social-links a {
-  display: inline-block;
-  width: 38px;
-  height: 38px;
-  background-color: #121212;
-  color: #fff;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 38px;
-  margin-right: 10px;
-  transition: all 0.3s ease;
+  background-color: var(--surface-alt);
+  color: var(--heading-color);
 }
 
-.footer-social-links a:hover {
-  background-color: var(--accent-color);
-  color: #000;
-}
-
-/* Modals & Popups for Booking */
+/* Modals & Form Controls */
 .barber-modal .modal-content {
-  background-color: #121212;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 0;
+  background-color: var(--modal-bg);
+  color: var(--heading-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
 }
 
-.barber-modal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.barber-modal .modal-header .btn-close {
-  filter: invert(1);
-}
-
-.barber-modal .modal-body {
-  padding: 30px;
-}
-
-.booking-form .form-control, 
+.booking-form .form-control,
 .booking-form .form-select {
-  background-color: #181818;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border-radius: 0;
-  padding: 12px;
-  margin-bottom: 20px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--heading-color);
+  border-radius: 8px;
 }
 
-.booking-form .form-control:focus, 
+.booking-form .form-control:focus,
 .booking-form .form-select:focus {
-  background-color: #1e1e1e;
   border-color: var(--accent-color);
-  box-shadow: none;
-  color: #fff;
+  color: var(--heading-color);
 }
 
 .booking-form label {
-  font-family: var(--heading-font);
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
+  color: var(--heading-color);
 }
 
-.booking-form button[type="submit"] {
-  background-color: var(--accent-color);
-  color: #000;
-  width: 100%;
-  padding: 14px;
-  font-family: var(--heading-font);
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0;
-  margin-top: 10px;
-  transition: all 0.3s ease;
-}
-
-.booking-form button[type="submit"]:hover {
-  background-color: #ffffff;
-}
-
-/* Success notification message styling */
-.booking-success-message {
-  display: none;
-  background-color: rgba(220, 165, 62, 0.1);
-  border: 1px solid var(--accent-color);
-  padding: 20px;
-  text-align: center;
-  color: #fff;
-}
-
-.booking-success-message i {
-  color: var(--accent-color);
-  font-size: 32px;
-  margin-bottom: 15px;
-}
-
-/* Testimonial item customization */
 .testimonial-item {
-  background-color: #121212;
-  padding: 40px;
-  border: 1px solid rgba(255,255,255,0.03);
-  position: relative;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
 }
 
 .testimonial-content p {
-  font-style: italic;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #e0e0e0;
+  color: var(--default-color);
 }
 
 .testimonial-content h3 {
-  font-size: 1.3rem;
-  color: #ffffff;
-  margin-top: 20px;
-  margin-bottom: 5px;
+  color: var(--heading-color);
 }
-
-.testimonial-content h4 {
-  font-size: 0.85rem;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.testimonial-content .stars i {
-  color: var(--accent-color);
-  margin-right: 2px;
-  font-size: 13px;
-}
-
-.testimonial-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--accent-color);
-}
-
-/*--------------------------------------------------------------
-# Modern Glassmorphism & Micro-animations Overrides
---------------------------------------------------------------*/
-.modal-content.glass-modal {
-  background: rgba(18, 18, 22, 0.88) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 200, 200, 0.15) !important;
-  border-radius: 16px !important;
-  overflow: hidden;
-}
-
-.modal-content.glass-modal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.modal-content.glass-modal .modal-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.modal-backdrop.show {
-  backdrop-filter: blur(6px);
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-/* Glass Cards & Glow Panels */
-.glass-card {
-  background: rgba(24, 24, 28, 0.7) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(220, 165, 62, 0.3) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(220, 165, 62, 0.15) !important;
-}
-
-/* Pulse animation for QRIS & Active Status */
-@keyframes qris-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 200, 0.5); }
-  70% { transform: scale(1.015); box-shadow: 0 0 0 12px rgba(0, 200, 200, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 200, 0); }
-}
-
-.qris-frame {
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 16px;
-  display: inline-block;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
-  animation: qris-pulse 3s infinite ease-in-out;
-}
-
-/* Gradient text accents */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #ffd700 0%, #dca53e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0b0b0b;
-}
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
-}
-
