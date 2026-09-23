@@ -56,7 +56,7 @@
 
   <!-- Header & Navbar -->
   <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid px-lg-5 px-3 d-flex align-items-center justify-content-between">
+    <div class="container-xl d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center sitename me-3 me-xl-4">
         DISTRICT<span>STUDIO.</span>
       </a>

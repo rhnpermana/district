@@ -13,23 +13,23 @@ html:not(.dark) {
 
   /* Global Light Mode Palette */
   --background-color: #f8fafc; /* Light Slate background */
-  --default-color: #334155;   /* Dark Slate body text */
+  --default-color: #1e293b;   /* High-contrast Dark Slate body text */
   --heading-color: #0f172a;   /* Deep Navy/Black headings */
   --accent-color: #d97706;    /* Premium Amber Gold */
   --accent-hover: #b45309;
   --surface-color: #ffffff;   /* Pure White cards & surfaces */
   --surface-alt: #f1f5f9;     /* Light Gray alt surface */
-  --border-color: #e2e8f0;    /* Subtle Light border */
+  --border-color: #cbd5e1;    /* Clear border */
   --contrast-color: #ffffff;
   
   /* Navbar Overrides */
-  --nav-color: #1e293b;
+  --nav-color: #0f172a;
   --nav-hover-color: #d97706;
   --nav-mobile-background-color: #ffffff;
   --nav-dropdown-background-color: #ffffff;
-  --nav-dropdown-color: #1e293b;
+  --nav-dropdown-color: #0f172a;
   --nav-dropdown-hover-color: #d97706;
-  --muted-text: #64748b;
+  --muted-text: #475569;      /* Crisp slate gray for secondary text */
   --modal-bg: #ffffff;
   --input-bg: #f8fafc;
 }
@@ -42,8 +42,8 @@ html.dark {
   --nav-font: "Montserrat", sans-serif;
 
   /* Global Dark Mode Palette */
-  --background-color: #0b0f19; /* Deep Industrial Dark */
-  --default-color: #cbd5e1;   /* Light Slate body text */
+  --background-color: #090d16; /* Deep Industrial Dark */
+  --default-color: #e2e8f0;   /* High-contrast Light Slate body text */
   --heading-color: #ffffff;   /* Pure White headings */
   --accent-color: #f59e0b;    /* Bright Amber Gold */
   --accent-hover: #d97706;
@@ -59,12 +59,12 @@ html.dark {
   --nav-dropdown-background-color: #1f2937;
   --nav-dropdown-color: #f8fafc;
   --nav-dropdown-hover-color: #f59e0b;
-  --muted-text: #94a3b8;
+  --muted-text: #cbd5e1;      /* High contrast light gray for secondary text */
   --modal-bg: #111827;
   --input-bg: #1f2937;
 }
 
-/* Base resets & typography */
+/* Base resets & high-contrast typography */
 body {
   font-family: var(--default-font);
   background-color: var(--background-color) !important;
@@ -78,21 +78,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   letter-spacing: -0.5px;
   text-transform: uppercase;
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
   transition: color 0.3s ease;
 }
 
-p {
-  color: var(--default-color);
+/* Paragraph Text Readability & High Contrast Across All Pages & Dashboards */
+p, .menu-item-description, .service-card-overlay p, .cta-booking p, .about-barber p, .hero-content p {
+  color: var(--default-color) !important;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
-/* Header & Navbar styling */
+.text-muted, small, .small, .text-white-50 {
+  color: var(--muted-text) !important;
+}
+
+/* Header & Compact Desktop Navbar styling */
 .header {
   background-color: var(--surface-color) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color) !important;
-  padding: 14px 0;
+  padding: 10px 0;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -100,7 +107,7 @@ p {
   font-weight: 900;
   letter-spacing: 2px;
   color: var(--heading-color) !important;
-  font-size: 22px;
+  font-size: 20px;
   white-space: nowrap;
 }
 
@@ -108,35 +115,74 @@ p {
   color: var(--accent-color);
 }
 
-/* Navbar Links */
-.navmenu a,
-.navmenu a:focus {
-  font-size: 12.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.8px !important;
-  text-transform: uppercase !important;
-  padding: 8px 14px !important;
-  border-radius: 6px;
-  color: var(--nav-color) !important;
-  transition: all 0.2s ease !important;
-}
+/* Compact, Neater & Responsive Desktop Navbar Links */
+@media (min-width: 1200px) {
+  .navmenu ul {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
 
-.navmenu a:hover,
-.navmenu .active,
-.navmenu .active:focus {
-  color: var(--accent-color) !important;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%) !important;
+  .navmenu > ul > li {
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    padding: 7px 12px !important;
+    border-radius: 6px;
+    color: var(--nav-color) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-hover-color) !important;
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%) !important;
+  }
+
+  .navmenu .btn-book-nav {
+    margin-left: 10px !important;
+    padding: 7px 16px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    background-color: var(--accent-color) !important;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+  }
+
+  .navmenu .btn-book-nav:hover {
+    background-color: var(--accent-hover) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+  }
 }
 
 .navmenu .dropdown ul {
   background-color: var(--nav-dropdown-background-color) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 12px !important;
+  border-radius: 10px !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  padding: 6px 0 !important;
 }
 
 .navmenu .dropdown ul a {
   color: var(--nav-dropdown-color) !important;
+  font-size: 12px !important;
+  padding: 8px 16px !important;
 }
 
 .navmenu .dropdown ul a:hover,
@@ -145,33 +191,14 @@ p {
   background-color: var(--accent-color) !important;
 }
 
-.navmenu .btn-book-nav {
-  margin-left: 14px !important;
-  padding: 9px 20px !important;
-  font-size: 12.5px !important;
-  font-weight: 800 !important;
-  letter-spacing: 1px !important;
-  border-radius: 8px !important;
-  color: #ffffff !important;
-  background-color: var(--accent-color) !important;
-  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
-}
-
-.navmenu .btn-book-nav:hover {
-  background-color: var(--accent-hover) !important;
-  color: #ffffff !important;
-  transform: translateY(-2px);
-}
-
-/* Sections Styling with Variables */
+/* Sections Styling with Dynamic Variables */
 .hero {
   position: relative;
-  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
-  min-height: 90vh;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
+  min-height: 85vh;
   display: flex;
   align-items: center;
-  padding: 100px 0;
+  padding: 90px 0 60px;
 }
 
 .hero-content h2 {
@@ -179,7 +206,7 @@ p {
 }
 
 .hero-content p {
-  color: #cbd5e1 !important;
+  color: #e2e8f0 !important;
 }
 
 .about-barber {
@@ -189,7 +216,8 @@ p {
 }
 
 .about-barber p.lead {
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
+  font-weight: 700;
 }
 
 .about-image-wrapper {
@@ -209,13 +237,17 @@ p {
 }
 
 .menu-item-name {
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
+  font-weight: 700;
 }
 
 .menu-item-description {
-  color: var(--muted-text);
+  color: var(--muted-text) !important;
 }
 
+/*--------------------------------------------------------------
+# Hair Artist Cards - Smooth Grayscale to Color & Social Transition
+--------------------------------------------------------------*/
 .stylists-section {
   background-color: var(--background-color);
   padding: 80px 0;
@@ -226,21 +258,98 @@ p {
   background-color: var(--surface-color);
   border: 1px solid var(--border-color);
   border-radius: 16px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.stylist-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-color);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
 }
 
 .stylist-img-wrapper {
+  overflow: hidden;
+  height: 380px;
+  position: relative;
   background-color: var(--surface-alt);
 }
 
-.stylist-info h4 {
-  color: var(--heading-color);
+.stylist-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.15) brightness(0.9);
+  transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.stylist-card:hover .stylist-img-wrapper img {
+  filter: grayscale(0%) contrast(1) brightness(1);
+  transform: scale(1.08);
+}
+
+.stylist-info {
+  padding: 22px 15px;
+  border-top: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.stylist-card:hover .stylist-info {
+  border-top-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 94%);
+}
+
+.stylist-info h4 {
+  font-size: 1.25rem;
+  color: var(--heading-color) !important;
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+
+.stylist-info span {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.stylist-socials {
+  position: absolute;
+  top: 20px;
+  right: -50px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--accent-color);
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.stylist-card:hover .stylist-socials {
+  right: 0;
+}
+
+.stylist-socials a {
+  color: #000;
+  margin: 6px 0;
+  font-size: 16px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.stylist-socials a:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+/* Call-to-action & Footer */
 .cta-booking {
   background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), var(--background-color)), url('../img/barber_hero.jpg') no-repeat center center/cover;
-  padding: 100px 0;
+  padding: 90px 0;
 }
 
 .footer {
@@ -252,11 +361,11 @@ p {
 }
 
 .footer h4, .footer-logo {
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
 }
 
 .footer-links ul li a {
-  color: var(--muted-text);
+  color: var(--muted-text) !important;
 }
 
 .footer-social-links a {
@@ -264,7 +373,7 @@ p {
   color: var(--heading-color);
 }
 
-/* Modals & Form Controls */
+/* Modals & Dashboard Form Controls */
 .barber-modal .modal-content {
   background-color: var(--modal-bg);
   color: var(--heading-color);
@@ -287,7 +396,7 @@ p {
 }
 
 .booking-form label {
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
 }
 
 .testimonial-item {
@@ -297,9 +406,9 @@ p {
 }
 
 .testimonial-content p {
-  color: var(--default-color);
+  color: var(--default-color) !important;
 }
 
 .testimonial-content h3 {
-  color: var(--heading-color);
+  color: var(--heading-color) !important;
 }
