@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>@yield('title', 'District Studio - Premium Barbershop')</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>@yield('title', 'District Studio - Premium Barbershop Panel')</title>
   <meta name="description" content="District Studio - Lebih dari sekadar potong rambut, ruang untuk menemukan jati diri. Barbershop premium dan studio tata rambut.">
-  <meta name="keywords" content="barber, barbershop, hair studio, district, district studio, haircut, styling, coloring, perming, down perm">
+  
+  <!-- Android / PWA Support Meta Tags -->
+  <meta name="theme-color" content="#0f172a" id="theme-color-meta">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="{{ asset('manifest.json') }}">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/Gemini_Generated_Image_v41tj7v41tj7v41t.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
+  <link rel="apple-touch-icon" href="{{ asset('assets/img/apple-touch-icon.png') }}">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Inline Script to prevent Theme Flash (FOUC) -->
+  <script>
+    (function () {
+      const userPref = localStorage.getItem('theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (userPref === 'dark' || (!userPref && systemDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- Vite Assets -->
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -24,31 +46,29 @@
   <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
 
-  <!-- Main CSS File -->
+  <!-- Main & Custom CSS Files -->
   <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
-  <!-- Custom Barber CSS File -->
   <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
   <!-- Header & Navbar -->
-  <header id="header" class="header d-flex align-items-center fixed-top" style="background: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
-    <div class="container-fluid container-xl">
+  <header id="header" class="fixed top-0 left-0 right-0 z-40 bg-slate-900/95 border-b border-slate-800 text-white backdrop-blur-md transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
       @include('admin_layout.partials.navbar')
     </div>
   </header>
 
-  <!-- Tempat Konten Dinamis Halaman (Home, About, dll) -->
-  @yield('content')
-
-  <!-- Footer -->
+  <!-- Main Content -->
+  <main class="flex-grow pt-20 pb-12">
+    @yield('content')
+  </main>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
+  <a href="#" id="scroll-top" class="scroll-top fixed bottom-6 right-6 z-40 hidden items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white text-xl shadow-md hover:bg-amber-600 transition-all duration-300">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -80,7 +100,6 @@
         })
         .catch(() => {});
       }
-      // Poll every 30 seconds
       setInterval(updateBadge, 30000);
     })();
   </script>

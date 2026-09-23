@@ -1,9 +1,28 @@
 @import 'tailwindcss';
 
+@variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: 'Outfit', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --color-brand-gold: #d97706;
+  --color-brand-gold-hover: #b45309;
+}
+
+@layer utilities {
+  /* Smooth tap response for mobile devices */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* App-like active press state */
+  .active-bounce {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .active-bounce:active {
+    transform: scale(0.96);
+  }
 }
