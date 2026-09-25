@@ -1,47 +1,13 @@
 /*--------------------------------------------------------------
 # District Studio - Barbershop Custom Premium Style Overrides
-# Warm Light Mode + Premium Dark Mode Engine
+# Signature Premium Dark Mode
 --------------------------------------------------------------*/
 
 /* ══════════════════════════════════════════════════════════════
-   LIGHT MODE — Warm Parchment Palette (easy on the eyes)
+   SIGNATURE PALETTE — Deep Industrial Dark & Amber Gold
 ══════════════════════════════════════════════════════════════ */
 :root,
-html:not(.dark) {
-  --default-font: "Outfit", sans-serif;
-  --heading-font: "Montserrat", sans-serif;
-  --nav-font:     "Montserrat", sans-serif;
-
-  /* Warm, off-white background — NOT blinding white */
-  --background-color: #f5f0eb;  /* warm parchment */
-  --default-color:    #2c2420;  /* warm dark brown, readable */
-  --heading-color:    #1a1210;  /* near-black warm */
-  --accent-color:     #c4830a;  /* richer amber gold */
-  --accent-hover:     #a06a07;
-  --surface-color:    #fdf9f4;  /* cream — cards & surfaces */
-  --surface-alt:      #ede8e2;  /* warm light taupe — alternate sections */
-  --border-color:     #d4ccc4;  /* warm gray border */
-  --contrast-color:   #ffffff;
-
-  /* Navbar */
-  --nav-color:                    #2c2420;
-  --nav-hover-color:              #c4830a;
-  --nav-mobile-background-color:  #fdf9f4;
-  --nav-dropdown-background-color:#fdf9f4;
-  --nav-dropdown-color:           #2c2420;
-  --nav-dropdown-hover-color:     #c4830a;
-  --muted-text:       #72645c;  /* warm medium gray */
-  --modal-bg:         #fdf9f4;
-  --input-bg:         #f0ebe4;
-
-  /* Navbar glass tint */
-  --header-bg: rgba(253, 249, 244, 0.92);
-  --header-border: rgba(196, 131, 10, 0.18);
-}
-
-/* ══════════════════════════════════════════════════════════════
-   DARK MODE — Deep Industrial Dark
-══════════════════════════════════════════════════════════════ */
+html,
 html.dark {
   --default-font: "Outfit", sans-serif;
   --heading-font: "Montserrat", sans-serif;

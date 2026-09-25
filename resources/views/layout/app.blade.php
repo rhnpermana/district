@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark scroll-smooth">
 
 <head>
   <meta charset="utf-8">
@@ -24,19 +24,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Inline Script to prevent Theme Flash (FOUC) -->
-  <script>
-    (function () {
-      const userPref = localStorage.getItem('theme');
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (userPref === 'dark' || (!userPref && systemDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
-
   <!-- Vite Assets (Tailwind CSS v4 & App JS) -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -52,7 +39,7 @@
   <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-white">
 
   <!-- Header & Navbar -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -73,13 +60,13 @@
   @include('layout.partials.footer')
 
   <!-- Mobile Bottom Navigation Bar (Android/PWA App Experience) -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 border-t border-slate-200 dark:border-slate-800/80 backdrop-blur-lg px-2 py-1.5 flex justify-around items-center shadow-lg transition-colors duration-300">
-    <a href="{{ url('/') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium transition-all duration-200 {{ request()->is('/') ? 'text-amber-600 dark:text-amber-400 font-bold scale-105' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100' }}">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 border-t border-slate-800/80 backdrop-blur-lg px-2 py-1.5 flex justify-around items-center shadow-lg">
+    <a href="{{ url('/') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium transition-all duration-200 {{ request()->is('/') ? 'text-amber-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-100' }}">
       <i class="bi bi-house-door text-lg mb-0.5"></i>
       <span>Beranda</span>
     </a>
 
-    <a href="{{ url('/#services') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-200">
+    <a href="{{ url('/#services') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-400 hover:text-slate-100 transition-all duration-200">
       <i class="bi bi-scissors text-lg mb-0.5"></i>
       <span>Layanan</span>
     </a>
@@ -89,18 +76,18 @@
       <i class="bi bi-calendar-check text-xl"></i>
     </a>
 
-    <a href="{{ route('queue.board') }}" target="_blank" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-200">
+    <a href="{{ route('queue.board') }}" target="_blank" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-400 hover:text-slate-100 transition-all duration-200">
       <i class="bi bi-tv text-lg mb-0.5"></i>
       <span>Antrean</span>
     </a>
 
     @auth
-      <a href="{{ route('dashboard') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-200">
+      <a href="{{ route('dashboard') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium text-slate-400 hover:text-slate-100 transition-all duration-200">
         <i class="bi bi-person-circle text-lg mb-0.5"></i>
         <span>Akun</span>
       </a>
     @else
-      <a href="{{ route('login') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium transition-all duration-200 {{ request()->routeIs('login') ? 'text-amber-600 dark:text-amber-400 font-bold scale-105' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100' }}">
+      <a href="{{ route('login') }}" class="flex flex-col items-center py-1 px-3 text-xs font-medium transition-all duration-200 {{ request()->routeIs('login') ? 'text-amber-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-100' }}">
         <i class="bi bi-box-arrow-in-right text-lg mb-0.5"></i>
         <span>Masuk</span>
       </a>

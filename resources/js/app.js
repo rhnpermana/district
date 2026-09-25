@@ -1,69 +1,18 @@
 /**
- * Theme & UI Interaction Controller for District Studio
+ * UI Interaction Controller for District Studio
  * Tailwind CSS + Vite + Laravel 11
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
+    // Ensure dark theme is active and clean up any old local storage theme keys
+    if (localStorage.getItem('theme')) {
+        localStorage.removeItem('theme');
+    }
+    document.documentElement.classList.add('dark');
+
     initMobileNav();
 });
 
-/**
- * Initialize Light / Dark Mode preference
- */
-export function initTheme() {
-    const themeColorMeta = document.getElementById('theme-color-meta');
-    
-    // Determine target theme
-    const userPref = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = userPref === 'dark' || (!userPref && systemDark);
-
-    applyTheme(isDark);
-
-    // Listen for OS theme changes if user has no explicit localStorage setting
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches);
-        }
-    });
-
-    // Attach click listeners to all theme toggle buttons (desktop & mobile)
-    const toggleBtns = document.querySelectorAll('[data-theme-toggle]');
-    toggleBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const currentIsDark = document.documentElement.classList.contains('dark');
-            const newIsDark = !currentIsDark;
-            
-            localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
-            applyTheme(newIsDark);
-        });
-    });
-}
-
-/**
- * Apply dark / light class to root HTML and update theme-color meta tag
- */
-function applyTheme(isDark) {
-    const root = document.documentElement;
-    const themeColorMeta = document.getElementById('theme-color-meta');
-
-    if (isDark) {
-        root.classList.add('dark');
-        if (themeColorMeta) themeColorMeta.setAttribute('content', '#0f172a');
-    } else {
-        root.classList.remove('dark');
-        if (themeColorMeta) themeColorMeta.setAttribute('content', '#ffffff');
-    }
-
-    // Update toggle button icons if available
-    document.querySelectorAll('[data-theme-icon-sun]').forEach((icon) => {
-        icon.classList.toggle('hidden', !isDark);
-    });
-    document.querySelectorAll('[data-theme-icon-moon]').forEach((icon) => {
-        icon.classList.toggle('hidden', isDark);
-    });
-}
 
 /**
  * Initialize Mobile Navigation Drawer & Hamburger Menu

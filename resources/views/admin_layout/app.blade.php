@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark scroll-smooth">
 
 <head>
   <meta charset="utf-8">
@@ -23,19 +23,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Inline Script to prevent Theme Flash (FOUC) -->
-  <script>
-    (function () {
-      const userPref = localStorage.getItem('theme');
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (userPref === 'dark' || (!userPref && systemDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
-
   <!-- Vite Assets -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -51,7 +38,7 @@
   <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col justify-between">
 
   <!-- Header & Navbar -->
   <header id="header" class="header d-flex align-items-center fixed-top">
