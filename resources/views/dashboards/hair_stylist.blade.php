@@ -3,7 +3,7 @@
 @section('title', 'Hair Stylist Workstation - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Hair Stylist Header Banner -->
   <section style="background: linear-gradient(135deg, #22160d 0%, #120b06 100%); border-bottom: 1px solid rgba(255,152,0,0.25); padding: 35px 0;">

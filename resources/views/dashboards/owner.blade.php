@@ -3,7 +3,7 @@
 @section('title', 'Executive Financial Dashboard - Owner District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Owner Header Banner -->
   <section style="background: linear-gradient(135deg, #2b1f0c 0%, #150f05 100%); border-bottom: 1px solid rgba(220,165,62,0.3); padding: 35px 0;">

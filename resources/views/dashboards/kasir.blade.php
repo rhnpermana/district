@@ -3,7 +3,7 @@
 @section('title', 'Kasir Workstation & POS Terminal - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   {{-- ============================================================= --}}
   {{-- HEADER BANNER --}}

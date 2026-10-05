@@ -3,7 +3,7 @@
 @section('title', 'Supervisor Operations & Audit Workstation - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Supervisor Header Banner -->
   <section style="background: linear-gradient(135deg, #182838 0%, #0d1620 100%); border-bottom: 1px solid rgba(100,200,255,0.25); padding: 35px 0;">

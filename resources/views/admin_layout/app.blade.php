@@ -47,10 +47,10 @@
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-grow pt-20 pb-12">
+  <!-- Main Dynamic Content -->
+  <div class="flex-grow">
     @yield('content')
-  </main>
+  </div>
 
   <!-- Mobile Bottom Navigation Bar (Visible only on < lg devices) -->
   <nav class="mobile-bottom-nav d-lg-none" aria-label="Navigasi Mobile">

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #0b0b0b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #0b0b0b;">
 
   <!-- Dashboard Header -->
   <section style="background-color: #121212; border-bottom: 1px solid rgba(255,255,255,0.05);" class="py-3 py-md-4">

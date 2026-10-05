@@ -588,18 +588,30 @@ p, .menu-item-description, .about-barber p, .cta-booking p {
   color: var(--accent-color, #ff9800);
 }
 
+.header {
+  height: 56px !important;
+}
+
 @media (max-width: 991.98px) {
   body {
     padding-bottom: 74px !important;
   }
   .main {
     padding-bottom: 74px !important;
-    padding-top: 68px !important;
+    padding-top: 56px !important;
   }
   #scroll-top {
     bottom: 80px !important;
   }
   .header {
     padding: 6px 0 !important;
+    height: 54px !important;
   }
 }
+
+@media (min-width: 992px) {
+  .main {
+    padding-top: 60px !important;
+  }
+}
+

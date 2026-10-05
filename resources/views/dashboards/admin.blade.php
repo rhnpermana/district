@@ -3,7 +3,7 @@
 @section('title', 'Admin Central Workstation - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Admin Header Section -->
   <section style="background: linear-gradient(135deg, #18140a 0%, #0d0b06 100%); border-bottom: 1px solid rgba(220,165,62,0.25); padding: 35px 0;">

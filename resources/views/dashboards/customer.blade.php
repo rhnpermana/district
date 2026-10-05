@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Member & Booking - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Customer Header Banner -->
   <section style="background: linear-gradient(135deg, #1f1a10 0%, #120e08 100%); border-bottom: 1px solid rgba(255,152,0,0.25);" class="py-3 py-md-4">
