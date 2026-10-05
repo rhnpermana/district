@@ -52,9 +52,9 @@
   </header>
 
   <!-- Main Dynamic Page Content -->
-  <main class="flex-grow pt-20 pb-20 md:pb-12">
+  <div class="flex-grow">
     @yield('content')
-  </main>
+  </div>
 
   <!-- Footer -->
   @include('layout.partials.footer')

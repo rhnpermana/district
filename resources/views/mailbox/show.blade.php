@@ -2,7 +2,7 @@
 @section('title', 'Chat – ' . $other->name . ' | District Studio')
 
 @section('content')
-<div class="mailbox-page" style="padding-top: 90px; min-height: 100vh; background: #0a0a0a;">
+<div class="mailbox-page" style="padding-top: 60px; min-height: 100vh; background: #0a0a0a;">
   <div class="container-fluid px-3 px-md-4" style="max-width: 900px; margin: 0 auto;">
 
     {{-- Back + Header --}}

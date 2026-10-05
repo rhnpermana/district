@@ -3,7 +3,7 @@
 @section('title', 'Tentang Kami - District Studio Barbershop')
 
 @section('content')
-<main class="main" style="padding-top: 100px; background-color: var(--background-color);">
+<main class="main" style="padding-top: 60px; background-color: var(--background-color);">
 
   <!-- Hero Banner Tentang Kami -->
   <section class="section py-5" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">

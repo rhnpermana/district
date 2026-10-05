@@ -3,7 +3,7 @@
 @section('title', 'Profil Saya - ' . auth()->user()->name . ' - District Studio')
 
 @section('content')
-<main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
+<main class="main" style="padding-top: 56px; min-height: 100vh; background-color: #09090b;">
 
   {{-- ===== PROFILE HEADER HERO SECTION ===== --}}
   <section style="background: linear-gradient(135deg, #0d1a0f 0%, #070d09 100%); border-bottom: 1px solid rgba(40,167,69,0.2); padding: 50px 0 0;">

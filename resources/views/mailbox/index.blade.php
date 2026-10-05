@@ -2,7 +2,7 @@
 @section('title', 'Mailbox – District Studio')
 
 @section('content')
-<div class="mailbox-page" style="padding-top: 90px; min-height: 100vh; background: #0a0a0a;">
+<div class="mailbox-page" style="padding-top: 60px; min-height: 100vh; background: #0a0a0a;">
   <div class="container-fluid px-3 px-md-4" style="max-width: 1200px; margin: 0 auto;">
 
     {{-- Header --}}
