@@ -16,7 +16,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 10px; margin-bottom: 0;">
             Supervisor Workstation <span style="color: #64c8ff;">.</span>
           </h2>
-          <p style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Pengawasan operasional harian, audit stok produk & bahan baku, penjadwalan shift staf, dan penanganan keluhan pelanggan.</p>
+          <p class="d-none d-md-block" style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Pengawasan operasional harian, audit stok produk & bahan baku, penjadwalan shift staf, dan penanganan keluhan pelanggan.</p>
         </div>
         <div class="d-flex align-items-center gap-2">
           <button class="btn btn-info btn-sm fw-bold text-dark px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;" data-bs-toggle="modal" data-bs-target="#shiftModal">

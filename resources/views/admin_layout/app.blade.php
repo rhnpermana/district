@@ -52,6 +52,35 @@
     @yield('content')
   </main>
 
+  <!-- Mobile Bottom Navigation Bar (Visible only on < lg devices) -->
+  <nav class="mobile-bottom-nav d-lg-none" aria-label="Navigasi Mobile">
+    <a href="{{ route('dashboard') }}" class="mobile-bottom-nav-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
+      <i class="bi bi-grid-1x2-fill"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="{{ url('/') }}" class="mobile-bottom-nav-item {{ request()->is('/') ? 'active' : '' }}">
+      <i class="bi bi-house-door-fill"></i>
+      <span>Beranda</span>
+    </a>
+    <a href="{{ route('mailbox.index') }}" class="mobile-bottom-nav-item {{ request()->is('mailbox*') ? 'active' : '' }}">
+      <div class="position-relative d-inline-block">
+        <i class="bi bi-chat-dots-fill"></i>
+        @auth
+          @php $unreadCount = Auth::user()->totalUnreadMessages(); @endphp
+          <span id="navUnreadBadgeMobile" class="badge rounded-pill position-absolute top-0 start-100 translate-middle"
+                style="background: var(--accent-color); color: #000; font-size: 0.55rem; font-weight: 800; min-width: 15px; height: 15px; padding: 0 4px; display: {{ $unreadCount > 0 ? 'inline-flex' : 'none' }}; align-items: center; justify-content: center; margin-left: 2px; margin-top: 2px;">
+            {{ $unreadCount > 9 ? '9+' : $unreadCount }}
+          </span>
+        @endauth
+      </div>
+      <span>Mailbox</span>
+    </a>
+    <a href="{{ route('profile.show') }}" class="mobile-bottom-nav-item {{ request()->routeIs('profile*') ? 'active' : '' }}">
+      <i class="bi bi-person-circle"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top fixed bottom-6 right-6 z-40 hidden items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white text-xl shadow-md hover:bg-amber-600 transition-all duration-300">
     <i class="bi bi-arrow-up-short"></i>
@@ -76,13 +105,25 @@
         })
         .then(r => r.json())
         .then(data => {
-          const badge = document.getElementById('navUnreadBadge');
-          if (!badge) return;
-          if (data.unread > 0) {
-            badge.textContent = data.unread > 9 ? '9+' : data.unread;
-            badge.style.display = 'flex';
-          } else {
-            badge.style.display = 'none';
+          const badgeDesktop = document.getElementById('navUnreadBadge');
+          const badgeMobile = document.getElementById('navUnreadBadgeMobile');
+          const count = data.unread > 9 ? '9+' : data.unread;
+          
+          if (badgeDesktop) {
+            if (data.unread > 0) {
+              badgeDesktop.textContent = count;
+              badgeDesktop.style.display = 'flex';
+            } else {
+              badgeDesktop.style.display = 'none';
+            }
+          }
+          if (badgeMobile) {
+            if (data.unread > 0) {
+              badgeMobile.textContent = count;
+              badgeMobile.style.display = 'inline-flex';
+            } else {
+              badgeMobile.style.display = 'none';
+            }
           }
         })
         .catch(() => {});

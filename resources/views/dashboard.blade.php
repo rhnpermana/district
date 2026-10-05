@@ -6,11 +6,11 @@
 <main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #0b0b0b;">
 
   <!-- Dashboard Header -->
-  <section style="background-color: #121212; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 30px 0;">
+  <section style="background-color: #121212; border-bottom: 1px solid rgba(255,255,255,0.05);" class="py-3 py-md-4">
     <div class="container">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
         <div>
-          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-color); font-weight: 700; margin-bottom: 5px;">
+          <p style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-color); font-weight: 700; margin-bottom: 3px;">
             @if(auth()->user()->role === 'owner') Pemilik
             @elseif(auth()->user()->role === 'supervisor') Supervisor
             @elseif(auth()->user()->role === 'admin') Administrator
@@ -20,13 +20,13 @@
             @else Pelanggan
             @endif
           </p>
-          <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0;">
+          <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0;" class="fs-md-2">
             Halo, {{ auth()->user()->name }}!
           </h2>
         </div>
-        <form action="{{ route('logout') }}" method="POST" class="m-0">
+        <form action="{{ route('logout') }}" method="POST" class="m-0 d-none d-md-block">
           @csrf
-          <button type="submit" style="background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #a0a0a0; padding: 10px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s;">
+          <button type="submit" style="background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #a0a0a0; padding: 8px 16px; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s;">
             <i class="bi bi-box-arrow-right me-2"></i>Keluar
           </button>
         </form>
@@ -34,7 +34,7 @@
     </div>
   </section>
 
-  <div class="container" style="padding: 50px 15px;">
+  <div class="container" style="padding: 25px 15px 70px;">
 
     {{-- Alert Messages --}}
     @if(session('success'))

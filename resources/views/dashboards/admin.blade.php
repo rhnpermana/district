@@ -18,7 +18,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
             Admin Workstation <span style="color: #dca53e;">.</span>
           </h2>
-          <p style="font-size: 0.88rem; color: #a1a1aa; margin: 6px 0 0; font-weight: 400;">
+          <p class="d-none d-md-block" style="font-size: 0.88rem; color: #a1a1aa; margin: 6px 0 0; font-weight: 400;">
             Kelola pengguna, master layanan & produk, voucher diskon, monitor reservasi, shift kerja staf, dan audit keamanan sistem.
           </p>
         </div>

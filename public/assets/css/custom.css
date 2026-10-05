@@ -521,3 +521,85 @@ p, .menu-item-description, .about-barber p, .cta-booking p {
   background-color: color-mix(in srgb, var(--accent-color), transparent 90%) !important;
   color: var(--heading-color) !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE BOTTOM APP BAR NAVIGATION
+   Fixed at bottom on mobile screens (< 992px)
+══════════════════════════════════════════════════════════════ */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: rgba(13, 16, 23, 0.96);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.45);
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.mobile-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-family: var(--heading-font, 'Montserrat', sans-serif);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  min-width: 62px;
+  flex: 1;
+  max-width: 90px;
+}
+
+.mobile-bottom-nav-item i {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-bottom: 3px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #94a3b8;
+}
+
+.mobile-bottom-nav-item.active {
+  color: var(--accent-color, #ff9800) !important;
+}
+
+.mobile-bottom-nav-item.active i {
+  color: var(--accent-color, #ff9800) !important;
+  transform: translateY(-2px);
+}
+
+.mobile-bottom-nav-item:hover,
+.mobile-bottom-nav-item:active {
+  color: var(--accent-color, #ff9800);
+}
+
+@media (max-width: 991.98px) {
+  body {
+    padding-bottom: 74px !important;
+  }
+  .main {
+    padding-bottom: 74px !important;
+    padding-top: 68px !important;
+  }
+  #scroll-top {
+    bottom: 80px !important;
+  }
+  .header {
+    padding: 6px 0 !important;
+  }
+}

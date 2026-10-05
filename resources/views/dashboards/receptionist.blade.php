@@ -16,7 +16,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 10px; margin-bottom: 0;">
             Receptionist Workstation <span style="color: #00c8c8;">.</span>
           </h2>
-          <p style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Monitoring live queue board, notifikasi panggil pelanggan, registrasi walk-in, & status potong rambut.</p>
+          <p class="d-none d-md-block" style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Monitoring live queue board, notifikasi panggil pelanggan, registrasi walk-in, & status potong rambut.</p>
         </div>
         <div class="d-flex align-items-center gap-2">
           <a href="{{ route('queue.board') }}" target="_blank" class="btn btn-info btn-sm fw-bold text-dark px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;">

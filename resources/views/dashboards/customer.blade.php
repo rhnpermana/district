@@ -6,44 +6,44 @@
 <main class="main" style="padding-top: 80px; min-height: 100vh; background-color: #09090b;">
 
   <!-- Customer Header Banner -->
-  <section style="background: linear-gradient(135deg, #1f1a10 0%, #120e08 100%); border-bottom: 1px solid rgba(255,152,0,0.25); padding: 35px 0;">
+  <section style="background: linear-gradient(135deg, #1f1a10 0%, #120e08 100%); border-bottom: 1px solid rgba(255,152,0,0.25);" class="py-3 py-md-4">
     <div class="container-fluid container-xl">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
         <div>
-          <span style="background: rgba(255,152,0,0.15); color: #ff9800; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; padding: 5px 14px; border: 1px solid rgba(255,152,0,0.3); border-radius: 4px; font-family: 'Montserrat', sans-serif;">
+          <span style="background: rgba(255,152,0,0.15); color: #ff9800; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; border: 1px solid rgba(255,152,0,0.3); border-radius: 4px; font-family: 'Montserrat', sans-serif;">
             <i class="bi bi-person-badge-fill me-1"></i> Member Workstation
           </span>
-          <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 10px; margin-bottom: 0;">
-            Selamat Datang, {{ auth()->user()->name }} <span style="color: #ff9800;">.</span>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 8px; margin-bottom: 0;" class="fs-md-2">
+            Halo, {{ auth()->user()->name }} <span style="color: #ff9800;">.</span>
           </h2>
-          <p style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Pesan slot potong rambut, pilih kapster favorit, lacak antrean live di HP, dan re-book 1-klik.</p>
+          <p class="d-none d-md-block" style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Pesan slot potong rambut, pilih kapster favorit, lacak antrean live di HP, dan re-book 1-klik.</p>
         </div>
         <div class="d-flex align-items-center gap-2">
           @if($activeBooking)
-            <a href="{{ route('queue.live', $activeBooking->id) }}" class="btn btn-warning text-dark btn-sm fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;">
-              <i class="bi bi-broadcast me-1"></i> Tracker HP ({{ $activeBooking->queue_number ?? 'A-00' . $activeBooking->id }})
+            <a href="{{ route('queue.live', $activeBooking->id) }}" class="btn btn-warning text-dark btn-sm fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+              <i class="bi bi-broadcast me-1"></i> Tracker ({{ $activeBooking->queue_number ?? 'A-00' . $activeBooking->id }})
             </a>
           @endif
-          <button class="btn btn-outline-warning btn-sm fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;" data-bs-toggle="modal" data-bs-target="#newBookingModal">
-            <i class="bi bi-calendar-plus me-1"></i> + Buat Booking Baru
+          <button class="btn btn-outline-warning btn-sm fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;" data-bs-toggle="modal" data-bs-target="#newBookingModal">
+            <i class="bi bi-calendar-plus me-1"></i> + Buat Booking
           </button>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="container-fluid container-xl" style="padding: 35px 15px 60px;">
+  <div class="container-fluid container-xl" style="padding: 20px 15px 70px;">
 
     @if(session('success'))
-      <div class="alert alert-dismissible fade show d-flex align-items-center justify-content-between mb-4" role="alert" style="background: rgba(255,152,0,0.15); border: 1px solid rgba(255,152,0,0.4); color: #fff; border-radius: 8px; padding: 16px 20px;">
+      <div class="alert alert-dismissible fade show d-flex align-items-center justify-content-between mb-3" role="alert" style="background: rgba(255,152,0,0.15); border: 1px solid rgba(255,152,0,0.4); color: #fff; border-radius: 8px; padding: 12px 16px;">
         <div class="d-flex align-items-center">
-          <i class="bi bi-check-circle-fill me-2" style="color: #ff9800; font-size: 1.2rem;"></i>
-          <div>{{ session('success') }}</div>
+          <i class="bi bi-check-circle-fill me-2" style="color: #ff9800; font-size: 1.1rem;"></i>
+          <div style="font-size: 0.85rem;">{{ session('success') }}</div>
         </div>
         <div class="d-flex align-items-center gap-2">
           @if(session('wa_url'))
-            <a href="{{ session('wa_url') }}" target="_blank" class="btn btn-sm btn-success fw-bold px-3">
-              <i class="bi bi-whatsapp me-1"></i> Konfirmasi via WA
+            <a href="{{ session('wa_url') }}" target="_blank" class="btn btn-sm btn-success fw-bold px-2 py-1" style="font-size: 0.75rem;">
+              <i class="bi bi-whatsapp me-1"></i> WA
             </a>
           @endif
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
@@ -53,30 +53,30 @@
 
     <!-- LIVE QUEUE TRACKER BANNER -->
     @if($activeBooking)
-      <div style="background: linear-gradient(145deg, #1e170c 0%, #110d06 100%); border: 2px solid #ff9800; padding: 25px; border-radius: 12px;" class="mb-4 shadow-lg">
+      <div style="background: linear-gradient(145deg, #1e170c 0%, #110d06 100%); border: 2px solid #ff9800; padding: 18px 20px; border-radius: 12px;" class="mb-4 shadow-lg">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
           <div>
-            <span class="badge bg-warning text-dark fw-bold mb-2 font-monospace">LIVE ANTREAN AKTIF</span>
-            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #ff9800; margin: 0; font-size: 2.2rem;">
+            <span class="badge bg-warning text-dark fw-bold mb-1 font-monospace" style="font-size: 0.65rem;">LIVE ANTREAN AKTIF</span>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #ff9800; margin: 0; font-size: 1.8rem;">
               {{ $activeBooking->queue_number ?? 'A-00' . $activeBooking->id }}
             </h3>
-            <p style="color: #fff; margin: 4px 0 0; font-size: 0.95rem;">
-              Layanan: <strong>{{ $activeBooking->service }}</strong> di {{ $activeBooking->branch }}
+            <p style="color: #fff; margin: 2px 0 0; font-size: 0.88rem;">
+              Layanan: <strong>{{ $activeBooking->service }}</strong>
             </p>
-            <div style="font-size: 0.82rem; color: #a1a1aa;" class="mt-1">
-              Stylist: <strong>{{ $activeBooking->stylist ? $activeBooking->stylist->name : 'Auto Assign' }}</strong> | Jam: <strong>{{ $activeBooking->booking_time }} WIB</strong>
+            <div style="font-size: 0.78rem; color: #a1a1aa;" class="mt-1">
+              {{ $activeBooking->branch }} | Stylist: <strong>{{ $activeBooking->stylist ? $activeBooking->stylist->name : 'Auto Assign' }}</strong> | Jam: <strong>{{ $activeBooking->booking_time }} WIB</strong>
             </div>
           </div>
           <div class="d-flex gap-2 flex-wrap">
-            <a href="{{ route('queue.live', $activeBooking->id) }}" class="btn btn-warning text-dark fw-bold px-3 py-3" style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-              <i class="bi bi-phone-vibrate me-1"></i> Buka Tracker di HP
+            <a href="{{ route('queue.live', $activeBooking->id) }}" class="btn btn-warning text-dark fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;">
+              <i class="bi bi-phone-vibrate me-1"></i> Buka Tracker
             </a>
             @php
               $branchWa = str_contains($activeBooking->branch, 'Bandung') ? '6281398765432' : '6281234567890';
               $waLiveMsg = "Halo District Studio, saya pemilik antrean *" . ($activeBooking->queue_number ?? 'A-00' . $activeBooking->id) . "* (Layanan: " . $activeBooking->service . "). Saya ingin menanyakan estimasi waktu panggilan antrean saya. Terima kasih!";
             @endphp
-            <a href="https://wa.me/{{ $branchWa }}?text={{ urlencode($waLiveMsg) }}" target="_blank" class="btn btn-success fw-bold px-3 py-3" style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
-              <i class="bi bi-whatsapp me-1"></i> Tanya Antrean via WA
+            <a href="https://wa.me/{{ $branchWa }}?text={{ urlencode($waLiveMsg) }}" target="_blank" class="btn btn-success fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;">
+              <i class="bi bi-whatsapp me-1"></i> Tanya WA
             </a>
           </div>
         </div>
@@ -85,18 +85,18 @@
 
     <!-- VOUCHER PROMO BANNER -->
     @if(isset($vouchers) && $vouchers->count() > 0)
-      <div style="background: #121215; border: 1px solid rgba(255,193,7,0.25); border-radius: 12px; padding: 20px;" class="mb-4">
+      <div style="background: #121215; border: 1px solid rgba(255,193,7,0.25); border-radius: 12px; padding: 14px 18px;" class="mb-4">
         <div class="d-flex align-items-center gap-2 mb-2">
-          <i class="bi bi-ticket-perforated-fill text-warning" style="font-size: 1.2rem;"></i>
-          <h5 style="font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0;">
-            Voucher Promo Diskon Aktif Untuk Anda
+          <i class="bi bi-ticket-perforated-fill text-warning" style="font-size: 1.1rem;"></i>
+          <h5 style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0;">
+            Voucher Promo Diskon Aktif
           </h5>
         </div>
-        <div class="d-flex gap-2 flex-wrap">
+        <div class="d-flex gap-2 overflow-x-auto pb-1 flex-nowrap flex-md-wrap">
           @foreach($vouchers as $v)
-            <div style="background: rgba(255,193,7,0.1); border: 1px dashed #ffc107; padding: 8px 14px; border-radius: 6px;" class="d-flex align-items-center gap-2">
-              <span class="font-monospace fw-bold text-warning" style="font-size: 0.9rem;">{{ $v->code }}</span>
-              <small class="text-white-50" style="font-size: 0.75rem;">(Diskon {{ $v->type === 'percent' ? $v->discount_value.'%' : 'Rp '.number_format($v->discount_value, 0, ',', '.') }})</small>
+            <div style="background: rgba(255,193,7,0.1); border: 1px dashed #ffc107; padding: 5px 10px; border-radius: 6px; white-space: nowrap;" class="d-flex align-items-center gap-2">
+              <span class="font-monospace fw-bold text-warning" style="font-size: 0.82rem;">{{ $v->code }}</span>
+              <small class="text-white-50" style="font-size: 0.7rem;">(Diskon {{ $v->type === 'percent' ? $v->discount_value.'%' : 'Rp '.number_format($v->discount_value, 0, ',', '.') }})</small>
             </div>
           @endforeach
         </div>
@@ -120,51 +120,37 @@
     @endphp
 
     <div style="margin-bottom: 24px;">
-      <div style="background: linear-gradient(135deg, {{ $tierColor['from'] }} 0%, {{ $tierColor['to'] }} 100%); border: 1px solid {{ $tierColor['accent'] }}40; border-radius: 16px; padding: 28px 30px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+      <div style="background: linear-gradient(135deg, {{ $tierColor['from'] }} 0%, {{ $tierColor['to'] }} 100%); border: 1px solid {{ $tierColor['accent'] }}40; border-radius: 16px; padding: 22px 24px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
         <!-- Background Decoration -->
         <div style="position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: {{ $tierColor['accent'] }}08; pointer-events: none;"></div>
         <div style="position: absolute; bottom: -60px; left: -20px; width: 180px; height: 180px; border-radius: 50%; background: {{ $tierColor['accent'] }}05; pointer-events: none;"></div>
 
-        <div class="row g-4 align-items-center">
+        <div class="row g-3 align-items-center">
           <!-- Left: Identity -->
           <div class="col-12 col-md-7">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: {{ $tierColor['accent'] }}20; border: 2px solid {{ $tierColor['accent'] }}60; display:flex; align-items:center; justify-content:center;">
-                <i class="bi {{ $tierColor['icon'] }}" style="font-size: 1.5rem; color: {{ $tierColor['accent'] }};"></i>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: {{ $tierColor['accent'] }}20; border: 2px solid {{ $tierColor['accent'] }}60; display:flex; align-items:center; justify-content:center; flex-shrink: 0;">
+                <i class="bi {{ $tierColor['icon'] }}" style="font-size: 1.3rem; color: {{ $tierColor['accent'] }};"></i>
               </div>
               <div>
-                <div style="font-size: 0.65rem; font-weight: 800; letter-spacing: 3px; color: {{ $tierColor['accent'] }}; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tierColor['label'] }}</div>
-                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #fff; margin: 0; font-size: 1.25rem; letter-spacing: 1px;">{{ strtoupper($user->name) }}</h4>
+                <div style="font-size: 0.62rem; font-weight: 800; letter-spacing: 2px; color: {{ $tierColor['accent'] }}; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tierColor['label'] }}</div>
+                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 0.5px;">{{ strtoupper($user->name) }}</h4>
               </div>
             </div>
 
             <!-- Member ID Barcode Display -->
-            <div style="background: #fff; border-radius: 8px; padding: 10px 16px; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-              <div>
-                <!-- SVG Barcode Simulation -->
-                <svg width="140" height="30" xmlns="http://www.w3.org/2000/svg">
-                  @php
-                    $barcode = str_pad($user->id * 137 + 100000, 8, '0', STR_PAD_LEFT);
-                    $bars = [3,1,2,1,3,2,1,2,1,3,1,2,3,1,2,1,3,2,1,1,2,3,2,1,3,2,1,2,3,1];
-                    $x = 0;
-                  @endphp
-                  @foreach($bars as $i => $w)
-                    @if($i % 2 === 0)
-                      <rect x="{{ $x }}" y="0" width="{{ $w * 3 }}" height="28" fill="#111"/>
-                    @endif
-                    @php $x += $w * 3; @endphp
-                  @endforeach
-                </svg>
-                <div style="font-size: 0.65rem; font-family: 'Courier New', monospace; color: #333; text-align: center; margin-top: 2px; letter-spacing: 3px;">DS-{{ str_pad($user->id, 6, '0', STR_PAD_LEFT) }}-MBR</div>
+            <div style="background: #fff; border-radius: 6px; padding: 6px 12px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <div style="font-size: 0.65rem; font-family: 'Courier New', monospace; color: #111; font-weight: 800; letter-spacing: 2px;">
+                <i class="bi bi-upc-scan me-1"></i>DS-{{ str_pad($user->id, 6, '0', STR_PAD_LEFT) }}-MBR
               </div>
             </div>
 
             <!-- Points Progress -->
             <div>
-              <div class="d-flex justify-content-between mb-1" style="font-size: 0.75rem;">
+              <div class="d-flex justify-content-between mb-1" style="font-size: 0.72rem;">
                 <span style="color: {{ $tierColor['accent'] }}; font-weight: 700;"><i class="bi bi-star-fill me-1"></i>{{ $pts }} Poin</span>
                 @if($pts < 100)
-                  <span style="color: #888;">{{ $nextTierPts - $pts }} poin lagi → {{ $nextLabel }}</span>
+                  <span style="color: #aaa;">{{ $nextTierPts - $pts }} poin lagi → {{ $nextLabel }}</span>
                 @else
                   <span style="color: {{ $tierColor['accent'] }}; font-weight: 700;">Tier Tertinggi ✓</span>
                 @endif
@@ -177,23 +163,23 @@
 
           <!-- Right: Stats -->
           <div class="col-12 col-md-5">
-            <div class="row g-3">
+            <div class="row g-2">
               <div class="col-6">
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; text-align: center;">
-                  <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.8rem; color: {{ $tierColor['accent'] }}; line-height: 1;">{{ $pts }}</div>
-                  <div style="font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Total Poin</div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; color: {{ $tierColor['accent'] }}; line-height: 1;">{{ $pts }}</div>
+                  <div style="font-size: 0.62rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px;">Total Poin</div>
                 </div>
               </div>
               <div class="col-6">
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; text-align: center;">
-                  <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.8rem; color: #fff; line-height: 1;">{{ $bookings->count() }}</div>
-                  <div style="font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Total Visit</div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; text-align: center;">
+                  <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; color: #fff; line-height: 1;">{{ $bookings->count() }}</div>
+                  <div style="font-size: 0.62rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px;">Total Visit</div>
                 </div>
               </div>
-              <div class="col-12">
-                <div style="background: {{ $tierColor['accent'] }}15; border: 1px solid {{ $tierColor['accent'] }}30; border-radius: 10px; padding: 12px 16px; font-size: 0.78rem; color: #ccc; line-height: 1.5;">
+              <div class="col-12 d-none d-md-block">
+                <div style="background: {{ $tierColor['accent'] }}15; border: 1px solid {{ $tierColor['accent'] }}30; border-radius: 8px; padding: 10px 14px; font-size: 0.75rem; color: #ccc; line-height: 1.4;">
                   <i class="bi bi-info-circle me-1" style="color: {{ $tierColor['accent'] }};"></i>
-                  Setiap kunjungan = <strong style="color: {{ $tierColor['accent'] }};">+10 poin</strong>. Kumpulkan 50 poin → Gold. 100 poin → VIP Black Member.
+                  Setiap kunjungan = <strong style="color: {{ $tierColor['accent'] }};">+10 poin</strong>. 50 poin → Gold. 100 poin → VIP Black.
                 </div>
               </div>
             </div>
@@ -203,32 +189,32 @@
     </div>
 
     <!-- ======= FACE-SHAPE HAIRCUT STYLE FINDER ======= -->
-    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 25px;" class="mb-4">
-      <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;" class="mb-4">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
         <div>
-          <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #a78bfa; padding-left: 12px; margin: 0;">
-            <i class="bi bi-magic me-2" style="color: #a78bfa;"></i>Panduan Gaya Rambut Sesuai Bentuk Wajah
+          <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #a78bfa; padding-left: 10px; margin: 0;">
+            <i class="bi bi-magic me-2" style="color: #a78bfa;"></i>Panduan Gaya Rambut
           </h3>
-          <p style="font-size: 0.78rem; color: #71717a; margin: 6px 0 0 15px;">Filter berdasarkan bentuk wajah untuk rekomendasi gaya terbaik</p>
+          <p class="d-none d-md-block" style="font-size: 0.75rem; color: #71717a; margin: 4px 0 0 13px;">Filter rekomendasi gaya sesuai bentuk wajah Anda</p>
         </div>
       </div>
 
-      <!-- Face Shape Filter Buttons -->
-      <div class="d-flex gap-2 flex-wrap mb-4" id="faceShapeFilter">
+      <!-- Face Shape Filter Buttons (Horizontal scrollable on mobile) -->
+      <div class="d-flex gap-2 overflow-x-auto pb-2 mb-3 text-nowrap" id="faceShapeFilter" style="scrollbar-width: none;">
         @php
           $shapes = [
-            ['key'=>'all',    'label'=>'Semua Gaya',  'icon'=>'bi-grid-3x3-gap'],
-            ['key'=>'oval',   'label'=>'Oval',         'icon'=>'bi-egg'],
-            ['key'=>'square', 'label'=>'Kotak',        'icon'=>'bi-square'],
-            ['key'=>'round',  'label'=>'Bulat',        'icon'=>'bi-circle'],
-            ['key'=>'heart',  'label'=>'Hati',         'icon'=>'bi-suit-heart'],
+            ['key'=>'all',    'label'=>'Semua',      'icon'=>'bi-grid-3x3-gap'],
+            ['key'=>'oval',   'label'=>'Oval',       'icon'=>'bi-egg'],
+            ['key'=>'square', 'label'=>'Kotak',      'icon'=>'bi-square'],
+            ['key'=>'round',  'label'=>'Bulat',      'icon'=>'bi-circle'],
+            ['key'=>'heart',  'label'=>'Hati',       'icon'=>'bi-suit-heart'],
           ];
         @endphp
         @foreach($shapes as $sh)
           <button type="button" class="btn btn-sm face-filter-btn {{ $sh['key'] === 'all' ? 'active' : '' }}"
             onclick="filterFace('{{ $sh['key'] }}')"
             id="facebtn-{{ $sh['key'] }}"
-            style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(167,139,250,0.4); color: #a78bfa; background: rgba(167,139,250,0.08); border-radius: 6px; padding: 6px 14px; transition: all 0.2s;">
+            style="font-size: 0.72rem; font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(167,139,250,0.4); color: #a78bfa; background: rgba(167,139,250,0.08); border-radius: 6px; padding: 5px 12px; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;">
             <i class="bi {{ $sh['icon'] }} me-1"></i>{{ $sh['label'] }}
           </button>
         @endforeach
@@ -258,32 +244,36 @@
 
       <div class="row g-3" id="haircutCatalogGrid">
         @foreach($haircutCatalog as $idx => $hc)
-          <div class="col-12 col-sm-6 col-xl-3 haircut-card" data-shape="{{ $hc['shape'] }}">
-            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; height: 100%; transition: transform 0.2s, box-shadow 0.2s;" class="haircut-item">
+          <div class="col-6 col-md-4 col-xl-3 haircut-card" data-shape="{{ $hc['shape'] }}">
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; height: 100%; transition: transform 0.2s, box-shadow 0.2s;" class="haircut-item d-flex flex-column justify-content-between">
               <!-- Visual Header -->
-              <div style="height: 90px; background: linear-gradient({{ $hc['gradient'] }}); position: relative; display: flex; align-items: center; justify-content: center;">
-                <i class="bi bi-scissors" style="font-size: 2.5rem; color: rgba(255,255,255,0.3);"></i>
-                <div style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 4px;">
-                  @foreach($hc['tags'] as $tag)
-                    <span style="background: rgba(0,0,0,0.4); color: #fff; font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tag }}</span>
-                  @endforeach
+              <div>
+                <div style="height: 75px; background: linear-gradient({{ $hc['gradient'] }}); position: relative; display: flex; align-items: center; justify-content: center;">
+                  <i class="bi bi-scissors" style="font-size: 2rem; color: rgba(255,255,255,0.3);"></i>
+                  <div style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: column; gap: 2px;">
+                    @foreach($hc['tags'] as $tag)
+                      <span style="background: rgba(0,0,0,0.5); color: #fff; font-size: 0.55rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tag }}</span>
+                    @endforeach
+                  </div>
+                  <div style="position: absolute; bottom: 6px; left: 8px;">
+                    <span style="background: rgba(0,0,0,0.6); color: #fff; font-size: 0.58rem; padding: 2px 6px; border-radius: 999px; text-transform: capitalize; font-weight: 600;">
+                      Wajah {{ ucfirst($hc['shape']) === 'Oval' ? 'Oval' : (ucfirst($hc['shape']) === 'Square' ? 'Kotak' : (ucfirst($hc['shape']) === 'Round' ? 'Bulat' : 'Hati')) }}
+                    </span>
+                  </div>
                 </div>
-                <div style="position: absolute; bottom: 8px; left: 10px;">
-                  <span style="background: rgba(0,0,0,0.5); color: #fff; font-size: 0.62rem; padding: 2px 8px; border-radius: 999px; text-transform: capitalize; font-weight: 600;">
-                    <i class="bi bi-egg-fill me-1" style="font-size: 0.55rem;"></i>Wajah {{ ucfirst($hc['shape']) === 'Oval' ? 'Oval' : (ucfirst($hc['shape']) === 'Square' ? 'Kotak' : (ucfirst($hc['shape']) === 'Round' ? 'Bulat' : 'Hati')) }}
-                  </span>
+                <!-- Content -->
+                <div style="padding: 10px 12px;">
+                  <h6 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff; margin: 0 0 4px; font-size: 0.82rem;">{{ $hc['name'] }}</h6>
+                  <p class="d-none d-sm-block" style="font-size: 0.72rem; color: #888; line-height: 1.4; margin: 0 0 8px;">{{ $hc['desc'] }}</p>
+                  <div class="d-flex justify-content-between align-items-center" style="font-size: 0.72rem; margin-bottom: 8px;">
+                    <span style="color: #a1a1aa;"><i class="bi bi-clock me-1"></i>{{ $hc['time'] }}</span>
+                    <span style="color: #ff9800; font-weight: 700; font-family: 'Montserrat', sans-serif;">{{ $hc['price'] }}</span>
+                  </div>
                 </div>
               </div>
-              <!-- Content -->
-              <div style="padding: 14px 16px;">
-                <h6 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff; margin: 0 0 6px; font-size: 0.88rem;">{{ $hc['name'] }}</h6>
-                <p style="font-size: 0.75rem; color: #888; line-height: 1.5; margin: 0 0 12px;">{{ $hc['desc'] }}</p>
-                <div class="d-flex justify-content-between align-items-center" style="font-size: 0.75rem; margin-bottom: 10px;">
-                  <span style="color: #a1a1aa;"><i class="bi bi-clock me-1"></i>{{ $hc['time'] }}</span>
-                  <span style="color: #ff9800; font-weight: 700; font-family: 'Montserrat', sans-serif;">{{ $hc['price'] }}</span>
-                </div>
-                <button type="button" class="btn btn-sm w-100 fw-bold" style="background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.35); color: #a78bfa; font-size: 0.72rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 1px;" onclick="selectHaircutStyle('{{ $hc['name'] }}', '{{ $hc['svc'] }}')">
-                  <i class="bi bi-calendar-check me-1"></i>Booking Gaya Ini
+              <div style="padding: 0 12px 12px;">
+                <button type="button" class="btn btn-sm w-100 fw-bold py-1" style="background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.35); color: #a78bfa; font-size: 0.68rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;" onclick="selectHaircutStyle('{{ $hc['name'] }}', '{{ $hc['svc'] }}')">
+                  <i class="bi bi-check2 me-1"></i>Pilih
                 </button>
               </div>
             </div>
@@ -293,9 +283,9 @@
     </div>
 
     <!-- KATALOG PORTFOLIO BARBER & STYLIST FAVORIT -->
-    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 25px;" class="mb-4">
-      <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #ff9800; padding-left: 12px;" class="mb-4">
-        Pilih Kapster Favorit & Portofolio Karya
+    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;" class="mb-4">
+      <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #ff9800; padding-left: 10px;" class="mb-3">
+        Pilih Hair Artist Favorit
       </h3>
       
       <div class="row g-3">
@@ -309,42 +299,38 @@
             };
           @endphp
           <div class="col-12 col-md-6 col-xl-4">
-            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); padding: 20px; border-radius: 10px;">
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); padding: 14px 16px; border-radius: 10px;">
 
-              <div class="d-flex align-items-center gap-3 mb-3">
-                <div style="width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #ff9800, #f44336); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; color: #fff; flex-shrink: 0;">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ff9800, #f44336); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; color: #fff; flex-shrink: 0;">
                   {{ strtoupper(substr($st->name, 0, 1)) }}
                 </div>
                 <div>
-                  <h5 style="font-weight: 800; color: #fff; margin: 0; font-size: 0.95rem;">{{ $st->name }}</h5>
-                  <p style="font-size: 0.72rem; color: #a1a1aa; margin: 2px 0 0;">Art Director & Hair Stylist</p>
+                  <h5 style="font-weight: 800; color: #fff; margin: 0; font-size: 0.9rem;">{{ $st->name }}</h5>
+                  <p style="font-size: 0.7rem; color: #a1a1aa; margin: 1px 0 0;">Art Director & Stylist</p>
                 </div>
-                <span class="badge ms-auto" style="background: {{ $statusColor }}20; color: {{ $statusColor }}; font-size: 0.68rem; font-weight: 700; border: 1px solid {{ $statusColor }}40;">
+                <span class="badge ms-auto" style="background: {{ $statusColor }}20; color: {{ $statusColor }}; font-size: 0.65rem; font-weight: 700; border: 1px solid {{ $statusColor }}40;">
                   {{ $st->work_status ?? 'Available' }}
                 </span>
               </div>
 
               @if($st->portfolios->count() > 0)
-                <div class="d-flex gap-2 mb-3">
+                <div class="d-flex gap-2 mb-2">
                   @foreach($st->portfolios->take(2) as $pf)
                     <div style="width: 50%; position: relative; overflow: hidden; border-radius: 6px;">
                       <img src="{{ asset($pf->image_path) }}"
-                           style="width: 100%; height: 95px; object-fit: cover; display: block;"
+                           style="width: 100%; height: 85px; object-fit: cover; display: block;"
                            onerror="this.src='https://ui-avatars.com/api/?name=Style&background=ff9800&color=fff'"
                            alt="{{ $pf->title }}">
-                      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 4px 6px;">
-                        <span style="font-size: 0.65rem; color: #ddd; line-height: 1.2; display: block;" class="font-monospace">{{ $pf->title }}</span>
+                      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 3px 5px;">
+                        <span style="font-size: 0.62rem; color: #ddd; line-height: 1.1; display: block;" class="font-monospace text-truncate">{{ $pf->title }}</span>
                       </div>
                     </div>
                   @endforeach
                 </div>
-              @else
-                <div style="background: #111; border: 1px dashed rgba(255,255,255,0.1); border-radius: 6px; height: 95px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                  <span style="font-size: 0.75rem; color: #71717a;"><i class="bi bi-camera me-1"></i> Portofolio Segera Hadir</span>
-                </div>
               @endif
 
-              <button class="btn btn-sm btn-outline-warning w-100 fw-bold py-2" style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase;" data-bs-toggle="modal" data-bs-target="#newBookingModal" onclick="selectStylistInModal({{ $st->id }})">
+              <button class="btn btn-sm btn-outline-warning w-100 fw-bold py-1 mt-1" style="font-size: 0.72rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase;" data-bs-toggle="modal" data-bs-target="#newBookingModal" onclick="selectStylistInModal({{ $st->id }})">
                 <i class="bi bi-scissors me-1"></i> Pilih {{ $st->name }}
               </button>
             </div>
@@ -354,18 +340,19 @@
     </div>
 
     <!-- RIWAYAT BOOKING & 1-CLICK REBOOK -->
-    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 25px;">
-      <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #00c8c8; padding-left: 12px;" class="mb-4">
-        Riwayat Pemotongan & 1-Click Rebooking
+    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;">
+      <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #00c8c8; padding-left: 10px;" class="mb-3">
+        Riwayat Reservasi & Rebook
       </h3>
 
       @if($bookings->isEmpty())
-        <div class="text-center py-5 text-muted">
-          <i class="bi bi-journal-x" style="font-size: 40px; display: block; margin-bottom: 8px;"></i>
-          <p class="mb-0">Anda belum memiliki riwayat booking pemotongan.</p>
+        <div class="text-center py-4 text-muted">
+          <i class="bi bi-journal-x" style="font-size: 36px; display: block; margin-bottom: 6px;"></i>
+          <p class="mb-0" style="font-size: 0.85rem;">Anda belum memiliki riwayat reservasi.</p>
         </div>
       @else
-        <div class="table-responsive">
+        <!-- Desktop Table View (>= md) -->
+        <div class="table-responsive d-none d-md-block">
           <table class="table table-dark table-hover align-middle mb-0" style="font-size: 0.85rem; border-color: rgba(255,255,255,0.06);">
             <thead class="table-black" style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; color: #a1a1aa;">
               <tr>
@@ -429,6 +416,53 @@
               @endforeach
             </tbody>
           </table>
+        </div>
+
+        <!-- Mobile Card List View (< md) - Clean & Simplified -->
+        <div class="d-md-none d-flex flex-column gap-3">
+          @foreach($bookings as $b)
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px;">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="badge bg-warning text-dark font-monospace fw-bold" style="font-size: 0.8rem;">
+                  {{ $b->queue_number ?? 'A-00' . $b->id }}
+                </span>
+                <span class="badge 
+                  @if($b->status === 'completed') bg-success 
+                  @elseif($b->status === 'approved') bg-warning text-dark 
+                  @else bg-secondary @endif font-monospace text-uppercase" style="font-size: 0.65rem;">
+                  {{ $b->status }}
+                </span>
+              </div>
+              <div class="fw-bold text-white mb-1" style="font-size: 0.88rem;">{{ $b->service }}</div>
+              <div style="font-size: 0.74rem; color: #a1a1aa;" class="mb-3">
+                <div class="mb-1"><i class="bi bi-geo-alt me-1 text-warning"></i>{{ $b->branch }}</div>
+                <div class="mb-1"><i class="bi bi-calendar3 me-1 text-warning"></i>{{ $b->booking_date }} • {{ $b->booking_time }} WIB</div>
+                <div><i class="bi bi-scissors me-1 text-warning"></i>{{ $b->stylist ? $b->stylist->name : 'Auto Assign' }}</div>
+              </div>
+              <div class="d-flex gap-2 pt-2 border-top border-secondary border-opacity-25">
+                <form action="{{ route('customer.rebook', $b->id) }}" method="POST" class="flex-grow-1 m-0">
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-warning text-dark fw-bold w-100" style="font-size: 0.72rem;">
+                    ⚡ Rebook
+                  </button>
+                </form>
+                @if(in_array($b->status, ['pending', 'approved']))
+                  @php
+                    $bWa = str_contains($b->branch, 'Bandung') ? '6281398765432' : '6281234567890';
+                    $bWaMsg = "Halo District Studio, saya ingin konfirmasi reservasi: " . ($b->queue_number ?? 'A-00' . $b->id) . " ({$b->service})";
+                  @endphp
+                  <a href="https://wa.me/{{ $bWa }}?text={{ urlencode($bWaMsg) }}" target="_blank" class="btn btn-sm btn-outline-success fw-semibold" style="font-size: 0.72rem;">
+                    <i class="bi bi-whatsapp"></i> WA
+                  </a>
+                @endif
+                @if($b->status === 'completed')
+                  <button class="btn btn-sm btn-outline-light" style="font-size: 0.72rem;" data-bs-toggle="modal" data-bs-target="#reviewModal{{ $b->id }}">
+                    ⭐ Ulas
+                  </button>
+                @endif
+              </div>
+            </div>
+          @endforeach
         </div>
       @endif
     </div>

@@ -29,7 +29,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
             Kasir Workstation <span style="color: #28a745;">.</span>
           </h2>
-          <p style="font-size: 0.88rem; color: #a1a1aa; margin: 6px 0 0; font-weight: 400;">
+          <p class="d-none d-md-block" style="font-size: 0.88rem; color: #a1a1aa; margin: 6px 0 0; font-weight: 400;">
             Terminal transaksi tunai & QRIS, cetak struk thermal, manajemen kas kecil, dan laporan penutupan shift kasir.
           </p>
         </div>

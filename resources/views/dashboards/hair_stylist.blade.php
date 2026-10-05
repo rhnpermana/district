@@ -16,7 +16,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 10px; margin-bottom: 0;">
             Station {{ auth()->user()->name }} <span style="color: #ff9800;">.</span>
           </h2>
-          <p style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Kelola status kerja, jadwal cukur hari ini, komisi harian/bulanan, portofolio karya, dan catatan pelanggan.</p>
+          <p class="d-none d-md-block" style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Kelola status kerja, jadwal cukur hari ini, komisi harian/bulanan, portofolio karya, dan catatan pelanggan.</p>
         </div>
 
         <div class="d-flex align-items-center gap-2">

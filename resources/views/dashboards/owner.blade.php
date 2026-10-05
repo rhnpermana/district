@@ -16,7 +16,7 @@
           <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 10px; margin-bottom: 0;">
             Owner Executive Dashboard <span style="color: #dca53e;">.</span>
           </h2>
-          <p style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Ringkasan omzet kotor, net profit, biaya operasional, pembagian komisi kapster, & performa cabang real-time.</p>
+          <p class="d-none d-md-block" style="font-size: 0.85rem; color: #a1a1aa; margin: 4px 0 0;">Ringkasan omzet kotor, net profit, biaya operasional, pembagian komisi kapster, & performa cabang real-time.</p>
         </div>
 
         <div class="d-flex align-items-center gap-2">

@@ -5,15 +5,51 @@
       DISTRICT<span>STUDIO.</span>
     </a>
 
-    <!-- Mobile Actions (Mobile Navbar Toggler) -->
+    <!-- Mobile Top Right Actions (Avatar Dropdown) -->
     <div class="d-flex align-items-center gap-2 d-lg-none">
-      <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi bi-list fs-2" style="color: var(--heading-color);"></i>
-      </button>
+      @auth
+        <div class="dropdown">
+          <button class="btn btn-link p-0 d-flex align-items-center text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+            @php
+              $navAvatarMobile = Auth::user()->avatar
+                ? (str_starts_with(Auth::user()->avatar, 'http') ? Auth::user()->avatar : asset('storage/' . Auth::user()->avatar))
+                : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=28a745&color=fff&size=64&bold=true';
+            @endphp
+            <img src="{{ $navAvatarMobile }}" alt="{{ Auth::user()->name }}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color);">
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; min-width: 200px; padding: 8px;">
+            <li>
+              <div style="padding: 6px 10px 8px; border-bottom: 1px solid var(--border-color); margin-bottom: 4px;">
+                <div style="font-weight: 700; color: var(--heading-color); font-size: 0.82rem;">{{ Auth::user()->name }}</div>
+                <div style="font-size: 0.7rem; color: var(--muted-text);">{{ Auth::user()->role }}</div>
+              </div>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2 {{ request()->routeIs('profile.show') ? 'active' : '' }}"
+                 href="{{ route('profile.show') }}"
+                 style="color: var(--default-color); padding: 7px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                <i class="bi bi-person-circle" style="color: #28a745;"></i>
+                <span>Profil Saya</span>
+              </a>
+            </li>
+            <li style="border-top: 1px solid var(--border-color); margin-top: 4px; padding-top: 4px;">
+              <a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                 href="#" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();"
+                 style="padding: 7px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
+      @endauth
     </div>
 
-    <!-- Collapsible Menu -->
-    <div class="collapse navbar-collapse" id="adminNavbar">
+    <!-- Desktop Menu (>= 992px) -->
+    <div class="collapse navbar-collapse d-none d-lg-flex" id="adminNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
         <li class="nav-item">
           <a class="nav-link px-3 py-2 rounded-3 {{ request()->routeIs('dashboard') ? 'active fw-bold' : '' }}" href="{{ route('dashboard') }}">
@@ -46,7 +82,6 @@
 
       @auth
         <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 pb-3 pb-lg-0">
-
 
           {{-- Role badge --}}
           <span class="badge" style="
