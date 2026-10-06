@@ -331,9 +331,7 @@
       <div class="brand-name">District Studio</div>
       <div class="brand-tagline">Premium Barbershop & Styling</div>
       <div class="brand-address">
-        Kebayoran Baru, Jakarta Selatan
-        <span class="green-dot"></span>
-        Citarum, Bandung
+        SMKN 17 Slipi, Jakarta Barat
       </div>
     </div>
 
@@ -425,7 +423,7 @@
 
       <div class="footer-tagline">Terima Kasih Atas Kunjungan Anda!</div>
       <div class="footer-sub">Barbershop profesional terpercaya</div>
-      <div class="footer-sub">📍 Kebayoran Baru · Citarum Bandung</div>
+      <div class="footer-sub">📍 SMKN 17 Slipi, Jakarta Barat</div>
       <div class="footer-social">@districtstudio.id</div>
     </div>
 

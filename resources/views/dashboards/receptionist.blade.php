@@ -296,8 +296,7 @@
           <div class="mb-3">
             <label class="form-label" style="font-size: 0.8rem;">Cabang Barbershop:</label>
             <select name="branch" class="form-select bg-secondary text-white border-0" required>
-              <option value="Jakarta Slipi">Jakarta Slipi</option>
-              <option value="Bandung Citarum">Bandung Citarum</option>
+              <option value="District Studio Jakarta Barat (SMKN 17 Slipi)">District Studio Jakarta Barat (SMKN 17 Slipi)</option>
             </select>
           </div>
           <div class="mb-3">
@@ -307,6 +306,10 @@
                 <option value="{{ $s->name }} (IDR {{ number_format($s->price, 0, ',', '.') }})">{{ $s->name }} - Rp {{ number_format($s->price, 0, ',', '.') }}</option>
               @endforeach
             </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-warning" style="font-size: 0.8rem;">Detail / Catatan Request Cukur:</label>
+            <textarea name="notes" class="form-control bg-secondary text-white border-0" rows="2" placeholder="Catatan potongan yang diinginkan customer..."></textarea>
           </div>
           <div class="mb-3">
             <label class="form-label" style="font-size: 0.8rem;">Jam Slot Dipilih:</label>

@@ -14,14 +14,17 @@ class QueueBoardController extends Controller
      */
     public function showBoard(Request $request)
     {
-        $selectedBranch = $request->query('branch', 'Jakarta Kebayoran Baru');
+        $selectedBranch = $request->query('branch', 'District Studio Jakarta Barat (SMKN 17 Slipi)');
         $today = Carbon::today()->toDateString();
 
-        $todayBookings = Booking::with(['user', 'stylist'])
-            ->where('booking_date', $today)
-            ->where('branch', $selectedBranch)
-            ->orderBy('booking_time', 'asc')
-            ->get();
+        $query = Booking::with(['user', 'stylist'])
+            ->where('booking_date', $today);
+            
+        if ($request->filled('branch')) {
+            $query->where('branch', $selectedBranch);
+        }
+
+        $todayBookings = $query->orderBy('booking_time', 'asc')->get();
 
         // Currently Serving (status = approved / serving)
         $nowServing = $todayBookings->whereIn('status', ['approved', 'serving'])->values();

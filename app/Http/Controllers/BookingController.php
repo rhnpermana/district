@@ -82,7 +82,10 @@ class BookingController extends Controller
         $netProfit = max(0, $grossOmzet - $totalPettyCash - $totalCommissions);
 
         // Branch performance comparison
-        $branches = ['Jakarta Kebayoran Baru', 'Bandung Citarum'];
+        $branches = $bookings->pluck('branch')->unique()->filter()->values();
+        if ($branches->isEmpty()) {
+            $branches = collect(['District Studio Jakarta Barat (SMKN 17 Slipi)']);
+        }
         $branchStats = [];
         foreach ($branches as $bName) {
             $bBookings = $bookings->where('branch', $bName);
@@ -380,11 +383,12 @@ class BookingController extends Controller
         $stylists = User::where('role', 'hair stylist')->with('portfolios')->get();
         $services = Service::where('is_active', true)->get();
         $vouchers = Voucher::where('is_active', true)->get();
+        $products = Product::all();
 
         // Active booking for live queue
         $activeBooking = $bookings->whereIn('status', ['pending', 'approved', 'arrived'])->first();
 
-        return view('dashboards.customer', compact('bookings', 'stylists', 'services', 'vouchers', 'activeBooking'));
+        return view('dashboards.customer', compact('bookings', 'stylists', 'services', 'vouchers', 'activeBooking', 'products'));
     }
 
     /**
@@ -395,6 +399,7 @@ class BookingController extends Controller
         $request->validate([
             'branch' => 'required|string',
             'service' => 'required|string',
+            'notes' => 'nullable|string|max:1000',
             'booking_date' => 'required|date|after_or_equal:today',
             'booking_time' => 'required|string',
             'stylist_id' => 'nullable|exists:users,id',
@@ -403,6 +408,7 @@ class BookingController extends Controller
         $bookingDate = $request->booking_date;
         $bookingTime = $request->booking_time;
         $stylistId = $request->stylist_id;
+        $notes = $request->input('notes');
 
         // Smart Slot Validation / Collision check
         if ($stylistId) {
@@ -421,11 +427,7 @@ class BookingController extends Controller
         $todayCount = Booking::where('booking_date', $bookingDate)->count() + 1;
         $queueNumber = 'A-' . str_pad($todayCount, 3, '0', STR_PAD_LEFT);
 
-        // Handle haircut model chosen by customer
         $serviceText = $request->service;
-        if ($request->filled('haircut_model') && $request->haircut_model !== 'none' && $request->haircut_model !== '') {
-            $serviceText = "[Model: " . trim($request->haircut_model) . "] " . $request->service;
-        }
 
         // Extract numeric price
         $price = 75000;
@@ -437,6 +439,7 @@ class BookingController extends Controller
             'user_id' => Auth::id(),
             'branch' => $request->branch,
             'service' => $serviceText,
+            'notes' => $notes,
             'booking_date' => $bookingDate,
             'booking_time' => $bookingTime,
             'status' => 'pending',
@@ -446,8 +449,9 @@ class BookingController extends Controller
             'price' => $price,
         ]);
 
-        $waText = "Halo District Studio, saya ingin membuat reservasi jadwal potong rambut:\n\n*Nama:* " . Auth::user()->name . "\n*No. Antrean:* " . $queueNumber . "\n*Cabang:* " . $booking->branch . "\n*Layanan:* " . $booking->service . "\n*Tanggal & Waktu:* " . $booking->booking_date . " pada " . $booking->booking_time . "\n\nTerima kasih!";
-        $waUrl = "https://api.whatsapp.com/send?phone=6281234567890&text=" . urlencode($waText);
+        $notesPart = $notes ? "\n*Detail Cukur:* " . $notes : "";
+        $waText = "Halo District Studio, saya ingin membuat reservasi jadwal potong rambut:\n\n*Nama:* " . Auth::user()->name . "\n*No. Antrean:* " . $queueNumber . "\n*Cabang:* " . $booking->branch . "\n*Layanan:* " . $booking->service . $notesPart . "\n*Tanggal & Waktu:* " . $booking->booking_date . " pada " . $booking->booking_time . "\n\nTerima kasih!";
+        $waUrl = "https://api.whatsapp.com/send?phone=6285770394148&text=" . urlencode($waText);
 
         return redirect()->route('dashboard')
             ->with('success', "Reservasi Berhasil Dibuat! Nomor Antrean Anda: {$queueNumber}")
@@ -502,11 +506,9 @@ class BookingController extends Controller
         $todayCount = Booking::where('booking_date', $today)->count() + 1;
         $queueNumber = 'W-' . str_pad($todayCount, 3, '0', STR_PAD_LEFT);
 
-        // Handle haircut model chosen if available
+        // Service & Price
         $serviceText = $request->service;
-        if ($request->filled('haircut_model') && $request->haircut_model !== 'none' && $request->haircut_model !== '') {
-            $serviceText = "[Model: " . trim($request->haircut_model) . "] " . $request->service;
-        }
+        $notes = $request->input('notes');
 
         $price = 75000;
         if (preg_match('/IDR\s*([\d\.]+)/i', $serviceText, $m)) {
@@ -517,6 +519,7 @@ class BookingController extends Controller
             'user_id' => $customerUser->id,
             'branch' => $request->branch,
             'service' => $serviceText,
+            'notes' => $notes,
             'booking_date' => $today,
             'booking_time' => $bookingTime,
             'status' => 'pending',

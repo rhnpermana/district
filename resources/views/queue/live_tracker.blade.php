@@ -61,10 +61,16 @@
             <span style="color: #888; font-size: 0.85rem;">Cabang:</span>
             <strong style="color: #fff; font-size: 0.85rem;">{{ $booking->branch }}</strong>
           </div>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between mb-2">
             <span style="color: #888; font-size: 0.85rem;">Kapster:</span>
             <strong style="color: #fff; font-size: 0.85rem;">{{ $booking->stylist ? $booking->stylist->name : 'Auto Assign' }}</strong>
           </div>
+          @if(!empty($booking->notes))
+            <div class="pt-2 mt-2 border-top border-secondary border-opacity-25">
+              <span style="color: #ff9800; font-size: 0.8rem; font-weight: bold;"><i class="bi bi-chat-left-dots me-1"></i>Detail Request Cukur:</span>
+              <p style="color: #ccc; font-size: 0.8rem; margin: 3px 0 0;">{{ $booking->notes }}</p>
+            </div>
+          @endif
         </div>
 
         <p style="font-size: 0.72rem; color: #666;"><i class="bi bi-arrow-repeat me-1"></i> Halaman ini otomatis ter-update setiap 10 detik.</p>

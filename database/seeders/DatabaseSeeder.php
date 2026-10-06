@@ -157,10 +157,10 @@ class DatabaseSeeder extends Seeder
 
         // 3. Products (Harga Terjangkau Rp 50.000 - Rp 85.000)
         $products = [
-            ['name' => 'Premium Hair Tonic Menthol 150ml', 'category' => 'Hair Care', 'price' => 50000, 'stock' => 20, 'min_stock' => 3, 'description' => 'Menguatkan akar rambut dan sensasi dingin menyegarkan.'],
-            ['name' => 'District Styling Hair Powder 20g', 'category' => 'Hair Powder', 'price' => 65000, 'stock' => 18, 'min_stock' => 5, 'description' => 'Menambah volume rambut seketika tanpa lengket.'],
-            ['name' => 'Nourishing Beard & Mustache Oil 30ml', 'category' => 'Beard Care', 'price' => 75000, 'stock' => 10, 'min_stock' => 2, 'description' => 'Minyak perawatan jenggot dan kumis agar halus dan harum.'],
-            ['name' => 'District Matte Clay Pomade 100g', 'category' => 'Pomade', 'price' => 85000, 'stock' => 24, 'min_stock' => 5, 'description' => 'Hold kuat, hasil natural matte finish tidak berkilau.'],
+            ['name' => 'Premium Hair Tonic Menthol 150ml', 'category' => 'Hair Care', 'price' => 50000, 'stock' => 20, 'min_stock' => 3, 'description' => 'Menguatkan akar rambut dan sensasi dingin menyegarkan.', 'image' => 'assets/img/hairtonic.jpeg'],
+            ['name' => 'District Styling Hair Powder 20g', 'category' => 'Hair Powder', 'price' => 65000, 'stock' => 18, 'min_stock' => 5, 'description' => 'Menambah volume rambut seketika tanpa lengket.', 'image' => 'assets/img/hairpowder.webp'],
+            ['name' => 'Nourishing Beard & Mustache Oil 30ml', 'category' => 'Beard Care', 'price' => 75000, 'stock' => 10, 'min_stock' => 2, 'description' => 'Minyak perawatan jenggot dan kumis agar halus dan harum.', 'image' => 'assets/img/minyakjenggot.avif'],
+            ['name' => 'District Matte Clay Pomade 100g', 'category' => 'Pomade', 'price' => 85000, 'stock' => 24, 'min_stock' => 5, 'description' => 'Hold kuat, hasil natural matte finish tidak berkilau.', 'image' => 'assets/img/claypomade.webp'],
         ];
         foreach ($products as $p) {
             Product::create($p);
@@ -202,8 +202,9 @@ class DatabaseSeeder extends Seeder
         if ($cust && $veng) {
             Booking::create([
                 'user_id' => $cust->id,
-                'branch' => 'Jakarta Kebayoran Baru',
+                'branch' => 'District Studio Jakarta Barat (SMKN 17 Slipi)',
                 'service' => 'Gentleman Haircut & Wash (IDR 75.000)',
+                'notes' => 'Fade tipis 1mm samping, atas rapikan sedikit 2cm',
                 'booking_date' => $today,
                 'booking_time' => '10:00',
                 'status' => 'approved',
@@ -219,8 +220,9 @@ class DatabaseSeeder extends Seeder
         if ($randi && $gallagher) {
             $b2 = Booking::create([
                 'user_id' => $randi->id,
-                'branch' => 'Jakarta Kebayoran Baru',
+                'branch' => 'District Studio Jakarta Barat (SMKN 17 Slipi)',
                 'service' => 'Art Director Cut & Styling (IDR 120.000)',
+                'notes' => 'Model undercut slick back rapi',
                 'booking_date' => $today,
                 'booking_time' => '11:30',
                 'status' => 'completed',
@@ -235,8 +237,9 @@ class DatabaseSeeder extends Seeder
         if ($cust && $pelupessy) {
             Booking::create([
                 'user_id' => $cust->id,
-                'branch' => 'Bandung Citarum',
+                'branch' => 'District Studio Jakarta Barat (SMKN 17 Slipi)',
                 'service' => 'Down Perm & Hair Treatment (IDR 175.000)',
+                'notes' => 'Down perm samping kanan kiri agar tidak mengembang',
                 'booking_date' => $today,
                 'booking_time' => '14:00',
                 'status' => 'pending',

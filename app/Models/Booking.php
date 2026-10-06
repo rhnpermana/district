@@ -23,6 +23,7 @@ class Booking extends Model
         'type',
         'arrived_at',
         'price',
+        'notes',
     ];
 
     /**

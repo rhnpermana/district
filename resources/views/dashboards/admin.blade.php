@@ -522,6 +522,7 @@
             <table class="table table-dark table-hover align-middle" style="font-size: 0.85rem; border-color: rgba(255,255,255,0.06);">
               <thead class="table-black" style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: #a1a1aa;">
                 <tr>
+                  <th>Foto</th>
                   <th>Nama Produk</th>
                   <th>Kategori</th>
                   <th>Harga Jual (Rp)</th>
@@ -533,6 +534,15 @@
               <tbody>
                 @foreach($products as $p)
                   <tr>
+                    <td style="width: 60px;">
+                      @if(!empty($p->image))
+                        <img src="{{ asset($p->image) }}" alt="{{ $p->name }}" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);">
+                      @else
+                        <div style="width: 48px; height: 48px; border-radius: 6px; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1);">
+                          <i class="bi bi-box-seam text-white-50"></i>
+                        </div>
+                      @endif
+                    </td>
                     <td>
                       <strong style="color: #fff;">{{ $p->name }}</strong>
                       @if($p->description)
@@ -699,8 +709,12 @@
                     <td>
                       <strong style="color: #fff;">{{ $booking->user->name }}</strong>
                       <br><small class="text-muted">{{ $booking->user->phone ?? '-' }}</small>
+                    <td>
+                      <span style="color: #e4e4e7; font-weight: 600;">{{ $booking->service }}</span>
+                      @if(!empty($booking->notes))
+                        <br><small class="text-warning"><i class="bi bi-chat-left-dots me-1"></i>Request: {{ $booking->notes }}</small>
+                      @endif
                     </td>
-                    <td><span style="color: #e4e4e7;">{{ $booking->service }}</span></td>
                     <td><small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ $booking->branch }}</small></td>
                     <td>
                       <small class="text-white">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d M Y') }}</small><br>
@@ -1127,12 +1141,17 @@
         <h5 class="modal-title font-monospace text-info"><i class="bi bi-box-seam me-2"></i>Tambah Produk Retail</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <form action="{{ route('admin.products.store') }}" method="POST">
+      <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label font-monospace" style="font-size: 0.78rem;">Nama Produk:</label>
             <input type="text" name="name" class="form-control bg-secondary text-white border-0" required placeholder="Contoh: Matte Clay Wax">
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-monospace" style="font-size: 0.78rem;">Foto / Gambar Produk:</label>
+            <input type="file" name="image_file" class="form-control bg-secondary text-white border-0 mb-1" accept="image/*">
+            <input type="text" name="image" class="form-control bg-secondary text-white border-0" placeholder="Atau path/URL gambar, misal: assets/img/hairpowder.webp">
           </div>
           <div class="mb-3">
             <label class="form-label font-monospace" style="font-size: 0.78rem;">Kategori:</label>
@@ -1176,13 +1195,23 @@
         <h5 class="modal-title font-monospace text-info"><i class="bi bi-pencil-square me-2"></i>Edit Produk #{{ $p->id }}</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <form action="{{ route('admin.products.update', $p->id) }}" method="POST">
+      <form action="{{ route('admin.products.update', $p->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label font-monospace" style="font-size: 0.78rem;">Nama Produk:</label>
             <input type="text" name="name" class="form-control bg-secondary text-white border-0" value="{{ $p->name }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-monospace" style="font-size: 0.78rem;">Foto / Gambar Produk:</label>
+            @if(!empty($p->image))
+              <div class="mb-2">
+                <img src="{{ asset($p->image) }}" alt="{{ $p->name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+              </div>
+            @endif
+            <input type="file" name="image_file" class="form-control bg-secondary text-white border-0 mb-1" accept="image/*">
+            <input type="text" name="image" class="form-control bg-secondary text-white border-0" value="{{ $p->image }}" placeholder="Path/URL gambar">
           </div>
           <div class="mb-3">
             <label class="form-label font-monospace" style="font-size: 0.78rem;">Kategori:</label>

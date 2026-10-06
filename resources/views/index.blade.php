@@ -271,13 +271,19 @@
                   <h4 class="text-white fw-bold mb-2" style="font-size: 1.25rem;">{{ $item->title }}</h4>
                   <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6;">{{ $item->description ?? 'Potongan rambut presisi dengan penataan berkelas untuk penampilan maksimal Anda.' }}</p>
                   <div class="pt-3" style="border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                      <span class="badge" style="background: rgba(220, 165, 62, 0.15); color: var(--accent-color); font-size: 0.72rem;">
+                        <i class="bi bi-eye me-1"></i> Referensi Model Cukur
+                      </span>
+                      <small class="text-white-50" style="font-size: 0.72rem;">Ceritakan detail saat booking</small>
+                    </div>
                     @auth
                       <a href="{{ route('dashboard') }}" class="btn btn-sm w-100 fw-bold py-2 text-black" style="background-color: var(--accent-color); border-radius: 4px;">
-                        <i class="bi bi-calendar-check me-1"></i> Pilih Gaya Ini & Reservasi
+                        <i class="bi bi-calendar-check me-1"></i> Booking Tempat & Jadwal
                       </a>
                     @else
                       <a href="{{ route('register') }}" class="btn btn-sm w-100 fw-bold py-2 text-black" style="background-color: var(--accent-color); border-radius: 4px;">
-                        <i class="bi bi-calendar-check me-1"></i> Pilih Gaya Ini & Reservasi
+                        <i class="bi bi-calendar-check me-1"></i> Booking Tempat & Jadwal
                       </a>
                     @endauth
                   </div>
@@ -295,10 +301,10 @@
   <section id="products" class="products-section section" style="background-color: #0b0b0b; padding: 90px 0;">
     <div class="container" data-aos="fade-up">
       <div class="section-title text-center mb-5">
-        <span class="text-uppercase" style="color: var(--accent-color); font-weight: 800; letter-spacing: 2px; font-size: 0.8rem;">Koleksi Grooming</span>
+        <span class="text-uppercase" style="color: var(--accent-color); font-weight: 800; letter-spacing: 2px; font-size: 0.8rem;">Koleksi Grooming Resmi</span>
         <h2 class="text-white fw-bold mt-2" style="font-size: 2.2rem;">Produk Perawatan & Styling</h2>
         <p class="text-muted mx-auto" style="max-width: 650px;">
-          Lanjutkan perawatan rambut dan penataan gaya terbaik di rumah dengan rangkaian produk premium resmi yang kami gunakan di studio.
+          Lanjutkan perawatan rambut dan penataan gaya terbaik di rumah dengan rangkaian produk premium resmi yang kami sediakan di studio. Produk dapat dipesan langsung!
         </p>
       </div>
 
@@ -306,9 +312,9 @@
         <div class="row g-4">
           @foreach($products as $prod)
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-              <div class="product-card p-4 rounded h-100 d-flex flex-column" style="background: #141414; border: 1px solid rgba(255, 255, 255, 0.08); position: relative;">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span class="badge px-2 py-1" style="background: rgba(220, 165, 62, 0.15); color: var(--accent-color); font-weight: 700; font-size: 0.75rem;">
+              <div class="product-card p-3 rounded h-100 d-flex flex-column" style="background: #141414; border: 1px solid rgba(255, 255, 255, 0.08); position: relative; transition: transform 0.3s ease, border-color 0.3s ease;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge px-2 py-1" style="background: rgba(220, 165, 62, 0.15); color: var(--accent-color); font-weight: 700; font-size: 0.72rem;">
                     {{ $prod->category }}
                   </span>
                   <span class="badge bg-dark text-success border border-success" style="font-size: 0.7rem;">
@@ -316,12 +322,18 @@
                   </span>
                 </div>
 
-                <div class="text-center py-3 my-2 rounded" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04);">
-                  <i class="bi bi-box-seam text-white" style="font-size: 3rem; opacity: 0.7;"></i>
+                <div class="text-center my-2 rounded overflow-hidden position-relative" style="background: #1e1e1e; height: 180px;">
+                  @if(!empty($prod->image))
+                    <img src="{{ asset($prod->image) }}" alt="{{ $prod->name }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+                  @else
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+                      <i class="bi bi-box-seam text-white" style="font-size: 3rem; opacity: 0.7;"></i>
+                    </div>
+                  @endif
                 </div>
 
-                <h4 class="text-white fw-bold mt-2 mb-1" style="font-size: 1.1rem;">{{ $prod->name }}</h4>
-                <p class="text-muted small mb-3 flex-grow-1" style="line-height: 1.6;">{{ $prod->description }}</p>
+                <h4 class="text-white fw-bold mt-2 mb-1" style="font-size: 1.05rem;">{{ $prod->name }}</h4>
+                <p class="text-muted small mb-3 flex-grow-1" style="line-height: 1.5; font-size: 0.78rem;">{{ $prod->description }}</p>
 
                 <div class="pt-3 mt-auto" style="border-top: 1px solid rgba(255, 255, 255, 0.06);">
                   <div class="d-flex align-items-center justify-content-between mb-3">
@@ -330,8 +342,8 @@
                       Rp {{ number_format($prod->price, 0, ',', '.') }}
                     </span>
                   </div>
-                  <a href="https://wa.me/6281234567890?text=Halo%20District%20Studio,%20saya%20tertarik%20membeli%20produk%20{{ urlencode($prod->name) }}." target="_blank" class="btn btn-sm w-100 py-2 fw-semibold text-white" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 4px;">
-                    <i class="bi bi-whatsapp me-1 text-success"></i> Pesan via WhatsApp
+                  <a href="https://wa.me/6285770394148?text={{ urlencode('Halo District Studio, saya ingin memesan/membeli produk: ' . $prod->name . ' (Harga: Rp ' . number_format($prod->price, 0, ',', '.') . '). Apakah stok masih tersedia?') }}" target="_blank" class="btn btn-sm w-100 py-2 fw-semibold text-white" style="background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.4); border-radius: 4px;">
+                    <i class="bi bi-whatsapp me-1 text-success"></i> Pesan Produk Sekarang
                   </a>
                 </div>
               </div>
@@ -346,12 +358,12 @@
   <!-- CTA Booking Banner -->
   <section class="cta-booking section">
     <div class="container" data-aos="zoom-in">
-      <h2>Tingkatkan Gaya Rambut Anda</h2>
-      <p>Bergabunglah dalam pergerakan ini. Pesan kursi Anda hari ini dan dapatkan perawatan terbaik dari para hair artist terbaik di industrinya.</p>
+      <h2>Reservasi Jadwal & Tempat Cukur</h2>
+      <p>Pesan kursi Anda di studio sekarang. Anda dapat menceritakan detail gaya rambut yang diinginkan langsung kepada kapster kami.</p>
       @auth
-        <a href="{{ route('dashboard') }}" class="btn btn-booking">Reservasi Sekarang</a>
+        <a href="{{ route('dashboard') }}" class="btn btn-booking">Booking Tempat Sekarang</a>
       @else
-        <a href="{{ route('register') }}" class="btn btn-booking">Daftar & Reservasi Sekarang</a>
+        <a href="{{ route('register') }}" class="btn btn-booking">Daftar & Booking Tempat</a>
       @endauth
     </div>
   </section>
@@ -369,17 +381,16 @@
           <div class="info-item d-flex align-items-center" style="background-color: #121212; padding: 30px; margin-bottom: 20px;" data-aos="fade-up" data-aos-delay="200">
             <i class="bi bi-geo-alt flex-shrink-0" style="font-size: 24px; color: var(--accent-color); margin-right: 20px;"></i>
             <div>
-              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 5px;">Studio Jakarta</h3>
-              <p style="margin: 0;">SMK NEGERI 17 Jakarta Barat
-5, Jl. G1 No.7, RT.1/RW.3, Slipi, Kec. Palmerah, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11410</p>
+              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 5px;">District Studio Jakarta Barat</h3>
+              <p style="margin: 0; color: #aaa; font-size: 0.88rem;">SMK NEGERI 17 Jakarta Barat<br>Jl. G1 No.7, RT.1/RW.3, Slipi, Kec. Palmerah, Kota Jakarta Barat, DKI Jakarta 11410</p>
             </div>
           </div>
  
           <div class="info-item d-flex align-items-center" style="background-color: #121212; padding: 30px;" data-aos="fade-up" data-aos-delay="400">
             <i class="bi bi-envelope flex-shrink-0" style="font-size: 24px; color: var(--accent-color); margin-right: 20px;"></i>
             <div>
-              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 5px;">Layanan Online</h3>
-              <p style="margin: 0;">district-studio@gmail.com | WhatsApp: +62 857-7039-4148</p>
+              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 5px;">Layanan & WhatsApp Resmi</h3>
+              <p style="margin: 0; color: #aaa; font-size: 0.88rem;">district-studio@gmail.com | WhatsApp: +62 857-7039-4148</p>
             </div>
           </div>
         </div>

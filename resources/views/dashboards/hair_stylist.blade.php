@@ -138,7 +138,15 @@
                   </span>
                 </div>
                 <h5 style="font-weight: 800; color: #fff; margin: 8px 0 2px; font-size: 1.05rem;">{{ $booking->user->name }}</h5>
-                <p style="font-size: 0.82rem; color: #ff9800; margin-bottom: 12px; font-weight: 600;">{{ $booking->service }}</p>
+                <p style="font-size: 0.82rem; color: #ff9800; margin-bottom: 8px; font-weight: 600;">{{ $booking->service }}</p>
+                
+                @if(!empty($booking->notes))
+                  <div class="p-2 mb-2 rounded" style="background: rgba(255,152,0,0.1); border: 1px solid rgba(255,152,0,0.25);">
+                    <span style="font-size: 0.68rem; color: #ff9800; font-weight: 800; text-transform: uppercase; display: block;"><i class="bi bi-chat-left-dots-fill me-1"></i> Request Cukur Customer:</span>
+                    <p style="font-size: 0.78rem; color: #fff; margin: 2px 0 0; line-height: 1.3;">{{ $booking->notes }}</p>
+                  </div>
+                @endif
+
                 <div style="font-size: 0.78rem; color: #a1a1aa;" class="mb-3">
                   <div><i class="bi bi-clock me-1" style="color: #ff9800;"></i> Jam Slot: <strong>{{ $booking->booking_time }} WIB</strong></div>
                   <div><i class="bi bi-geo-alt me-1" style="color: #ff9800;"></i> Cabang: <strong>{{ $booking->branch }}</strong></div>

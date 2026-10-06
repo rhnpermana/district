@@ -126,11 +126,23 @@ class AdminMasterController extends Controller
             'stock' => 'required|integer|min:0',
             'min_stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'image' => 'nullable',
         ]);
 
-        $product = Product::create($request->only([
+        $data = $request->only([
             'name', 'category', 'price', 'stock', 'min_stock', 'description',
-        ]));
+        ]);
+
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/img'), $filename);
+            $data['image'] = 'assets/img/' . $filename;
+        } elseif ($request->filled('image')) {
+            $data['image'] = $request->image;
+        }
+
+        $product = Product::create($data);
 
         SystemLog::create([
             'user_id' => Auth::id(),
@@ -154,9 +166,23 @@ class AdminMasterController extends Controller
             'stock' => 'required|integer|min:0',
             'min_stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'image' => 'nullable',
         ]);
 
-        $product->update($request->all());
+        $data = $request->only([
+            'name', 'category', 'price', 'stock', 'min_stock', 'description',
+        ]);
+
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/img'), $filename);
+            $data['image'] = 'assets/img/' . $filename;
+        } elseif ($request->filled('image')) {
+            $data['image'] = $request->image;
+        }
+
+        $product->update($data);
 
         SystemLog::create([
             'user_id' => Auth::id(),

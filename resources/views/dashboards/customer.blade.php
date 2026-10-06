@@ -188,26 +188,94 @@
       </div>
     </div>
 
-    <!-- ======= FACE-SHAPE HAIRCUT STYLE FINDER ======= -->
-    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;" class="mb-4">
+    <!-- ======= KATALOG & PEMBELIAN PRODUK GROOMING RESMI ======= -->
+    <div style="background: #121215; border: 1px solid rgba(255,152,0,0.25); border-radius: 12px; padding: 18px 20px;" class="mb-4">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
         <div>
-          <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #a78bfa; padding-left: 10px; margin: 0;">
-            <i class="bi bi-magic me-2" style="color: #a78bfa;"></i>Panduan Gaya Rambut
+          <span class="badge bg-warning text-dark fw-bold mb-1" style="font-size: 0.65rem;">PRODUK GROOMING RESMI</span>
+          <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #ff9800; padding-left: 10px; margin: 0;">
+            <i class="bi bi-bag-check-fill me-2" style="color: #ff9800;"></i>Pembelian Produk Grooming
           </h3>
-          <p class="d-none d-md-block" style="font-size: 0.75rem; color: #71717a; margin: 4px 0 0 13px;">Filter rekomendasi gaya sesuai bentuk wajah Anda</p>
+          <p class="d-none d-md-block" style="font-size: 0.75rem; color: #a1a1aa; margin: 4px 0 0 13px;">Dapatkan produk perawatan dan penataan rambut resmi dari District Studio untuk penggunaan di rumah</p>
         </div>
       </div>
 
-      <!-- Face Shape Filter Buttons (Horizontal scrollable on mobile) -->
+      <div class="row g-3">
+        @if(isset($products) && $products->count() > 0)
+          @foreach($products as $prod)
+            <div class="col-6 col-md-4 col-xl-3">
+              <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; height: 100%; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s;" class="product-item">
+                <div>
+                  <div style="height: 140px; background: #222; position: relative; overflow: hidden;">
+                    @if(!empty($prod->image))
+                      <img src="{{ asset($prod->image) }}" alt="{{ $prod->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                      <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark">
+                        <i class="bi bi-box-seam text-white-50" style="font-size: 2.5rem;"></i>
+                      </div>
+                    @endif
+                    <span class="badge position-absolute top-0 start-0 m-2" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); color: #ff9800; font-size: 0.62rem; font-weight: 700; border: 1px solid rgba(255,152,0,0.4);">
+                      {{ $prod->category }}
+                    </span>
+                    <span class="badge position-absolute bottom-0 end-0 m-2 bg-dark text-success border border-success" style="font-size: 0.6rem;">
+                      Stok: {{ $prod->stock }}
+                    </span>
+                  </div>
+                  <div style="padding: 10px 12px;">
+                    <h6 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff; margin: 0 0 4px; font-size: 0.82rem; line-height: 1.3;">{{ $prod->name }}</h6>
+                    <p class="d-none d-sm-block text-muted small mb-2" style="font-size: 0.7rem; line-height: 1.3; min-height: 28px;">{{ Str::limit($prod->description, 60) }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span style="color: #ff9800; font-weight: 800; font-size: 0.92rem; font-family: 'Montserrat', sans-serif;">
+                        Rp {{ number_format($prod->price, 0, ',', '.') }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 0 12px 12px;">
+                  @php
+                    $prodWaMsg = "Halo District Studio, saya " . auth()->user()->name . " ingin memesan produk: *" . $prod->name . "* (Harga: Rp " . number_format($prod->price, 0, ',', '.') . "). Mohon konfirmasi ketersediaan stoknya. Terima kasih!";
+                  @endphp
+                  <a href="https://wa.me/6285770394148?text={{ urlencode($prodWaMsg) }}" target="_blank" class="btn btn-sm w-100 fw-bold py-1 text-dark" style="background-color: #ff9800; font-size: 0.68rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 4px;">
+                    <i class="bi bi-cart-plus-fill me-1"></i> Pesan Produk
+                  </a>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        @endif
+      </div>
+    </div>
+
+    <!-- ======= INSPIRASI & CONTOH GAYA RAMBUT (GAMBARAN VISUAL SAJA) ======= -->
+    <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;" class="mb-4">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+        <div>
+          <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #a78bfa; padding-left: 10px; margin: 0;">
+            <i class="bi bi-images me-2" style="color: #a78bfa;"></i>Inspirasi & Contoh Gaya Rambut
+          </h3>
+          <p style="font-size: 0.75rem; color: #a1a1aa; margin: 4px 0 0 13px;">
+            Gambar di bawah adalah <strong>contoh gambaran model rambut</strong>. Anda cukup membooking tempat & menceritakan detail cukur yang diinginkan pada form booking.
+          </p>
+        </div>
+      </div>
+
+      <!-- Info Alert: Gaya Rambut Sebagai Gambaran -->
+      <div style="background: rgba(167,139,250,0.08); border: 1px dashed rgba(167,139,250,0.35); border-radius: 8px; padding: 10px 14px;" class="mb-3 d-flex align-items-center gap-2">
+        <i class="bi bi-info-circle-fill text-warning" style="font-size: 1.1rem; flex-shrink: 0;"></i>
+        <div style="font-size: 0.75rem; color: #d4d4d8;">
+          <strong>Catatan:</strong> Gaya rambut di website hanya sebagai contoh referensi visual. Saat melakukan booking tempat, Anda dapat menuliskan detail model yang diinginkan di kolom catatan request cukur.
+        </div>
+      </div>
+
+      <!-- Face Shape Filter Buttons -->
       <div class="d-flex gap-2 overflow-x-auto pb-2 mb-3 text-nowrap" id="faceShapeFilter" style="scrollbar-width: none;">
         @php
           $shapes = [
-            ['key'=>'all',    'label'=>'Semua',      'icon'=>'bi-grid-3x3-gap'],
-            ['key'=>'oval',   'label'=>'Oval',       'icon'=>'bi-egg'],
-            ['key'=>'square', 'label'=>'Kotak',      'icon'=>'bi-square'],
-            ['key'=>'round',  'label'=>'Bulat',      'icon'=>'bi-circle'],
-            ['key'=>'heart',  'label'=>'Hati',       'icon'=>'bi-suit-heart'],
+            ['key'=>'all',    'label'=>'Semua Contoh', 'icon'=>'bi-grid-3x3-gap'],
+            ['key'=>'oval',   'label'=>'Wajah Oval',   'icon'=>'bi-egg'],
+            ['key'=>'square', 'label'=>'Wajah Kotak',  'icon'=>'bi-square'],
+            ['key'=>'round',  'label'=>'Wajah Bulat',  'icon'=>'bi-circle'],
+            ['key'=>'heart',  'label'=>'Wajah Hati',   'icon'=>'bi-suit-heart'],
           ];
         @endphp
         @foreach($shapes as $sh)
@@ -220,39 +288,30 @@
         @endforeach
       </div>
 
-      <!-- Catalog Cards -->
+      <!-- Catalog Cards (Visual Inspiration Only) -->
       @php
-        $getServicePrice = function($name, $default) use ($services) {
-            if (isset($services)) {
-                $found = $services->firstWhere('name', $name);
-                if ($found) return 'Rp ' . number_format($found->price, 0, ',', '.');
-            }
-            return 'Rp ' . number_format($default, 0, ',', '.');
-        };
-
         $haircutCatalog = [
-          ['name'=>'Pompadour Classic','shape'=>'oval','desc'=>'Volume tinggi di atas, sisi tapering rapi. Cocok untuk wajah oval yang proporsional.','time'=>'45 min','svc'=>'Gentleman Haircut & Wash','price'=>$getServicePrice('Gentleman Haircut & Wash', 75000),'tags'=>['Classic','Volume'],'gradient'=>'135deg, #ff9800, #f44336'],
-          ['name'=>'Undercut Modern','shape'=>'square','desc'=>'Sisi dicukur pendek, bagian atas lebih panjang. Melembutkan sudut rahang kotak.','time'=>'40 min','svc'=>'Senior Stylist Haircut & Wash','price'=>$getServicePrice('Senior Stylist Haircut & Wash', 90000),'tags'=>['Trendy','Clean'],'gradient'=>'135deg, #6ea8fe, #0d6efd'],
-          ['name'=>'Buzz Cut','shape'=>'round','desc'=>'Pendek merata dengan fade tipis. Membuat wajah bulat terlihat lebih tegas dan berisi.','time'=>'25 min','svc'=>'Junior Stylist Haircut & Wash','price'=>$getServicePrice('Junior Stylist Haircut & Wash', 50000),'tags'=>['Low Maint.','Clean'],'gradient'=>'135deg, #20c997, #0dcaf0'],
-          ['name'=>'French Crop','shape'=>'heart','desc'=>'Fringe pendek rata di depan, sisi clean fade. Mengisi bagian dahi yang lebih lebar.','time'=>'35 min','svc'=>'Executive Beard Trim & Hot Towel','price'=>$getServicePrice('Executive Beard Trim & Hot Towel', 60000),'tags'=>['Fringe','Natural'],'gradient'=>'135deg, #e75480, #c44569'],
-          ['name'=>'Slick Back','shape'=>'oval','desc'=>'Rambut disisir ke belakang dengan pomade. Memberikan kesan profesional dan elegan.','time'=>'30 min','svc'=>'Gentleman Haircut & Wash','price'=>$getServicePrice('Gentleman Haircut & Wash', 75000),'tags'=>['Formal','Sleek'],'gradient'=>'135deg, #c0c0c0, #808080'],
-          ['name'=>'Textured Quiff','shape'=>'square','desc'=>'Quiff bervolume dengan tekstur acak. Mengalihkan fokus dari rahang kotak yang kuat.','time'=>'50 min','svc'=>'Hair Spa & Creambath Premium','price'=>$getServicePrice('Hair Spa & Creambath Premium', 85000),'tags'=>['Textured','Volume'],'gradient'=>'135deg, #fd7e14, #dc3545'],
-          ['name'=>'Caesar Cut','shape'=>'round','desc'=>'Poni rata ke depan dengan panjang seragam. Menambah ketinggian visual pada wajah bulat.','time'=>'30 min','svc'=>'Junior Stylist Haircut & Wash','price'=>$getServicePrice('Junior Stylist Haircut & Wash', 50000),'tags'=>['Roman','Classic'],'gradient'=>'135deg, #6f42c1, #6610f2'],
-          ['name'=>'Ivy League','shape'=>'heart','desc'=>'Panjang di atas, sisi pendek rapi. Menambah keseimbangan proporsi pada wajah berbentuk hati.','time'=>'40 min','svc'=>'Gentleman Haircut & Wash','price'=>$getServicePrice('Gentleman Haircut & Wash', 75000),'tags'=>['Preppy','Smart'],'gradient'=>'135deg, #198754, #20c997'],
+          ['name'=>'Pompadour Classic','shape'=>'oval','desc'=>'Volume tinggi di atas, sisi tapering rapi. Cocok untuk wajah oval yang proporsional.','tags'=>['Classic','Volume'],'gradient'=>'135deg, #ff9800, #f44336'],
+          ['name'=>'Undercut Modern','shape'=>'square','desc'=>'Sisi dicukur pendek, bagian atas lebih panjang. Melembutkan sudut rahang kotak.','tags'=>['Trendy','Clean'],'gradient'=>'135deg, #6ea8fe, #0d6efd'],
+          ['name'=>'Buzz Cut Fade','shape'=>'round','desc'=>'Pendek merata dengan skin fade bersih. Membuat wajah bulat terlihat lebih tegas.','tags'=>['Low Maint.','Clean'],'gradient'=>'135deg, #20c997, #0dcaf0'],
+          ['name'=>'French Crop','shape'=>'heart','desc'=>'Fringe pendek rata di depan, sisi clean fade. Menyeimbangkan bagian dahi yang lebar.','tags'=>['Fringe','Natural'],'gradient'=>'135deg, #e75480, #c44569'],
+          ['name'=>'Slick Back Undercut','shape'=>'oval','desc'=>'Rambut disisir rapi ke belakang dengan pomade untuk kesan elegan & formal.','tags'=>['Formal','Sleek'],'gradient'=>'135deg, #c0c0c0, #808080'],
+          ['name'=>'Textured Quiff','shape'=>'square','desc'=>'Quiff bervolume dengan tekstur acak natural untuk gaya modern kasual.','tags'=>['Textured','Volume'],'gradient'=>'135deg, #fd7e14, #dc3545'],
+          ['name'=>'Caesar Cut','shape'=>'round','desc'=>'Poni rata ke depan dengan panjang seragam, menambah ketegasan visual wajah.','tags'=>['Roman','Classic'],'gradient'=>'135deg, #6f42c1, #6610f2'],
+          ['name'=>'Korean Two Block Cut','shape'=>'heart','desc'=>'Gaya rambut layer K-pop modern dengan down perm samping yang rapi.','tags'=>['K-Pop','Trendy'],'gradient'=>'135deg, #198754, #20c997'],
         ];
       @endphp
 
       <div class="row g-3" id="haircutCatalogGrid">
         @foreach($haircutCatalog as $idx => $hc)
           <div class="col-6 col-md-4 col-xl-3 haircut-card" data-shape="{{ $hc['shape'] }}">
-            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; height: 100%; transition: transform 0.2s, box-shadow 0.2s;" class="haircut-item d-flex flex-column justify-content-between">
-              <!-- Visual Header -->
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; height: 100%; display: flex; flex-direction: column; justify-content: space-between;" class="haircut-item">
               <div>
-                <div style="height: 75px; background: linear-gradient({{ $hc['gradient'] }}); position: relative; display: flex; align-items: center; justify-content: center;">
-                  <i class="bi bi-scissors" style="font-size: 2rem; color: rgba(255,255,255,0.3);"></i>
+                <div style="height: 85px; background: linear-gradient({{ $hc['gradient'] }}); position: relative; display: flex; align-items: center; justify-content: center;">
+                  <i class="bi bi-scissors" style="font-size: 2.2rem; color: rgba(255,255,255,0.35);"></i>
                   <div style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: column; gap: 2px;">
                     @foreach($hc['tags'] as $tag)
-                      <span style="background: rgba(0,0,0,0.5); color: #fff; font-size: 0.55rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tag }}</span>
+                      <span style="background: rgba(0,0,0,0.6); color: #fff; font-size: 0.55rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">{{ $tag }}</span>
                     @endforeach
                   </div>
                   <div style="position: absolute; bottom: 6px; left: 8px;">
@@ -264,17 +323,13 @@
                 <!-- Content -->
                 <div style="padding: 10px 12px;">
                   <h6 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff; margin: 0 0 4px; font-size: 0.82rem;">{{ $hc['name'] }}</h6>
-                  <p class="d-none d-sm-block" style="font-size: 0.72rem; color: #888; line-height: 1.4; margin: 0 0 8px;">{{ $hc['desc'] }}</p>
-                  <div class="d-flex justify-content-between align-items-center" style="font-size: 0.72rem; margin-bottom: 8px;">
-                    <span style="color: #a1a1aa;"><i class="bi bi-clock me-1"></i>{{ $hc['time'] }}</span>
-                    <span style="color: #ff9800; font-weight: 700; font-family: 'Montserrat', sans-serif;">{{ $hc['price'] }}</span>
-                  </div>
+                  <p style="font-size: 0.72rem; color: #888; line-height: 1.4; margin: 0 0 6px;">{{ $hc['desc'] }}</p>
                 </div>
               </div>
-              <div style="padding: 0 12px 12px;">
-                <button type="button" class="btn btn-sm w-100 fw-bold py-1" style="background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.35); color: #a78bfa; font-size: 0.68rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;" onclick="selectHaircutStyle('{{ $hc['name'] }}', '{{ $hc['svc'] }}')">
-                  <i class="bi bi-check2 me-1"></i>Pilih
-                </button>
+              <div style="padding: 0 12px 10px;">
+                <span class="badge w-100 text-center py-1" style="background: rgba(255,255,255,0.05); color: #a1a1aa; font-size: 0.65rem; border: 1px solid rgba(255,255,255,0.08);">
+                  <i class="bi bi-eye me-1"></i> Contoh Gambaran
+                </span>
               </div>
             </div>
           </div>
@@ -331,7 +386,7 @@
               @endif
 
               <button class="btn btn-sm btn-outline-warning w-100 fw-bold py-1 mt-1" style="font-size: 0.72rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase;" data-bs-toggle="modal" data-bs-target="#newBookingModal" onclick="selectStylistInModal({{ $st->id }})">
-                <i class="bi bi-scissors me-1"></i> Pilih {{ $st->name }}
+                <i class="bi bi-scissors me-1"></i> Booking Bersama {{ $st->name }}
               </button>
             </div>
           </div>
@@ -342,7 +397,7 @@
     <!-- RIWAYAT BOOKING & 1-CLICK REBOOK -->
     <div style="background: #121215; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px;">
       <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase; border-left: 3px solid #00c8c8; padding-left: 10px;" class="mb-3">
-        Riwayat Reservasi & Rebook
+        Riwayat Reservasi Tempat & Rebook
       </h3>
 
       @if($bookings->isEmpty())
@@ -358,20 +413,27 @@
               <tr>
                 <th>No. Antrean</th>
                 <th>Cabang</th>
-                <th>Layanan</th>
+                <th>Layanan & Detail Cukur</th>
                 <th>Jadwal Potong</th>
                 <th>Stylist</th>
                 <th>Status</th>
-                <th class="text-end">Aksi Rebook</th>
+                <th class="text-end">Aksi</th>
               </tr>
             </thead>
             <tbody>
               @foreach($bookings as $b)
                 <tr>
                   <td><span class="badge bg-warning text-dark font-monospace fw-bold fs-6">{{ $b->queue_number ?? 'A-00' . $b->id }}</span></td>
-                  <td>{{ $b->branch }}</td>
-                  <td><strong class="text-white">{{ $b->service }}</strong></td>
-                  <td><span class="font-monospace">{{ $b->booking_date }} jam {{ $b->booking_time }}</span></td>
+                  <td><small class="text-muted">{{ $b->branch }}</small></td>
+                  <td>
+                    <strong class="text-white">{{ $b->service }}</strong>
+                    @if(!empty($b->notes))
+                      <div class="small text-warning mt-1" style="font-size: 0.75rem;">
+                        <i class="bi bi-chat-left-dots me-1"></i>Catatan: {{ $b->notes }}
+                      </div>
+                    @endif
+                  </td>
+                  <td><span class="font-monospace">{{ $b->booking_date }} jam {{ $b->booking_time }} WIB</span></td>
                   <td><span class="badge bg-dark border border-secondary">{{ $b->stylist ? $b->stylist->name : 'Auto Assign' }}</span></td>
                   <td>
                     <span class="badge 
@@ -385,10 +447,11 @@
                     <div class="btn-group">
                       @if(in_array($b->status, ['pending', 'approved']))
                         @php
-                          $bWa = str_contains($b->branch, 'Bandung') ? '6281398765432' : '6281234567890';
+                          $bWa = '6285770394148';
+                          $notesPart = $b->notes ? "\n• Detail Cukur: " . $b->notes : "";
                           $bWaMsg = "Halo District Studio, saya ingin konfirmasi reservasi saya:\n\n"
                                   . "• No. Antrean: " . ($b->queue_number ?? 'A-00' . $b->id) . "\n"
-                                  . "• Layanan: " . $b->service . "\n"
+                                  . "• Layanan: " . $b->service . $notesPart . "\n"
                                   . "• Cabang: " . $b->branch . "\n"
                                   . "• Jadwal: " . $b->booking_date . " jam " . $b->booking_time . " WIB\n\n"
                                   . "Mohon konfirmasinya ya. Terima kasih!";
@@ -434,6 +497,11 @@
                 </span>
               </div>
               <div class="fw-bold text-white mb-1" style="font-size: 0.88rem;">{{ $b->service }}</div>
+              @if(!empty($b->notes))
+                <div class="small text-warning mb-2" style="font-size: 0.75rem;">
+                  <i class="bi bi-chat-left-dots me-1"></i>Catatan: {{ $b->notes }}
+                </div>
+              @endif
               <div style="font-size: 0.74rem; color: #a1a1aa;" class="mb-3">
                 <div class="mb-1"><i class="bi bi-geo-alt me-1 text-warning"></i>{{ $b->branch }}</div>
                 <div class="mb-1"><i class="bi bi-calendar3 me-1 text-warning"></i>{{ $b->booking_date }} • {{ $b->booking_time }} WIB</div>
@@ -448,8 +516,9 @@
                 </form>
                 @if(in_array($b->status, ['pending', 'approved']))
                   @php
-                    $bWa = str_contains($b->branch, 'Bandung') ? '6281398765432' : '6281234567890';
-                    $bWaMsg = "Halo District Studio, saya ingin konfirmasi reservasi: " . ($b->queue_number ?? 'A-00' . $b->id) . " ({$b->service})";
+                    $bWa = '6285770394148';
+                    $notesPart = $b->notes ? " (Catatan: " . $b->notes . ")" : "";
+                    $bWaMsg = "Halo District Studio, saya ingin konfirmasi reservasi: " . ($b->queue_number ?? 'A-00' . $b->id) . " - {$b->service}" . $notesPart;
                   @endphp
                   <a href="https://wa.me/{{ $bWa }}?text={{ urlencode($bWaMsg) }}" target="_blank" class="btn btn-sm btn-outline-success fw-semibold" style="font-size: 0.72rem;">
                     <i class="bi bi-whatsapp"></i> WA
@@ -470,93 +539,81 @@
   </div>
 </main>
 
-<!-- MODAL NEW BOOKING -->
+<!-- MODAL NEW BOOKING (HANYA MEMBOOKING TEMPAT / KURSI DENGAN CATATAN CUKUR) -->
 <div class="modal fade" id="newBookingModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white border-secondary">
       <div class="modal-header border-secondary">
-        <h5 class="modal-title font-monospace text-warning"><i class="bi bi-calendar-plus me-2"></i>Form Pemesanan Slot Potong Rambut</h5>
+        <h5 class="modal-title font-monospace text-warning"><i class="bi bi-calendar-plus me-2"></i>Form Reservasi Kursi & Tempat Cukur</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form action="{{ route('bookings.store') }}" method="POST">
         @csrf
         <div class="modal-body">
-          {{-- Banner Model Rambut Terpilih --}}
-          <div id="selectedHaircutBanner" style="display: none; background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.4); border-radius: 8px; padding: 10px 14px;" class="mb-3">
-            <div class="d-flex align-items-center justify-content-between">
-              <div>
-                <span style="font-size: 0.68rem; font-family: 'Montserrat', sans-serif; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 1px; display: block;">
-                  <i class="bi bi-scissors me-1"></i> Model Gaya Rambut Terpilih:
-                </span>
-                <strong id="selectedHaircutName" style="color: #fff; font-size: 0.95rem;"></strong>
-              </div>
-              <button type="button" class="btn btn-sm btn-link text-white-50 p-0" onclick="clearSelectedHaircut()" title="Hapus Pilihan Model">
-                <i class="bi bi-x-circle" style="font-size: 1.1rem;"></i>
-              </button>
-            </div>
+          <div class="alert p-2 mb-3" style="background: rgba(255,152,0,0.12); border: 1px solid rgba(255,152,0,0.3); font-size: 0.75rem; color: #ffca28;">
+            <i class="bi bi-info-circle-fill me-1"></i> <strong>Booking Kursi & Tempat:</strong> Anda dapat menceritakan model cukur yang diinginkan di kolom catatan di bawah ini.
           </div>
-          <input type="hidden" name="haircut_model" id="inputHaircutModel" value="">
 
           <div class="mb-3">
-            <label class="form-label" style="font-size: 0.8rem;">Pilih Cabang District Studio:</label>
+            <label class="form-label" style="font-size: 0.8rem;"><i class="bi bi-geo-alt-fill text-warning me-1"></i>Lokasi Studio Barbershop:</label>
             <select name="branch" class="form-select bg-secondary text-white border-0" required>
-              <option value="Jakarta Kebayoran Baru">Jakarta Kebayoran Baru</option>
-              <option value="Bandung Citarum">Bandung Citarum</option>
+              <option value="District Studio Jakarta Barat (SMKN 17 Slipi)">District Studio Jakarta Barat (SMKN 17 Slipi - Jl. G1 No.7)</option>
             </select>
+            <small class="text-white-50" style="font-size: 0.7rem;">Jl. G1 No.7, RT.1/RW.3, Slipi, Kec. Palmerah, Jakarta Barat</small>
           </div>
+
           <div class="mb-3">
-            <label class="form-label" style="font-size: 0.8rem;">Model Gaya Rambut (Opsional):</label>
-            <select id="modalHaircutSelect" class="form-select bg-secondary text-white border-0" onchange="onManualModelChange(this)">
-              <option value="">-- Bebas / Konsultasi Gaya di Tempat --</option>
-              <option value="Pompadour Classic">Pompadour Classic (Wajah Oval)</option>
-              <option value="Undercut Modern">Undercut Modern (Wajah Kotak)</option>
-              <option value="Buzz Cut">Buzz Cut (Wajah Bulat)</option>
-              <option value="French Crop">French Crop (Wajah Hati)</option>
-              <option value="Slick Back">Slick Back (Wajah Oval)</option>
-              <option value="Textured Quiff">Textured Quiff (Wajah Kotak)</option>
-              <option value="Caesar Cut">Caesar Cut (Wajah Bulat)</option>
-              <option value="Ivy League">Ivy League (Wajah Hati)</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 0.8rem;">Pilih Layanan Cukur / Styling:</label>
+            <label class="form-label" style="font-size: 0.8rem;">Pilih Paket Layanan:</label>
             <select name="service" id="modalServiceSelect" class="form-select bg-secondary text-white border-0" required>
               @foreach($services as $s)
                 <option value="{{ $s->name }} (IDR {{ number_format($s->price, 0, ',', '.') }})">{{ $s->name }} - Rp {{ number_format($s->price, 0, ',', '.') }}</option>
               @endforeach
             </select>
           </div>
+
+          <!-- KOLOM CERITAKAN DETAIL CUKUR -->
           <div class="mb-3">
-            <label class="form-label" style="font-size: 0.8rem;">Tanggal Booking:</label>
-            <input type="date" name="booking_date" class="form-control bg-secondary text-white border-0" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" required>
+            <label class="form-label text-warning fw-semibold" style="font-size: 0.82rem;">
+              <i class="bi bi-chat-left-text-fill me-1"></i> Ceritakan Detail Mau Dicukur Seperti Apa:
+            </label>
+            <textarea name="notes" class="form-control bg-secondary text-white border-0" rows="3" placeholder="Contoh: Samping fade tipis 1mm, bagian atas potong sedikit 2cm saja, belah samping kiri rapi, jenggot dirapikan..."></textarea>
+            <small class="text-white-50" style="font-size: 0.7rem;">*Tuliskan detail request potongan Anda agar kapster dapat mempersiapkan penataan yang pas.</small>
           </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 0.8rem;">Waktu / Slot Jam Dipilih:</label>
-            <select name="booking_time" class="form-select bg-secondary text-white border-0" required>
-              <option value="10:00">10:00 WIB</option>
-              <option value="11:00">11:00 WIB</option>
-              <option value="13:00">13:00 WIB</option>
-              <option value="14:00">14:00 WIB</option>
-              <option value="15:00">15:00 WIB</option>
-              <option value="16:00">16:00 WIB</option>
-              <option value="17:00">17:00 WIB</option>
-              <option value="19:00">19:00 WIB</option>
-              <option value="20:00">20:00 WIB</option>
-            </select>
+
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label" style="font-size: 0.8rem;">Tanggal Booking:</label>
+              <input type="date" name="booking_date" class="form-control bg-secondary text-white border-0" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label" style="font-size: 0.8rem;">Slot Waktu:</label>
+              <select name="booking_time" class="form-select bg-secondary text-white border-0" required>
+                <option value="10:00">10:00 WIB</option>
+                <option value="11:00">11:00 WIB</option>
+                <option value="13:00">13:00 WIB</option>
+                <option value="14:00">14:00 WIB</option>
+                <option value="15:00">15:00 WIB</option>
+                <option value="16:00">16:00 WIB</option>
+                <option value="17:00">17:00 WIB</option>
+                <option value="19:00">19:00 WIB</option>
+                <option value="20:00">20:00 WIB</option>
+              </select>
+            </div>
           </div>
+
           <div class="mb-3">
             <label class="form-label" style="font-size: 0.8rem;">Pilih Hair Stylist / Barber:</label>
             <select name="stylist_id" id="modalStylistSelect" class="form-select bg-secondary text-white border-0">
-              <option value="">-- Bebas / Mana Saja --</option>
+              <option value="">-- Bebas / Sesuai Giliran Kapster --</option>
               @foreach($stylists as $st)
-                <option value="{{ $st->id }}">{{ $st->name }}</option>
+                <option value="{{ $st->id }}">{{ $st->name }} ({{ $st->work_status ?? 'Available' }})</option>
               @endforeach
             </select>
           </div>
         </div>
         <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-sm btn-warning text-dark fw-bold">Konfirmasi Booking</button>
+          <button type="submit" class="btn btn-sm btn-warning text-dark fw-bold">Konfirmasi Booking Kursi</button>
         </div>
       </form>
     </div>
@@ -605,60 +662,6 @@
 @endforeach
 
 <script>
-  function selectHaircutStyle(modelName, targetSvcName) {
-    const inputModel = document.getElementById('inputHaircutModel');
-    const selectModel = document.getElementById('modalHaircutSelect');
-    const banner = document.getElementById('selectedHaircutBanner');
-    const label = document.getElementById('selectedHaircutName');
-    const serviceSelect = document.getElementById('modalServiceSelect');
-
-    if (inputModel) inputModel.value = modelName;
-    if (selectModel) selectModel.value = modelName;
-    if (label) label.textContent = modelName;
-    if (banner) banner.style.display = 'block';
-
-    // Auto select target service in dropdown if matching
-    if (serviceSelect && targetSvcName) {
-      for (let i = 0; i < serviceSelect.options.length; i++) {
-        if (serviceSelect.options[i].value.toLowerCase().includes(targetSvcName.toLowerCase())) {
-          serviceSelect.selectedIndex = i;
-          break;
-        }
-      }
-    }
-
-    const modalEl = document.getElementById('newBookingModal');
-    if (modalEl) {
-      const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-      modal.show();
-    }
-  }
-
-  function onManualModelChange(sel) {
-    const val = sel.value;
-    const inputModel = document.getElementById('inputHaircutModel');
-    const banner = document.getElementById('selectedHaircutBanner');
-    const label = document.getElementById('selectedHaircutName');
-
-    if (inputModel) inputModel.value = val;
-    if (val) {
-      if (label) label.textContent = val;
-      if (banner) banner.style.display = 'block';
-    } else {
-      if (banner) banner.style.display = 'none';
-    }
-  }
-
-  function clearSelectedHaircut() {
-    const inputModel = document.getElementById('inputHaircutModel');
-    const selectModel = document.getElementById('modalHaircutSelect');
-    const banner = document.getElementById('selectedHaircutBanner');
-
-    if (inputModel) inputModel.value = '';
-    if (selectModel) selectModel.value = '';
-    if (banner) banner.style.display = 'none';
-  }
-
   function selectStylistInModal(stylistId) {
     const sel = document.getElementById('modalStylistSelect');
     if (sel) {
@@ -667,7 +670,6 @@
   }
 
   function filterFace(shape) {
-    // Update active button style
     document.querySelectorAll('.face-filter-btn').forEach(btn => {
       btn.style.background = 'rgba(167,139,250,0.08)';
       btn.style.color = '#a78bfa';
@@ -680,7 +682,6 @@
       activeBtn.style.borderColor = '#a78bfa';
     }
 
-    // Filter cards
     document.querySelectorAll('.haircut-card').forEach(card => {
       if (shape === 'all' || card.dataset.shape === shape) {
         card.style.display = '';
@@ -693,14 +694,28 @@
   // Hover effect for haircut cards
   document.querySelectorAll('.haircut-item').forEach(card => {
     card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateY(-4px)';
-      card.style.boxShadow = '0 12px 30px rgba(167,139,250,0.15)';
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 24px rgba(167,139,250,0.12)';
       card.style.borderColor = 'rgba(167,139,250,0.3)';
     });
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
       card.style.boxShadow = '';
       card.style.borderColor = 'rgba(255,255,255,0.07)';
+    });
+  });
+
+  // Hover effect for product cards
+  document.querySelectorAll('.product-item').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 24px rgba(255,152,0,0.15)';
+      card.style.borderColor = 'rgba(255,152,0,0.4)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.borderColor = 'rgba(255,255,255,0.08)';
     });
   });
 </script>
