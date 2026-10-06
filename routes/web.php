@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminMasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\MailboxController;
+use App\Http\Controllers\OwnerReportController;
 
 use App\Models\Service;
 use App\Models\Product;
@@ -119,6 +120,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/shifts', [AdminMasterController::class, 'storeShift'])->name('admin.shifts.store');
         Route::post('/admin/complaints/{complaint}', [AdminMasterController::class, 'resolveComplaint'])->name('admin.complaint.resolve');
         Route::post('/admin/logs/clear', [AdminMasterController::class, 'clearLogs'])->name('admin.logs.clear');
+
+        // Owner & Admin Executive Financial Reports
+        Route::get('/owner/reports/print', [OwnerReportController::class, 'printFormal'])->name('owner.reports.print');
+        Route::get('/owner/reports/export-excel', [OwnerReportController::class, 'exportExcel'])->name('owner.reports.export_excel');
     });
 
     // ─── Mailbox / In-App Messaging (all authenticated roles) ─────────────────

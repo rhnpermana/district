@@ -47,12 +47,10 @@
               {{-- Avatar --}}
               @php
                 $other = $conv->other;
-                $avatar = $other->avatar
-                  ? (str_starts_with($other->avatar, 'http') ? $other->avatar : asset('storage/' . $other->avatar))
-                  : 'https://ui-avatars.com/api/?name=' . urlencode($other->name) . '&background=dca53e&color=000&size=64&bold=true';
               @endphp
               <div style="position: relative; flex-shrink: 0;">
-                <img src="{{ $avatar }}" alt="{{ $other->name }}"
+                <img src="{{ $other->avatar_url }}" alt="{{ $other->name }}"
+                     onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($other->name) }}&background=dca53e&color=000&size=64&bold=true';"
                      style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(220,165,62,0.3);">
                 @if($conv->unread > 0)
                   <span style="position: absolute; top: -3px; right: -3px; width: 14px; height: 14px; background: #dca53e; border-radius: 50%; border: 2px solid #0a0a0a;"></span>

@@ -10,12 +10,9 @@
       @auth
         <div class="dropdown">
           <button class="btn btn-link p-0 d-flex align-items-center text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-            @php
-              $navAvatarMobile = Auth::user()->avatar
-                ? (str_starts_with(Auth::user()->avatar, 'http') ? Auth::user()->avatar : asset('storage/' . Auth::user()->avatar))
-                : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=28a745&color=fff&size=64&bold=true';
-            @endphp
-            <img src="{{ $navAvatarMobile }}" alt="{{ Auth::user()->name }}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color);">
+            <img src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}"
+              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=28a745&color=fff&size=64&bold=true';"
+              style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color);">
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; min-width: 200px; padding: 8px;">
             <li>
@@ -99,12 +96,9 @@
           {{-- Profile Avatar Dropdown --}}
           <div class="dropdown">
             <button class="btn btn-link p-0 d-flex align-items-center gap-2 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-              @php
-                $navAvatar = Auth::user()->avatar
-                  ? (str_starts_with(Auth::user()->avatar, 'http') ? Auth::user()->avatar : asset('storage/' . Auth::user()->avatar))
-                  : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=28a745&color=fff&size=64&bold=true';
-              @endphp
-              <img src="{{ $navAvatar }}" alt="{{ Auth::user()->name }}" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color);">
+              <img src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}"
+                onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=28a745&color=fff&size=64&bold=true';"
+                style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color);">
               <span class="d-none d-lg-inline" style="color: var(--heading-color); font-size: 0.84rem; font-weight: 700; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ Auth::user()->name }}</span>
               <i class="bi bi-chevron-down d-none d-lg-inline" style="color: var(--muted-text); font-size: 0.65rem;"></i>
             </button>

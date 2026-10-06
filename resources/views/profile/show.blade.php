@@ -24,9 +24,7 @@
             <!-- Avatar Circle -->
             <div class="position-relative" style="flex-shrink: 0;">
               @php
-                $avatarUrl = $user->avatar
-                  ? (str_starts_with($user->avatar, 'http') ? $user->avatar : asset('storage/' . $user->avatar))
-                  : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=28a745&color=fff&size=128&bold=true';
+                $avatarUrl = $user->avatar_url;
                 $roleColors = [
                   'owner'       => '#dca53e',
                   'supervisor'  => '#00c8c8',
@@ -59,6 +57,7 @@
                 $roleIcon = $roleIcons[$user->role] ?? 'bi-person-fill';
               @endphp
               <img src="{{ $avatarUrl }}" alt="{{ $user->name }}"
+                onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=28a745&color=fff&size=128&bold=true';"
                 style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid {{ $roleColor }}; box-shadow: 0 0 0 5px rgba(255,255,255,0.05), 0 8px 30px rgba(0,0,0,0.5);">
               <!-- Role badge on avatar -->
               <div style="position: absolute; bottom: -4px; right: -4px; width: 32px; height: 32px; border-radius: 50%; background: {{ $roleColor }}; border: 2px solid #09090b; display: flex; align-items: center; justify-content: center;">
@@ -426,6 +425,7 @@
           <div class="text-center mb-4">
             <div class="position-relative d-inline-block">
               <img id="avatarPreview" src="{{ $avatarUrl }}" alt="Avatar Preview"
+                onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=28a745&color=fff&size=128&bold=true';"
                 style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid {{ $roleColor }};">
               <label for="avatarInput" style="position: absolute; bottom: -2px; right: -2px; width: 28px; height: 28px; border-radius: 50%; background: {{ $roleColor }}; border: 2px solid #18181b; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                 <i class="bi bi-camera-fill" style="font-size: 0.65rem; color: #000;"></i>

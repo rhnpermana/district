@@ -111,6 +111,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the user's avatar URL with fallback.
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        if (empty($this->avatar)) {
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=28a745&color=fff&size=128&bold=true';
+        }
+
+        if (str_starts_with($this->avatar, 'data:image') || str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+            return $this->avatar;
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>

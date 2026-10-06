@@ -11,12 +11,8 @@
          style="background: rgba(255,255,255,0.07); color: #fff; border-radius: 8px; border: none;">
         <i class="bi bi-arrow-left"></i>
       </a>
-      @php
-        $avatar = $other->avatar
-          ? (str_starts_with($other->avatar, 'http') ? $other->avatar : asset('storage/' . $other->avatar))
-          : 'https://ui-avatars.com/api/?name=' . urlencode($other->name) . '&background=dca53e&color=000&size=64&bold=true';
-      @endphp
-      <img src="{{ $avatar }}" alt="{{ $other->name }}"
+      <img src="{{ $other->avatar_url }}" alt="{{ $other->name }}"
+           onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($other->name) }}&background=dca53e&color=000&size=64&bold=true';"
            style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(220,165,62,0.4);">
       <div>
         <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff; font-size: 1rem;">{{ $other->name }}</div>
@@ -49,12 +45,8 @@
         <div class="d-flex {{ $isMine ? 'justify-content-end' : 'justify-content-start' }} align-items-end gap-2">
           {{-- Avatar (other side) --}}
           @if(!$isMine)
-            @php
-              $senderAvatar = $msg->sender->avatar
-                ? (str_starts_with($msg->sender->avatar, 'http') ? $msg->sender->avatar : asset('storage/' . $msg->sender->avatar))
-                : 'https://ui-avatars.com/api/?name=' . urlencode($msg->sender->name) . '&background=dca53e&color=000&size=64&bold=true';
-            @endphp
-            <img src="{{ $senderAvatar }}" alt="{{ $msg->sender->name }}"
+            <img src="{{ $msg->sender->avatar_url }}" alt="{{ $msg->sender->name }}"
+                 onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($msg->sender->name) }}&background=dca53e&color=000&size=64&bold=true';"
                  style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(220,165,62,0.3);">
           @endif
 
@@ -83,12 +75,8 @@
 
           {{-- Avatar (my side) --}}
           @if($isMine)
-            @php
-              $myAvatar = Auth::user()->avatar
-                ? (str_starts_with(Auth::user()->avatar, 'http') ? Auth::user()->avatar : asset('storage/' . Auth::user()->avatar))
-                : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=28a745&color=fff&size=64&bold=true';
-            @endphp
-            <img src="{{ $myAvatar }}" alt="Anda"
+            <img src="{{ Auth::user()->avatar_url }}" alt="Anda"
+                 onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=28a745&color=fff&size=64&bold=true';"
                  style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(40,167,69,0.4);">
           @endif
         </div>

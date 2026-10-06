@@ -46,14 +46,70 @@ class ProfileController extends Controller
 
         $data = $request->only(['name', 'phone', 'bio', 'address', 'date_of_birth', 'gender']);
 
-        // Handle avatar upload
+        // Handle avatar upload (supports both file upload & image URL, works on Vercel serverless & local)
         if ($request->hasFile('avatar')) {
-            // Delete old avatar if it's a local stored file
-            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-                Storage::disk('public')->delete($user->avatar);
+            $file = $request->file('avatar');
+            $mime = $file->getMimeType();
+            $path = $file->getRealPath();
+
+            $base64Data = null;
+            if (extension_loaded('gd')) {
+                $img = null;
+                if ($mime === 'image/jpeg' || $mime === 'image/jpg') {
+                    $img = @imagecreatefromjpeg($path);
+                } elseif ($mime === 'image/png') {
+                    $img = @imagecreatefrompng($path);
+                } elseif ($mime === 'image/webp') {
+                    $img = @imagecreatefromwebp($path);
+                }
+
+                if ($img) {
+                    $origWidth = imagesx($img);
+                    $origHeight = imagesy($img);
+                    $targetSize = 300;
+
+                    $targetW = $origWidth;
+                    $targetH = $origHeight;
+                    if ($origWidth > $targetSize || $origHeight > $targetSize) {
+                        if ($origWidth > $origHeight) {
+                            $targetW = $targetSize;
+                            $targetH = (int) ($origHeight * ($targetSize / $origWidth));
+                        } else {
+                            $targetH = $targetSize;
+                            $targetW = (int) ($origWidth * ($targetSize / $origHeight));
+                        }
+                    }
+
+                    $resized = imagecreatetruecolor($targetW, $targetH);
+                    if ($mime === 'image/png' || $mime === 'image/webp') {
+                        imagealphablending($resized, false);
+                        imagesavealpha($resized, true);
+                    }
+                    imagecopyresampled($resized, $img, 0, 0, 0, 0, $targetW, $targetH, $origWidth, $origHeight);
+
+                    ob_start();
+                    if ($mime === 'image/png') {
+                        imagepng($resized, null, 7);
+                    } elseif ($mime === 'image/webp') {
+                        imagewebp($resized, null, 80);
+                    } else {
+                        imagejpeg($resized, null, 85);
+                    }
+                    $binaryData = ob_get_clean();
+                    imagedestroy($img);
+                    imagedestroy($resized);
+
+                    if ($binaryData) {
+                        $base64Data = "data:{$mime};base64," . base64_encode($binaryData);
+                    }
+                }
             }
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $data['avatar'] = $avatarPath;
+
+            if (!$base64Data) {
+                $base64Data = "data:{$mime};base64," . base64_encode(file_get_contents($path));
+            }
+
+            $data['avatar'] = $base64Data;
         }
 
         $user->update($data);
