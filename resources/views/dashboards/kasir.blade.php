@@ -802,13 +802,16 @@
               </h4>
               <p style="font-size: 0.8rem; color: #71717a; margin: 4px 0 0 15px;">{{ date('l, d F Y') }} — Operator Kasir: <strong class="text-white">{{ Auth::user()->name }}</strong></p>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
               <button class="btn btn-sm btn-outline-success fw-semibold" onclick="updateKasirCharts()" style="font-size: 0.8rem;">
                 <i class="bi bi-arrow-clockwise me-1"></i> Refresh Diagram
               </button>
-              <button class="btn btn-sm btn-warning text-dark fw-bold" onclick="window.print()" style="font-size: 0.8rem;">
-                <i class="bi bi-printer me-1"></i> Cetak Laporan Shift
-              </button>
+              <a href="{{ route('pos.reports.export_excel') }}" class="btn btn-sm btn-success fw-bold" style="font-size: 0.8rem;">
+                <i class="bi bi-file-earmark-excel-fill me-1"></i> Unduh Excel (.xls)
+              </a>
+              <a href="{{ route('pos.reports.print') }}" target="_blank" class="btn btn-sm btn-warning text-dark fw-bold" style="font-size: 0.8rem;">
+                <i class="bi bi-printer-fill me-1"></i> Cetak Laporan PDF (Formal)
+              </a>
             </div>
           </div>
 

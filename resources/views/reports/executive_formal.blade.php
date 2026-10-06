@@ -313,20 +313,45 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-        <!-- Date Filter -->
+        <!-- Date Filter (Preset, Month/Year, Date Range) -->
         <form action="{{ route('owner.reports.print') }}" method="GET" class="filter-form">
-          <label style="color: #a1a1aa;">Dari:</label>
-          <input type="date" name="start_date" value="{{ $startDate }}">
-          <label style="color: #a1a1aa;">Sampai:</label>
-          <input type="date" name="end_date" value="{{ $endDate }}">
+          <select name="preset" onchange="this.form.submit()" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #3f3f46; background: #27272a; color: #fff; font-size: 0.78rem;">
+            <option value="">-- Periode Cepat --</option>
+            <option value="today" {{ ($preset ?? '') === 'today' ? 'selected' : '' }}>Hari Ini</option>
+            <option value="yesterday" {{ ($preset ?? '') === 'yesterday' ? 'selected' : '' }}>Kemarin</option>
+            <option value="this_week" {{ ($preset ?? '') === 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
+            <option value="this_month" {{ ($preset ?? '') === 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
+            <option value="last_month" {{ ($preset ?? '') === 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
+            <option value="this_year" {{ ($preset ?? '') === 'this_year' ? 'selected' : '' }}>Tahun Ini</option>
+          </select>
+
+          <select name="month" style="padding: 6px 8px; border-radius: 4px; border: 1px solid #3f3f46; background: #27272a; color: #fff; font-size: 0.78rem;">
+            <option value="">-- Bulan --</option>
+            @for($m = 1; $m <= 12; $m++)
+              <option value="{{ $m }}" {{ ($month ?? '') == $m ? 'selected' : '' }}>
+                {{ \Carbon\Carbon::create(null, $m, 1)->translatedFormat('F') }}
+              </option>
+            @endfor
+          </select>
+
+          <select name="year" style="padding: 6px 8px; border-radius: 4px; border: 1px solid #3f3f46; background: #27272a; color: #fff; font-size: 0.78rem;">
+            <option value="">-- Tahun --</option>
+            @for($y = date('Y'); $y >= date('Y') - 3; $y--)
+              <option value="{{ $y }}" {{ ($year ?? '') == $y ? 'selected' : '' }}>{{ $y }}</option>
+            @endfor
+          </select>
+
+          <input type="date" name="start_date" value="{{ $startDate }}" title="Dari Tanggal">
+          <input type="date" name="end_date" value="{{ $endDate }}" title="Sampai Tanggal">
+
           <button type="submit" class="btn btn-outline" style="padding: 6px 12px;">
             <i class="bi bi-funnel-fill"></i> Filter
           </button>
         </form>
 
-        <!-- Excel Export Button -->
-        <a href="{{ route('owner.reports.export_excel', ['start_date' => $startDate, 'end_date' => $endDate]) }}" class="btn btn-success">
-          <i class="bi bi-file-earmark-excel-fill"></i> Unduh Excel (.csv)
+        <!-- Excel Export Button (.xls Formatted Table) -->
+        <a href="{{ route('owner.reports.export_excel', ['start_date' => $startDate, 'end_date' => $endDate, 'preset' => $preset ?? '', 'month' => $month ?? '', 'year' => $year ?? '']) }}" class="btn btn-success">
+          <i class="bi bi-file-earmark-excel-fill"></i> Unduh Excel (.xls)
         </a>
 
         <!-- Print / PDF Button -->

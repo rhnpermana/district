@@ -21,7 +21,7 @@
 
         <div class="d-flex align-items-center gap-2 flex-wrap">
           <a href="{{ route('owner.reports.export_excel') }}" class="btn btn-success fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;">
-            <i class="bi bi-file-earmark-excel-fill me-1"></i> Unduh Excel (.csv)
+            <i class="bi bi-file-earmark-excel-fill me-1"></i> Unduh Excel (.xls)
           </a>
           <a href="{{ route('owner.reports.print') }}" target="_blank" class="btn btn-warning text-dark fw-bold px-3 py-2" style="font-family: 'Montserrat', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;">
             <i class="bi bi-printer-fill me-1"></i> Cetak Laporan PDF (Formal)

@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/pos/receipt/{transaction}', [PosController::class, 'receipt'])->name('pos.receipt');
         Route::post('/pos/transactions/{transaction}/void', [PosController::class, 'voidTransaction'])->name('pos.transaction.void');
         Route::get('/pos/transactions/search', [PosController::class, 'searchTransactions'])->name('pos.transactions.search');
+        Route::get('/pos/reports/print', [PosController::class, 'printReport'])->name('pos.reports.print');
+        Route::get('/pos/reports/export-excel', [PosController::class, 'exportExcel'])->name('pos.reports.export_excel');
     });
 
     // Supervisor Dedicated Routes

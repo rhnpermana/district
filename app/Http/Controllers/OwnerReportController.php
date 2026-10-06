@@ -23,110 +23,79 @@ class OwnerReportController extends Controller
     }
 
     /**
-     * Export executive financial report to Excel (.csv format with UTF-8 BOM)
+     * Export executive financial report to Excel with Full Table Formatting (.xls)
      */
     public function exportExcel(Request $request)
     {
         $data = $this->gatherReportData($request);
 
-        $filename = 'Laporan_Keuangan_District_Studio_' . Carbon::now()->format('Ymd_His') . '.csv';
+        $filename = 'Laporan_Keuangan_District_Studio_' . Carbon::now()->format('Ymd_His') . '.xls';
 
         $headers = [
-            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Type' => 'application/vnd.ms-excel; charset=UTF-8',
             'Content-Disposition' => "attachment; filename=\"{$filename}\"",
             'Pragma' => 'no-cache',
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Expires' => '0',
         ];
 
-        return new StreamedResponse(function () use ($data) {
-            $handle = fopen('php://output', 'w');
-
-            // Add UTF-8 BOM for Excel compatibility
-            fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
-
-            // Header Section
-            fputcsv($handle, ['DISTRICT STUDIO BARBERSHOP & GROOMING']);
-            fputcsv($handle, ['LAPORAN EKSEKUTIF KEUANGAN & OPERASIONAL']);
-            fputcsv($handle, ['Alamat', 'District Studio Jakarta Barat (SMKN 17 Slipi)']);
-            fputcsv($handle, ['Periode Laporan', $data['periodLabel']]);
-            fputcsv($handle, ['Tanggal Cetak', Carbon::now()->translatedFormat('d F Y, H:i') . ' WIB']);
-            fputcsv($handle, ['Dicetak Oleh', auth()->user()->name . ' (' . ucfirst(auth()->user()->role) . ')']);
-            fputcsv($handle, []);
-
-            // 1. Ringkasan Finansial
-            fputcsv($handle, ['=== 1. RINGKASAN METRIK FINANSIAL ===']);
-            fputcsv($handle, ['Indikator', 'Nominal (Rp)']);
-            fputcsv($handle, ['Total Omzet Kotor (Gross Revenue)', number_format($data['grossOmzet'], 0, ',', '.')]);
-            fputcsv($handle, ['  - Pendapatan Layanan Pangkas & Treatment', number_format($data['serviceRevenue'], 0, ',', '.')]);
-            fputcsv($handle, ['  - Pendapatan Penjualan Produk Grooming', number_format($data['productRevenue'], 0, ',', '.')]);
-            fputcsv($handle, ['Total Beban Operasional (Petty Cash)', number_format($data['totalPettyCash'], 0, ',', '.')]);
-            fputcsv($handle, ['Total Beban Pembagian Komisi Hair Stylist', number_format($data['totalCommissions'], 0, ',', '.')]);
-            fputcsv($handle, ['PROFIT BERSIH (NET PROFIT)', number_format($data['netProfit'], 0, ',', '.')]);
-            fputcsv($handle, []);
-
-            // 2. Laporan Komisi Hair Stylist
-            fputcsv($handle, ['=== 2. LAPORAN PRODUKTIVITAS & KOMISI HAIR STYLIST ===']);
-            fputcsv($handle, ['No', 'Nama Hair Stylist', 'Sesi Pangkas Selesai', 'Total Omzet Dikerjakan (Rp)', 'Rate Komisi (%)', 'Hak Komisi Bersih (Rp)']);
-            $no = 1;
-            foreach ($data['stylists'] as $s) {
-                fputcsv($handle, [
-                    $no++,
-                    $s->name,
-                    $s->completed_count . ' Sesi',
-                    number_format($s->total_revenue, 0, ',', '.'),
-                    ($s->commission_rate ?? 30) . '%',
-                    number_format($s->total_commission, 0, ',', '.'),
-                ]);
-            }
-            fputcsv($handle, ['TOTAL KOMISI KAPSTER', '', '', '', '', number_format($data['totalCommissions'], 0, ',', '.')]);
-            fputcsv($handle, []);
-
-            // 3. Rincian Pengeluaran Petty Cash
-            fputcsv($handle, ['=== 3. RINCIAN PENGELUARAN PETTY CASH (KAS KECIL) ===']);
-            fputcsv($handle, ['No', 'Tanggal', 'Kategori', 'Deskripsi Pengeluaran', 'Kasir / Petugas', 'Nominal (Rp)']);
-            $noPc = 1;
-            foreach ($data['pettyCashes'] as $pc) {
-                fputcsv($handle, [
-                    $noPc++,
-                    $pc->expense_date ? Carbon::parse($pc->expense_date)->format('d/m/Y') : $pc->created_at->format('d/m/Y'),
-                    $pc->category ?? 'Operasional',
-                    $pc->description,
-                    $pc->cashier->name ?? 'Kasir',
-                    number_format($pc->amount, 0, ',', '.'),
-                ]);
-            }
-            fputcsv($handle, ['TOTAL PENGELUARAN PETTY CASH', '', '', '', '', number_format($data['totalPettyCash'], 0, ',', '.')]);
-            fputcsv($handle, []);
-
-            // 4. Rincian Transaksi Pembayaran
-            fputcsv($handle, ['=== 4. DAFTAR TRANSAKSI PEMBAYARAN & POS ===']);
-            fputcsv($handle, ['No', 'ID Transaksi', 'Waktu Transaksi', 'Nama Pelanggan', 'Metode Pembayaran', 'Status Pembayaran', 'Total Nominal (Rp)']);
-            $noTrx = 1;
-            foreach ($data['transactions'] as $trx) {
-                fputcsv($handle, [
-                    $noTrx++,
-                    'TRX-' . str_pad($trx->id, 5, '0', STR_PAD_LEFT),
-                    $trx->created_at->format('d/m/Y H:i'),
-                    $trx->customer_name ?? ($trx->customer->name ?? 'Pelanggan Walk-in'),
-                    strtoupper($trx->payment_method ?? 'CASH'),
-                    strtoupper($trx->payment_status ?? 'PAID'),
-                    number_format($trx->final_amount, 0, ',', '.'),
-                ]);
-            }
-            fputcsv($handle, ['TOTAL TRANSAKSI', '', '', '', '', '', number_format($data['transactions']->sum('final_amount'), 0, ',', '.')]);
-
-            fclose($handle);
-        }, 200, $headers);
+        return response()->view('reports.excel_owner', $data, 200, $headers);
     }
 
     /**
-     * Internal helper to collect filtered report data
+     * Internal helper to collect filtered report data (supports day, month, year, presets)
      */
-    private function gatherReportData(Request $request): array
+    public function gatherReportData(Request $request): array
     {
+        $preset = $request->input('preset');
+        $month = $request->input('month');
+        $year = $request->input('year');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
+        $specificDate = $request->input('date');
+
+        // Apply Date Filtering Logic
+        if ($preset === 'today') {
+            $startDate = Carbon::today()->format('Y-m-d');
+            $endDate = Carbon::today()->format('Y-m-d');
+            $periodLabel = 'Hari Ini (' . Carbon::today()->translatedFormat('d F Y') . ')';
+        } elseif ($preset === 'yesterday') {
+            $startDate = Carbon::yesterday()->format('Y-m-d');
+            $endDate = Carbon::yesterday()->format('Y-m-d');
+            $periodLabel = 'Kemarin (' . Carbon::yesterday()->translatedFormat('d F Y') . ')';
+        } elseif ($preset === 'this_week') {
+            $startDate = Carbon::now()->startOfWeek()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfWeek()->format('Y-m-d');
+            $periodLabel = 'Minggu Ini (' . Carbon::parse($startDate)->translatedFormat('d M') . ' - ' . Carbon::parse($endDate)->translatedFormat('d M Y') . ')';
+        } elseif ($preset === 'this_month') {
+            $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan Ini (' . Carbon::now()->translatedFormat('F Y') . ')';
+        } elseif ($preset === 'last_month') {
+            $startDate = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan Lalu (' . Carbon::now()->subMonth()->translatedFormat('F Y') . ')';
+        } elseif ($preset === 'this_year') {
+            $startDate = Carbon::now()->startOfYear()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfYear()->format('Y-m-d');
+            $periodLabel = 'Tahun Ini (' . Carbon::now()->format('Y') . ')';
+        } elseif ($month && $year) {
+            $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::createFromDate($year, $month, 1)->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan ' . Carbon::createFromDate($year, $month, 1)->translatedFormat('F Y');
+        } elseif ($year && !$month) {
+            $startDate = Carbon::createFromDate($year, 1, 1)->startOfYear()->format('Y-m-d');
+            $endDate = Carbon::createFromDate($year, 12, 31)->endOfYear()->format('Y-m-d');
+            $periodLabel = 'Tahun ' . $year;
+        } elseif ($specificDate) {
+            $startDate = $specificDate;
+            $endDate = $specificDate;
+            $periodLabel = 'Tanggal ' . Carbon::parse($specificDate)->translatedFormat('d F Y');
+        } elseif ($startDate && $endDate) {
+            $periodLabel = Carbon::parse($startDate)->translatedFormat('d F Y') . ' s/d ' . Carbon::parse($endDate)->translatedFormat('d F Y');
+        } else {
+            $periodLabel = 'Seluruh Periode Operasional (All Time)';
+        }
 
         $bookingQuery = Booking::with(['user', 'stylist']);
         $transactionQuery = Transaction::with(['items', 'cashier', 'customer']);
@@ -142,10 +111,6 @@ class OwnerReportController extends Controller
                 $q->whereBetween('expense_date', [$startDate, $endDate])
                   ->orWhereBetween('created_at', [$start, $end]);
             });
-
-            $periodLabel = Carbon::parse($startDate)->translatedFormat('d F Y') . ' s/d ' . Carbon::parse($endDate)->translatedFormat('d F Y');
-        } else {
-            $periodLabel = 'Seluruh Periode Operasional (All Time)';
         }
 
         $bookings = $bookingQuery->orderBy('booking_date', 'desc')->get();
@@ -195,7 +160,11 @@ class OwnerReportController extends Controller
             'netProfit',
             'periodLabel',
             'startDate',
-            'endDate'
+            'endDate',
+            'month',
+            'year',
+            'preset',
+            'specificDate'
         );
     }
 }

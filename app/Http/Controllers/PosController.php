@@ -479,4 +479,154 @@ class PosController extends Controller
         $transaction->load(['items', 'cashier', 'booking']);
         return view('kasir.receipt', compact('transaction'));
     }
+
+    /**
+     * Display formal printable/PDF cashier sales report
+     */
+    public function printReport(Request $request)
+    {
+        $data = $this->gatherKasirReportData($request);
+        return view('reports.kasir_formal', $data);
+    }
+
+    /**
+     * Export cashier sales report to Excel with Full Table Formatting (.xls)
+     */
+    public function exportExcel(Request $request)
+    {
+        $data = $this->gatherKasirReportData($request);
+
+        $filename = 'Laporan_Penjualan_Kasir_' . Carbon::now()->format('Ymd_His') . '.xls';
+
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        return response()->view('reports.excel_kasir', $data, 200, $headers);
+    }
+
+    /**
+     * Internal helper to collect filtered cashier sales report data
+     */
+    private function gatherKasirReportData(Request $request): array
+    {
+        $preset = $request->input('preset');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $specificDate = $request->input('date');
+
+        // Apply Date Filtering Logic
+        if ($preset === 'today') {
+            $startDate = Carbon::today()->format('Y-m-d');
+            $endDate = Carbon::today()->format('Y-m-d');
+            $periodLabel = 'Hari Ini (' . Carbon::today()->translatedFormat('d F Y') . ')';
+        } elseif ($preset === 'yesterday') {
+            $startDate = Carbon::yesterday()->format('Y-m-d');
+            $endDate = Carbon::yesterday()->format('Y-m-d');
+            $periodLabel = 'Kemarin (' . Carbon::yesterday()->translatedFormat('d F Y') . ')';
+        } elseif ($preset === 'this_week') {
+            $startDate = Carbon::now()->startOfWeek()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfWeek()->format('Y-m-d');
+            $periodLabel = 'Minggu Ini (' . Carbon::parse($startDate)->translatedFormat('d M') . ' - ' . Carbon::parse($endDate)->translatedFormat('d M Y') . ')';
+        } elseif ($preset === 'this_month') {
+            $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan Ini (' . Carbon::now()->translatedFormat('F Y') . ')';
+        } elseif ($preset === 'last_month') {
+            $startDate = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan Lalu (' . Carbon::now()->subMonth()->translatedFormat('F Y') . ')';
+        } elseif ($preset === 'this_year') {
+            $startDate = Carbon::now()->startOfYear()->format('Y-m-d');
+            $endDate = Carbon::now()->endOfYear()->format('Y-m-d');
+            $periodLabel = 'Tahun Ini (' . Carbon::now()->format('Y') . ')';
+        } elseif ($month && $year) {
+            $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth()->format('Y-m-d');
+            $endDate = Carbon::createFromDate($year, $month, 1)->endOfMonth()->format('Y-m-d');
+            $periodLabel = 'Bulan ' . Carbon::createFromDate($year, $month, 1)->translatedFormat('F Y');
+        } elseif ($year && !$month) {
+            $startDate = Carbon::createFromDate($year, 1, 1)->startOfYear()->format('Y-m-d');
+            $endDate = Carbon::createFromDate($year, 12, 31)->endOfYear()->format('Y-m-d');
+            $periodLabel = 'Tahun ' . $year;
+        } elseif ($specificDate) {
+            $startDate = $specificDate;
+            $endDate = $specificDate;
+            $periodLabel = 'Tanggal ' . Carbon::parse($specificDate)->translatedFormat('d F Y');
+        } elseif ($startDate && $endDate) {
+            $periodLabel = Carbon::parse($startDate)->translatedFormat('d F Y') . ' s/d ' . Carbon::parse($endDate)->translatedFormat('d F Y');
+        } else {
+            // Default to today if nothing is provided for cashier
+            $startDate = Carbon::today()->format('Y-m-d');
+            $endDate = Carbon::today()->format('Y-m-d');
+            $periodLabel = 'Hari Ini (' . Carbon::today()->translatedFormat('d F Y') . ')';
+        }
+
+        $trxQuery = Transaction::with(['items', 'cashier', 'customer', 'booking']);
+        $pettyQuery = PettyCash::with('cashier');
+
+        if ($startDate && $endDate) {
+            $start = Carbon::parse($startDate)->startOfDay();
+            $end = Carbon::parse($endDate)->endOfDay();
+            $trxQuery->whereBetween('created_at', [$start, $end]);
+            $pettyQuery->where(function ($q) use ($startDate, $endDate, $start, $end) {
+                $q->whereBetween('expense_date', [$startDate, $endDate])
+                  ->orWhereBetween('created_at', [$start, $end]);
+            });
+        }
+
+        $transactions = $trxQuery->orderBy('created_at', 'desc')->get();
+        $pettyCashes = $pettyQuery->orderBy('created_at', 'desc')->get();
+
+        $paidTransactions = $transactions->where('payment_status', 'paid');
+        $voidTransactions = $transactions->where('payment_status', 'void');
+
+        $totalOmzet = $paidTransactions->sum('final_amount');
+        $cashTotal = $paidTransactions->where('payment_method', 'Cash')->sum('final_amount');
+        $qrisTotal = $paidTransactions->where('payment_method', 'QRIS')->sum('final_amount');
+        $otherTotal = $paidTransactions->whereNotIn('payment_method', ['Cash', 'QRIS'])->sum('final_amount');
+        $totalDiscount = $paidTransactions->sum('discount_amount');
+        $totalPettyCash = $pettyCashes->sum('amount');
+        $netCashDrawer = max(0, $cashTotal - $totalPettyCash);
+
+        $serviceCount = 0;
+        $productCount = 0;
+        foreach ($paidTransactions as $t) {
+            foreach ($t->items as $item) {
+                if ($item->item_type === 'service') {
+                    $serviceCount += $item->quantity;
+                } else {
+                    $productCount += $item->quantity;
+                }
+            }
+        }
+
+        return compact(
+            'transactions',
+            'paidTransactions',
+            'voidTransactions',
+            'pettyCashes',
+            'totalOmzet',
+            'cashTotal',
+            'qrisTotal',
+            'otherTotal',
+            'totalDiscount',
+            'totalPettyCash',
+            'netCashDrawer',
+            'serviceCount',
+            'productCount',
+            'periodLabel',
+            'startDate',
+            'endDate',
+            'month',
+            'year',
+            'preset',
+            'specificDate'
+        );
+    }
 }
