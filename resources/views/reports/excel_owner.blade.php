@@ -1,20 +1,9 @@
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <!--[if gte mso 9]>
-  <xml>
-   <x:ExcelWorkbook>
-    <x:ExcelWorksheets>
-     <x:ExcelWorksheet>
-      <x:Name>Laporan Eksekutif</x:Name>
-      <x:WorksheetOptions>
-       <x:DisplayGridlines/>
-      </x:WorksheetOptions>
-     </x:ExcelWorksheet>
-    </x:ExcelWorksheets>
-   </x:ExcelWorkbook>
-  </xml>
-  <![endif]-->
+  <?php
+    echo '<!--[if gte mso 9]><xml><' . 'x:ExcelWorkbook><' . 'x:ExcelWorksheets><' . 'x:ExcelWorksheet><' . 'x:Name>Laporan Eksekutif</' . 'x:Name><' . 'x:WorksheetOptions><' . 'x:DisplayGridlines/></' . 'x:WorksheetOptions></' . 'x:ExcelWorksheet></' . 'x:ExcelWorksheets></' . 'x:ExcelWorkbook></xml><![endif]-->';
+  ?>
   <style>
     body { font-family: 'Calibri', 'Arial', sans-serif; font-size: 11pt; }
     table { border-collapse: collapse; margin-bottom: 20px; }
